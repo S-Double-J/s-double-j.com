@@ -1,0 +1,30 @@
+:root {
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: light-dark(var(--light-bg), var(--dark-bg));
+}
+
+body {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+path {
+  stroke: light-dark(var(--light-fg), var(--dark-fg));
+  fill: light-dark(var(--light-bg), var(--dark-bg));
+}
+* {
+  color-scheme: light dark;
+}
