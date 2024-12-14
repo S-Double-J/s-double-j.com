@@ -2,15 +2,17 @@ import styled from "styled-components";
 import { motion } from "motion/react";
 import { spring } from "motion";
 import { useState } from "react";
+import ThemeButton from "./ThemeButton";
 
 const LeftPanel = styled.div`
   display: flex;
   height: 100%;
+  width: 325px;
   justify-content: center;
-  align-items: space-between;
   flex-direction: column;
   padding: 10px 0px 10px 10px;
   box-sizing: border-box;
+  flex-shrink: 0;
 `;
 const RightPanel = styled.div`
   display: flex;
@@ -20,6 +22,7 @@ const RightPanel = styled.div`
   gap: 10px;
   align-self: stretch;
   height: 100svh;
+  width: calc(100svw - 325px);
   box-sizing: border-box;
 `;
 const TopPanel = styled.div`
@@ -43,36 +46,6 @@ const StandInArt = styled.div`
   align-self: stretch;
   color-scheme: light dark;
   background-color: light-dark(var(--light-fg), var(--dark-fg));
-`;
-const ColourSchemeButton = styled(motion.button)`
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  border: none;
-  padding: 2px;
-  gap: 2px;
-  color-scheme: light dark;
-  background-color: light-dark(var(--light-fg), var(--dark-fg));
-  &::before {
-    content: "";
-    position: absolute;
-    width: calc(50% - 2px);
-    height: calc(100% - 4px);
-    top: 2px;
-    left: 2px;
-    color-scheme: light dark;
-    background-color: light-dark(var(--light-bg), var(--dark-bg));
-  }
-`;
-const CSButtonText = styled.p`
-  font-size: 10px;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  margin: 3px 0 0 0;
-  letter-spacing: 3px;
-  color: light-dark(var(--light-bg), var(--dark-bg));
 `;
 const NavButton = styled(motion.button)`
   display: flex;
@@ -117,16 +90,17 @@ const textVariants = {
   },
 };
 const NavButtonText = styled(motion.p)`
-  color: var(--light-bg);
+  color: #EAE3DA;
   font-size: 20px;
   letter-spacing: 5px;
-  mix-blend-mode: exclusion;
+  mix-blend-mode: difference;
   z-index: 2;
   margin: 0;
 `;
 const OutletBorder = styled.div`
-  height: 100%;
+  height: calc(100svh - 80px);
   width: 100%;
+  overflow: hidden;
   border: 1px solid light-dark(var(--light-fg), var(--dark-fg));
 `;
 const ContentsOuter = styled.div`
@@ -135,8 +109,8 @@ const ContentsOuter = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex: 1 0 0;
-  align-self: stretch;
+  height: 100%;
+  width: 100%;
 `;
 const ContentsInner = styled.div`
   display: flex;
@@ -297,12 +271,7 @@ function Nav({ children }: Props) {
           </p>
           <h1 style={{ lineHeight: "50px", margin: 0 }}>home</h1>
           <StandInArt />
-          <ColourSchemeButton>
-            <CSButtonText>light</CSButtonText>
-            <CSButtonText style={{ letterSpacing: "6px", marginTop: "6px" }}>
-              dark
-            </CSButtonText>
-          </ColourSchemeButton>
+         <ThemeButton />
         </TopPanel>
         <OutletBorder>{children}</OutletBorder>
       </RightPanel>

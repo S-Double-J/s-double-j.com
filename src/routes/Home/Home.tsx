@@ -11,6 +11,7 @@ const Frame = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 42px;
+  overflow: auto;
 `;
 
 function Home() {

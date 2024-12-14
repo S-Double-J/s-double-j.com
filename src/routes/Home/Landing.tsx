@@ -8,11 +8,11 @@ const Landing = styled.div`
   justify-content: start;
   align-items: center;
   position: relative;
+  flex-shrink: 0;
 `;
 const LandingInner = styled.div`
   width: 100%;
   max-width: 900px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -28,12 +28,14 @@ const SayHi = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  border: 1px solid light-dark(var(--light-fg), var(--dark-fg));
+  border: none;
   background: none;
   cursor: pointer;
   position: fixed;
   right: 40px;
   bottom: 40px;
+  background-color: #fffaf4;
+  mix-blend-mode: difference;
 `;
 
 function LandingPage() {
@@ -47,7 +49,7 @@ function LandingPage() {
         </h2>
       </LandingInner>
       <SayHi>
-        <p>Say hi</p>
+  <p style={{  color: "#252323"}}>Say hi</p>
       </SayHi>
     </Landing>
   );

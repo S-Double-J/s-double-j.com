@@ -1,5 +1,4 @@
 :root {
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,10 +20,18 @@ body {
   height: 100%;
 }
 
-path {
+path,
+circle {
   stroke: light-dark(var(--light-fg), var(--dark-fg));
   fill: light-dark(var(--light-bg), var(--dark-bg));
 }
+path.approachSVG {
+  fill: light-dark(var(--light-fg), var(--dark-fg));
+  stroke: none;
+}
 * {
   color-scheme: light dark;
+  transition: background var(--transition-duration),
+    color var(--transition-duration), fill var(--transition-duration),
+    stroke var(--transition-duration), border-color var(--transition-duration);
 }
