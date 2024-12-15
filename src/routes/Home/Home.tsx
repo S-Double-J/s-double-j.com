@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import LandingPage from "./Landing";
 import MyApproach from "./MyApproach";
+import FeaturedProjects from "./FeaturedProjects";
 
 const Frame = styled.div`
   width: 100%;
@@ -19,6 +20,7 @@ function Home() {
     <Frame>
       <LandingPage />
       <MyApproach />
+      <FeaturedProjects />
     </Frame>
   );
 }

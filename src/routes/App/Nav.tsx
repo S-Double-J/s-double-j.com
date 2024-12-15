@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { motion } from "motion/react";
-import { spring } from "motion";
-import { useState } from "react";
+import { motion, spring } from "motion/react";
+import React, { useState } from "react";
 import ThemeButton from "./ThemeButton";
+import charRandomizer from "../../tools/CharRandomiser";
 
 const LeftPanel = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ const NavButton = styled(motion.button)`
   height: 40px;
   padding: 0px 5px;
   align-items: center;
-  align-self: stretch;
+  width: 100%;
   position: relative;
   border: none;
   background: none;
@@ -75,22 +75,8 @@ const spanVariants = {
     transform: "translateX(-110%)",
   },
 };
-const textVariants = {
-  notTapped: {
-    webkitTextShadow: "0px 0px 20px rgba(234,227,218,0)",
-    mozTextShadow: "0px 0px 20px rgba(234,227,218,0)",
-    textShadow:
-      "0px 0px 20px rgba(234,227,218,0), 0px 0px 10px rgba(234,227,218,0), 0px 0px 5px rgba(234,227,218,0)",
-  },
-  tapped: {
-    webkitTextShadow: "0px 0px 20px rgba(234,227,218,1)",
-    mozTextShadow: "0px 0px 20px rgba(234,227,218,1)",
-    textShadow:
-      "0px 0px 20px rgba(234,227,218,1), 0px 0px 10px rgba(234,227,218,1), 0px 0px 5px rgba(234,227,218,1)",
-  },
-};
 const NavButtonText = styled(motion.p)`
-  color: #EAE3DA;
+  color: #eae3da;
   font-size: 20px;
   letter-spacing: 5px;
   mix-blend-mode: difference;
@@ -145,22 +131,24 @@ interface Props {
   children: React.ReactNode;
 }
 function Nav({ children }: Props) {
+  // const createHandleHoverStartWrapper = (item: string) => {
+  //   return (event: MouseEvent) => {
+  //     handleHoverStart(item);
+  //     charRandomizer(event as unknown as ReactMouseEvent<HTMLElement>);
+  //   };
+  // };
+
   const [hovered, setHovered] = useState<{ [key: string]: boolean }>({});
-  const [tapped, setTapped] = useState<{ [key: string]: boolean }>({});
+
   const handleHoverStart = (key: string) => {
     setHovered((prev) => ({ ...prev, [key]: true }));
+   
   };
 
   const handleHoverEnd = (key: string) => {
     setHovered((prev) => ({ ...prev, [key]: false }));
   };
-  const handleTapStart = (key: string) => {
-    setTapped((prev) => ({ ...prev, [key]: true }));
-  };
 
-  const handleTapEnd = (key: string) => {
-    setTapped((prev) => ({ ...prev, [key]: false }));
-  };
   return (
     <>
       <LeftPanel>
@@ -226,8 +214,7 @@ function Nav({ children }: Props) {
               key={index}
               onHoverStart={() => handleHoverStart(item)}
               onHoverEnd={() => handleHoverEnd(item)}
-              onTapStart={() => handleTapStart(item)}
-              onTapCancel={() => handleTapEnd(item)}
+              onClick={(event) => charRandomizer(event)}
             >
               <NavSpan
                 variants={spanVariants}
@@ -235,9 +222,7 @@ function Nav({ children }: Props) {
                 transition={{ duration: 0.65, type: spring, bounce: 0.2 }}
               />
               <NavButtonText
-                variants={textVariants}
-                animate={tapped[item] ? "tapped" : "notTapped"}
-              >
+                data-value={item}              >
                 {item}
               </NavButtonText>
             </NavButton>
@@ -271,7 +256,7 @@ function Nav({ children }: Props) {
           </p>
           <h1 style={{ lineHeight: "50px", margin: 0 }}>home</h1>
           <StandInArt />
-         <ThemeButton />
+          <ThemeButton />
         </TopPanel>
         <OutletBorder>{children}</OutletBorder>
       </RightPanel>

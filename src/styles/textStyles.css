@@ -39,7 +39,7 @@ p.small {
 }
 h1.decorative {
   font-family: "Bruno ace";
-  font-size: calc(calc(100svw - 406px) / 9);
+  font-size: calc(calc(100svw - 406px) / 10);
   margin: 0;
   font-weight: 400;
 }
