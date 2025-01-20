@@ -131,7 +131,7 @@ function Nav({ children }: Props) {
           >
             {item
               .split("")
-              .map((l) => (l = "\u00A0"))
+              .map(() => "\u00A0")
               .join("")}
           </motion.p>
         ))}
@@ -166,7 +166,7 @@ function Nav({ children }: Props) {
                 >
                   {id
                     .split("")
-                    .map((l) => (l = "\u00A0"))
+                    .map(() => "\u00A0")
                     .join("")}
                 </motion.p>
               ))}
@@ -258,7 +258,7 @@ function Nav({ children }: Props) {
               >
                 {item
                   .split("")
-                  .map((l) => (l = "\u00A0"))
+                  .map(() => "\u00A0")
                   .join("")}
               </motion.p>
             ))}
@@ -270,7 +270,7 @@ function Nav({ children }: Props) {
           >
             {pathname
               .split("")
-              .map((l) => (l = "\u00A0"))
+              .map(() => "\u00A0")
               .join("")}
           </motion.h1>
           <StandInArtContainer>
