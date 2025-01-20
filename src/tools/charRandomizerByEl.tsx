@@ -31,7 +31,7 @@ const charRandomizerByEl = (element: HTMLElement) => {
       // Update the inner text of the target element with randomized characters
       target.innerText = target.innerText
         .split("") // Split the current text into an array of characters
-        .map((l, index) => {
+        .map((_, index) => {
           // If the current index is less than the iteration count, use the original character
           if (iteration > index) {
             return target.dataset.value![index];
