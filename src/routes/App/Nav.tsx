@@ -15,7 +15,11 @@ function Nav({ children }: Props) {
   const topRefs = useRef<(HTMLElement | null)[]>([]);
   const [sectionIds, setSectionIds] = useState<string[]>([]);
   const [scope, animate] = useAnimate();
-  const pathname = window.location.pathname.slice(1);
+  let pathname = window.location.pathname.slice(1);
+
+  if (pathname === ""){
+    pathname = "home"
+  }
 
   useEffect(() => {
     const sections = document.querySelectorAll("section");
