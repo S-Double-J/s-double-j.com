@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { transform } from "motion";
 
 const ColourSchemeButton = styled(motion.button)`
   display: flex;
@@ -15,6 +16,14 @@ const ColourSchemeButton = styled(motion.button)`
   color-scheme: light dark;
   background-color: light-dark(var(--light-fg), var(--dark-fg));
 `;
+const buttonVariants = {
+  hidden: {
+    transform: "translateY(120%)"
+  },
+  visible: {
+    transform: "translateY(0%)"
+  }
+}
 const CSBar = styled(motion.span)`
   position: absolute;
   width: calc(50% - 2px);
@@ -74,7 +83,12 @@ function ThemeButton() {
   }
 
   return (
-    <ColourSchemeButton onClick={() => SwapTheme(setTheme)}>
+    <ColourSchemeButton onClick={() => SwapTheme(setTheme)}
+    variants={buttonVariants}
+    initial="hidden"
+    whileInView="visible"
+    transition={{delay: 3}}
+    >
       <CSBar
         variants={variants}
         initial={initialTheme}

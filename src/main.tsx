@@ -7,11 +7,11 @@ import ErrorPage from './routes/App/ErrorPage.tsx';
 import Home from './routes/Home/Home.tsx';
 
 const router = createBrowserRouter([{
-  path: "/",
+  path: "/home",
   element: <App key="App" />,
   errorElement: <ErrorPage />,
   children: [
-    {path: "/", element: <Home />}
+    {path: "/home", element: <Home />}
   ]
 }])
 

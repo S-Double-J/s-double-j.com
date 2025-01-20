@@ -1,8 +1,301 @@
 import styled from "styled-components";
-import { motion, spring } from "motion/react";
-import React, { useState } from "react";
+import { motion, spring, useAnimate } from "motion/react";
+import React, { useState, useRef, useEffect } from "react";
 import ThemeButton from "./ThemeButton";
-import charRandomizer from "../../tools/CharRandomiser";
+import charRandomizer from "../../tools/CharRandomiserMouseEvent";
+import charRandomizerByEl from "../../tools/charRandomizerByEl";
+interface Props {
+  children: React.ReactNode;
+}
+function Nav({ children }: Props) {
+  const objRefs = useRef<(HTMLElement | null)[]>([]);
+  const contentRefs = useRef<(HTMLElement | null)[]>([]);
+  const navRefs = useRef<(HTMLElement | null)[]>([]);
+  const standInArtRef = useRef(null);
+  const topRefs = useRef<(HTMLElement | null)[]>([]);
+  const [sectionIds, setSectionIds] = useState<string[]>([]);
+  const [scope, animate] = useAnimate();
+  const pathname = window.location.pathname.slice(1);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll("section");
+    const ids = Array.from(sections).map((section) => section.id);
+    setSectionIds(ids);
+  }, []);
+  useEffect(() => {
+    const artStandIn = document.getElementById("standInArt");
+    const startAnimation = async () => {
+      for (let i = 0; i < objRefs.current.length; i++) {
+        const ref = objRefs.current[i];
+        if (ref && typeof ref === "object") {
+          await animate(ref, { opacity: 1 }, { delay: 0.02 });
+          charRandomizerByEl(ref);
+        }
+      }
+      for (let i = 0; i < contentRefs.current.length; i++) {
+        const ref = contentRefs.current[i];
+        if (ref && typeof ref === "object") {
+          await animate(ref, { opacity: 1 }, { delay: 0.4 });
+          charRandomizerByEl(ref);
+        }
+      }
+      for (let i = 0; i < navRefs.current.length; i++) {
+        const ref = navRefs.current[i];
+        if (ref && typeof ref === "object") {
+          animate(
+            ref,
+            { transform: "translateX(0%)" },
+            { duration: 0.65, type: spring, bounce: 0.15, delay: i * 0.2 }
+          );
+          charRandomizerByEl(ref);
+        }
+      }
+      await animate(
+        scope.current,
+        { transform: "translateY(0%)" },
+        { duration: 0.65, type: spring, bounce: 0.15, delay: 0.5 }
+      );
+      animate(
+        ".animPath",
+        { pathLength: [0, 1], strokeLinecap: "square" },
+        { duration: 3 }
+      );
+      await animate(
+        artStandIn,
+        { transform: "translateX(0%)" },
+        { duration: 0.65 }
+      );
+      for (let i = 0; i < topRefs.current.length; i++) {
+        const ref = topRefs.current[i];
+        if (ref && typeof ref === "object") {
+          await animate(
+            ref,
+            { opacity: 1 },
+            { duration: 0.01, delay: i * 0.01 }
+          );
+          charRandomizerByEl(ref);
+        }
+      }
+    };
+    startAnimation();
+  }, [
+    animate,
+    scope,
+    charRandomizerByEl,
+    objRefs,
+    contentRefs,
+    navRefs,
+    topRefs,
+  ]);
+
+  const [hovered, setHovered] = useState<{ [key: string]: boolean }>({});
+
+  const handleHoverStart = (key: string) => {
+    setHovered((prev) => ({ ...prev, [key]: true }));
+  };
+
+  const handleHoverEnd = (key: string) => {
+    setHovered((prev) => ({ ...prev, [key]: false }));
+  };
+
+  return (
+    <>
+      <LeftPanel>
+        {[
+          "dev = {",
+          "name: “S-Double-J”,",
+          "role: “Freelance designer and developer",
+          "specialisation(s): [",
+          "“Interactive digital experience ”,",
+          "“Content consultation”,",
+          "],",
+          "location: “United Kingdom”,",
+          "other fields of interests: [",
+          "“Acting”,",
+          "“Art”,",
+          "“Physics”,",
+          "“Philosophy”,",
+          "“History”,",
+          "],",
+          "favourite film: “Spirited Away”,",
+          "favourite series: “Mindhunter (R.I.P)”,",
+          "favourite book: “Sapiens”,",
+          "favourite food: “Pizza”,",
+          "}",
+        ].map((item, index) => (
+          <motion.p
+            key={index}
+            className="small"
+            data-value={item}
+            ref={(el) => (objRefs.current[objRefs.current.length] = el)}
+          >
+            {item
+              .split("")
+              .map((l) => (l = "\u00A0"))
+              .join("")}
+          </motion.p>
+        ))}
+        <ContentsOuter>
+          <ContentsInner>
+            <CILeft>
+              <motion.p
+                className="small"
+                variants={contentsVariants}
+                initial="hidden"
+                whileInView="inView"
+                viewport={{ margin: "100px", once: true }}
+                transition={{
+                  duration: 0.55,
+                  type: spring,
+                  bounce: 0.15,
+                  delay: 2.5,
+                }}
+              >
+                &#123;
+              </motion.p>
+            </CILeft>
+            <CIMiddle>
+              {sectionIds.map((id, index) => (
+                <motion.p
+                  key={index}
+                  className="small"
+                  data-value={id}
+                  ref={(el) =>
+                    (contentRefs.current[contentRefs.current.length] = el)
+                  }
+                >
+                  {id
+                    .split("")
+                    .map((l) => (l = "\u00A0"))
+                    .join("")}
+                </motion.p>
+              ))}
+            </CIMiddle>
+            <CIRight>
+              <motion.p
+                className="small"
+                variants={contentsVariants}
+                initial="hidden"
+                whileInView="inView"
+                viewport={{ margin: "50px", once: true }}
+                transition={{
+                  duration: 0.55,
+                  type: spring,
+                  bounce: 0.15,
+                  delay: 2.5,
+                }}
+              >
+                &#125;
+              </motion.p>
+            </CIRight>
+          </ContentsInner>
+        </ContentsOuter>
+        <NavButtonPanel>
+          <motion.p
+            className="small"
+            variants={navPVariants}
+            initial="hidden"
+            whileInView="visible"
+          >
+            nav = &#123;
+          </motion.p>
+          {["home", "services", "about", "contact"].map((item, index) => (
+            <NavButton
+              key={index}
+              onHoverStart={() => handleHoverStart(item)}
+              onHoverEnd={() => handleHoverEnd(item)}
+              onClick={(event) => charRandomizer(event)}
+              ref={(el) => (navRefs.current[navRefs.current.length] = el)}
+              variants={buttonVariants}
+              initial="hidden"
+            >
+              <NavSpan
+                variants={spanVariants}
+                animate={hovered[item] ? "hovered" : "notHovered"}
+                transition={{ duration: 0.65, type: spring, bounce: 0.15 }}
+              />
+              <NavButtonText data-value={item}>{item}</NavButtonText>
+            </NavButton>
+          ))}
+          <motion.p
+            className="small"
+            variants={navPVariants}
+            initial="hidden"
+            whileInView="visible"
+          >
+            &#125;
+          </motion.p>
+        </NavButtonPanel>
+      </LeftPanel>
+      <RightPanel>
+        <TopPanel>
+          <motion.svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="56"
+            height="56"
+            viewBox="0 0 56 56"
+            fill="none"
+            ref={scope}
+          >
+            {/* <path d="M3 53L3.00002 3H53V53L3 53Z" fill="#1A1717" stroke="none"/> */}
+            <motion.path
+              d="M30.5 10.5H10.5L10.5 20.5H30.5L30.5 30.5H10.5M38 10.5V38H10.5M10.5 45.5H45.5V10.5M3.00002 3L3 53L53 53V3H3.00002Z"
+              stroke="#EAE3DA"
+              strokeWidth="4"
+              className="animPath"
+              variants={svgVariants}
+              initial="hidden"
+            />
+          </motion.svg>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            {["you", "are", "currently", "viewing:"].map((item, index) => (
+              <motion.p
+                key={index}
+                className="small"
+                style={{ lineHeight: "13px", margin: 0 }}
+                ref={(el) => (topRefs.current[topRefs.current.length] = el)}
+                data-value={item}
+              >
+                {item
+                  .split("")
+                  .map((l) => (l = "\u00A0"))
+                  .join("")}
+              </motion.p>
+            ))}
+          </div>
+          <motion.h1
+            style={{ lineHeight: "50px", margin: 0 }}
+            ref={(el) => (topRefs.current[topRefs.current.length] = el)}
+            data-value={pathname}
+          >
+            {pathname
+              .split("")
+              .map((l) => (l = "\u00A0"))
+              .join("")}
+          </motion.h1>
+          <StandInArtContainer>
+            <StandInArt
+              id="standInArt"
+              variants={buttonVariants}
+              initial="hidden"
+              ref={standInArtRef}
+            />
+          </StandInArtContainer>
+          <ThemeButton />
+        </TopPanel>
+        <OutletBorder
+          variants={outletVariants}
+          initial="hidden"
+          whileInView="visible"
+        >
+          {children}
+        </OutletBorder>
+      </RightPanel>
+    </>
+  );
+}
+
+export default Nav;
 
 const LeftPanel = styled.div`
   display: flex;
@@ -41,9 +334,14 @@ const NavButtonPanel = styled.div`
   flex: 1 0 0;
   align-self: stretch;
 `;
-const StandInArt = styled.div`
-  flex: 1 0 0;
+const StandInArtContainer = styled.div`
   align-self: stretch;
+  flex: 1 0 0;
+  overflow: hidden;
+`;
+const StandInArt = styled(motion.div)`
+  width: 100%;
+  height: 100%;
   color-scheme: light dark;
   background-color: light-dark(var(--light-fg), var(--dark-fg));
 `;
@@ -67,14 +365,6 @@ const NavSpan = styled(motion.span)`
   background-color: light-dark(var(--light-fg), var(--dark-fg));
   z-index: 1;
 `;
-const spanVariants = {
-  notHovered: {
-    transform: "translateX(0%)",
-  },
-  hovered: {
-    transform: "translateX(-110%)",
-  },
-};
 const NavButtonText = styled(motion.p)`
   color: #eae3da;
   font-size: 20px;
@@ -83,11 +373,13 @@ const NavButtonText = styled(motion.p)`
   z-index: 2;
   margin: 0;
 `;
-const OutletBorder = styled.div`
+const OutletBorder = styled(motion.div)`
   height: calc(100svh - 80px);
   width: 100%;
   overflow: hidden;
   border: 1px solid light-dark(var(--light-fg), var(--dark-fg));
+  background: light-dark(var(--light-bg), var(--dark-bg));
+  z-index: 1;
 `;
 const ContentsOuter = styled.div`
   display: flex;
@@ -101,194 +393,80 @@ const ContentsOuter = styled.div`
 const ContentsInner = styled.div`
   display: flex;
   width: 264px;
-  height: 250px;
+  height: 50%;
   padding: 10px;
   justify-content: center;
   align-items: flex-end;
 `;
 const CILeft = styled.div`
   display: flex;
-  height: 125px;
+  height: 50%;
   flex-direction: column;
   align-items: flex-end;
   flex: 1 0 0;
 `;
 const CIMiddle = styled.div`
   display: flex;
+  height: 50%;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 10px;
 `;
 const CIRight = styled.div`
   display: flex;
-  height: 125px;
+  height: 50%;
   flex-direction: column;
   align-items: flex-start;
   flex: 1 0 0;
 `;
-interface Props {
-  children: React.ReactNode;
-}
-function Nav({ children }: Props) {
-  // const createHandleHoverStartWrapper = (item: string) => {
-  //   return (event: MouseEvent) => {
-  //     handleHoverStart(item);
-  //     charRandomizer(event as unknown as ReactMouseEvent<HTMLElement>);
-  //   };
-  // };
-
-  const [hovered, setHovered] = useState<{ [key: string]: boolean }>({});
-
-  const handleHoverStart = (key: string) => {
-    setHovered((prev) => ({ ...prev, [key]: true }));
-   
-  };
-
-  const handleHoverEnd = (key: string) => {
-    setHovered((prev) => ({ ...prev, [key]: false }));
-  };
-
-  return (
-    <>
-      <LeftPanel>
-        <p className="small">
-          dev = &#123; <br />
-          &nbsp; name: “S-Double-J”,
-          <br />
-          &nbsp; role: “Freelance designer and developer”,
-          <br />
-          &nbsp; specialisation(s): [<br />
-          &nbsp; &nbsp; “Interactive digital experience ”,
-          <br />
-          &nbsp; &nbsp; “Content consultation”,
-          <br />
-          &nbsp; ],
-          <br />
-          &nbsp; location: “United Kingdom”,
-          <br />
-          &nbsp; other fields of interests: [<br />
-          &nbsp; &nbsp; “Acting”,
-          <br />
-          &nbsp; &nbsp; “Art”,
-          <br />
-          &nbsp; &nbsp; “Physics”,
-          <br />
-          &nbsp; &nbsp; “Philosophy”,
-          <br />
-          &nbsp; &nbsp; “History”,
-          <br />
-          &nbsp; ],
-          <br />
-          &nbsp; favourite film: “Spirited Away”,
-          <br />
-          &nbsp; favourite series: “Mindhunter (R.I.P)”,
-          <br />
-          &nbsp; favourite book: “Sapiens”,
-          <br />
-          &nbsp; favourite food: “Pizza”,
-          <br />
-          &#125;
-        </p>
-        <ContentsOuter>
-          <ContentsInner>
-            <CILeft>
-              <p className="small">&#123;</p>
-            </CILeft>
-            <CIMiddle>
-              <p className="small">S-Double-J</p>
-              <p className="small">My approach</p>
-              <p className="small">Featured projects</p>
-              <p className="small">What could I do for you</p>
-              <p className="small">Footer</p>
-            </CIMiddle>
-            <CIRight>
-              <p className="small">&#125;</p>
-            </CIRight>
-          </ContentsInner>
-        </ContentsOuter>
-        <NavButtonPanel>
-          <p className="small">nav = &#123;</p>
-          {["home", "services", "about", "contact"].map((item, index) => (
-            <NavButton
-              key={index}
-              onHoverStart={() => handleHoverStart(item)}
-              onHoverEnd={() => handleHoverEnd(item)}
-              onClick={(event) => charRandomizer(event)}
-            >
-              <NavSpan
-                variants={spanVariants}
-                animate={hovered[item] ? "hovered" : "notHovered"}
-                transition={{ duration: 0.65, type: spring, bounce: 0.2 }}
-              />
-              <NavButtonText
-                data-value={item}              >
-                {item}
-              </NavButtonText>
-            </NavButton>
-          ))}
-          <p className="small">&#125;</p>
-        </NavButtonPanel>
-      </LeftPanel>
-      <RightPanel>
-        <TopPanel>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="56"
-            height="56"
-            viewBox="0 0 56 56"
-            fill="none"
-          >
-            <path d="M3 53L3.00002 3H53V53L3 53Z" fill="#1A1717" />
-            <path
-              d="M30.5 10.5H10.5L10.5 20.5H30.5L30.5 30.5H10.5M38 10.5V38H10.5M10.5 45.5H45.5V10.5M3.00002 3L3 53L53 53V3H3.00002Z"
-              stroke="#EAE3DA"
-              strokeWidth="4"
-              strokeLinecap="square"
-            />
-          </svg>
-          <p className="small" style={{ lineHeight: "13px", margin: 0 }}>
-            you <br />
-            are
-            <br />
-            currently <br />
-            viewing: <br />
-          </p>
-          <h1 style={{ lineHeight: "50px", margin: 0 }}>home</h1>
-          <StandInArt />
-          <ThemeButton />
-        </TopPanel>
-        <OutletBorder>{children}</OutletBorder>
-      </RightPanel>
-    </>
-  );
-}
-
-export default Nav;
-
-// &nbsp; proficient languages: [<br />
-//   &nbsp; &nbsp; “JavaScript”,
-//   <br />
-//   &nbsp; &nbsp; “TypeScript”,
-//   <br />
-//   &nbsp; &nbsp; “Python”,
-//   <br />
-//   &nbsp; &nbsp; “HTML”,
-//   <br />
-//   &nbsp; &nbsp; “CSS”,
-//   <br />
-//   &nbsp; &nbsp; “SQL”
-//   <br />
-//   &nbsp; ],
-//   <br />
-//   &nbsp; preferred libraries and frameworks: [<br />
-//   &nbsp; &nbsp; “React + TS”,
-//   <br />
-//   &nbsp; &nbsp; “React-router-dom”,
-//   <br />
-//   &nbsp; &nbsp; “Framer-motion”,
-//   <br />
-//   &nbsp; &nbsp; “Styled-components”,
-//   <br />
-//   &nbsp; ],
-//   <br />
+const contentsVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  inView: {
+    opacity: 1,
+  },
+};
+const outletVariants = {
+  hidden: {
+    border: "solid 1px transparent",
+  },
+  visible: {
+    border: "1px solid light-dark(var(--light-fg), var(--dark-fg))",
+    transition: { duration: 1, delay: 4 },
+  },
+};
+const spanVariants = {
+  notHovered: {
+    transform: "translateX(0%)",
+  },
+  hovered: {
+    transform: "translateX(-110%)",
+  },
+};
+const buttonVariants = {
+  hidden: {
+    transform: "translateX(-110%)",
+  },
+  inView: {
+    transform: "translateX(0%)",
+  },
+};
+const navPVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.8, delay: 2 },
+  },
+};
+const svgVariants = {
+  hidden: {
+    pathLength: 0,
+  },
+  reveal: {
+    pathLength: 1,
+  },
+};
