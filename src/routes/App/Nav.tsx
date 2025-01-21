@@ -17,8 +17,8 @@ function Nav({ children }: Props) {
   const [scope, animate] = useAnimate();
   let pathname = window.location.pathname.slice(1);
 
-  if (pathname === ""){
-    pathname = "home"
+  if (pathname === "") {
+    pathname = "home";
   }
 
   useEffect(() => {
@@ -107,24 +107,24 @@ function Nav({ children }: Props) {
       <LeftPanel>
         {[
           "dev = {",
-          "name: “S-Double-J”,",
-          "role: “Freelance designer and developer",
-          "specialisation(s): [",
-          "“Interactive digital experience ”,",
-          "“Content consultation”,",
-          "],",
-          "location: “United Kingdom”,",
-          "other fields of interests: [",
-          "“Acting”,",
-          "“Art”,",
-          "“Physics”,",
-          "“Philosophy”,",
-          "“History”,",
-          "],",
-          "favourite film: “Spirited Away”,",
-          "favourite series: “Mindhunter (R.I.P)”,",
-          "favourite book: “Sapiens”,",
-          "favourite food: “Pizza”,",
+          "\u00A0 name: “S-Double-J”,",
+          "\u00A0 role: “Freelance designer and developer",
+          "\u00A0 specialisation(s): [",
+          "\u00A0 \u00A0 “Interactive digital experience ”,",
+          "\u00A0 \u00A0 “Content consultation”,",
+          "\u00A0 ],",
+          "\u00A0 location: “United Kingdom”,",
+          "\u00A0 other fields of interests: [",
+          "\u00A0 \u00A0 “Acting”,",
+          "\u00A0 \u00A0 “Art”,",
+          "\u00A0 \u00A0 “Physics”,",
+          "\u00A0 \u00A0 “Philosophy”,",
+          "\u00A0 \u00A0 “History”,",
+          "\u00A0 ],",
+          "\u00A0 favourite film: “Spirited Away”,",
+          "\u00A0 favourite series: “Mindhunter (R.I.P)”,",
+          "\u00A0 favourite book: “Sapiens”,",
+          "\u00A0 favourite food: “Pizza”,",
           "}",
         ].map((item, index) => (
           <motion.p
@@ -241,7 +241,6 @@ function Nav({ children }: Props) {
             fill="none"
             ref={scope}
           >
-            {/* <path d="M3 53L3.00002 3H53V53L3 53Z" fill="#1A1717" stroke="none"/> */}
             <motion.path
               d="M30.5 10.5H10.5L10.5 20.5H30.5L30.5 30.5H10.5M38 10.5V38H10.5M10.5 45.5H45.5V10.5M3.00002 3L3 53L53 53V3H3.00002Z"
               stroke="#EAE3DA"
@@ -359,6 +358,7 @@ const NavButton = styled(motion.button)`
   border: none;
   background: none;
   cursor: pointer;
+  background-color: light-dark(var(--light-bg), var(--dark-bg));
 `;
 const NavSpan = styled(motion.span)`
   position: absolute;
@@ -370,7 +370,7 @@ const NavSpan = styled(motion.span)`
   z-index: 1;
 `;
 const NavButtonText = styled(motion.p)`
-  color: #eae3da;
+  color: #EAE3DA;
   font-size: 20px;
   letter-spacing: 5px;
   mix-blend-mode: difference;
@@ -438,7 +438,7 @@ const outletVariants = {
   },
   visible: {
     border: "1px solid light-dark(var(--light-fg), var(--dark-fg))",
-    transition: { duration: 1, delay: 4 },
+    transition: { duration: 1, delay: 2 },
   },
 };
 const spanVariants = {

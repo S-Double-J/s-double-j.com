@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
 
-const Landing = styled.div`
+const Landing = styled.section`
   display: flex;
   height: 100%;
   width: 100%;
@@ -10,6 +10,8 @@ const Landing = styled.div`
   align-items: center;
   position: relative;
   flex-shrink: 0;
+  padding: 40px;
+  box-sizing: border-box;
 `;
 const LandingInner = styled.div`
   width: 100%;
@@ -22,6 +24,7 @@ const LandingInner = styled.div`
   position: absolute;
   bottom: 40px;
   right: 0px;
+  padding: 40px;
 `;
 const SayHi = styled(motion.button)`
   display: flex;
@@ -37,6 +40,7 @@ const SayHi = styled(motion.button)`
   bottom: 40px;
   background-color: #fffaf4;
   mix-blend-mode: difference;
+  z-index: 2;
 `;
 const landingVariants = {
   hidden: {
@@ -48,14 +52,13 @@ const landingVariants = {
 };
 function LandingPage() {
   return (
-    <Landing>
-      <section id="S-Double-J">
+    <Landing id="S-Double-J">
         <motion.h1
           className="decorative"
           variants={landingVariants}
           initial="hidden"
           whileInView="visible"
-          transition={{ duration: 0.8, delay: 4.4 }}
+          transition={{ duration: 0.8, delay: 2.6 }}
           viewport={{ once: true }}
         >
           s-double-j
@@ -66,7 +69,7 @@ function LandingPage() {
             variants={landingVariants}
             initial="hidden"
             whileInView="visible"
-            transition={{ duration: 0.8, delay: 4.6 }}
+            transition={{ duration: 0.8, delay: 2.8 }}
             viewport={{ once: true }}
           >
             I use the power of story, design & the latest technologies to
@@ -77,12 +80,11 @@ function LandingPage() {
           variants={landingVariants}
           initial="hidden"
           whileInView="visible"
-          transition={{ duration: 0.8, delay: 4.8 }}
+          transition={{ duration: 0.8, delay: 3}}
           viewport={{ once: true }}
         >
           <p style={{ color: "#252323" }}>Say hi</p>
         </SayHi>
-      </section>
     </Landing>
   );
 }

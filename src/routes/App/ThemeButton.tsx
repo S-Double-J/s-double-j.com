@@ -17,12 +17,12 @@ const ColourSchemeButton = styled(motion.button)`
 `;
 const buttonVariants = {
   hidden: {
-    transform: "translateY(120%)"
+    transform: "translateY(120%)",
   },
   visible: {
-    transform: "translateY(0%)"
-  }
-}
+    transform: "translateY(0%)",
+  },
+};
 const CSBar = styled(motion.span)`
   position: absolute;
   width: calc(50% - 2px);
@@ -53,9 +53,9 @@ function ThemeButton() {
   const preferredTheme = window.matchMedia(
     "(prefers-color-scheme: dark)"
   ).matches;
-  let initialTheme = "light"
+  let initialTheme = "light";
   if (preferredTheme === true) {
-    initialTheme = "dark"
+    initialTheme = "dark";
   }
 
   const [theme, setTheme] = useState<boolean>(preferredTheme);
@@ -64,35 +64,53 @@ function ThemeButton() {
     const root = document.documentElement;
     const light = "#EAE3DA";
     const dark = "#252323";
-    const currentLightBg = getComputedStyle(root)
-      .getPropertyValue("--light-bg")
-      .trim();
+    const currentLightBg =
+      getComputedStyle(root).getPropertyValue("--light-bg");
     if (currentLightBg === light) {
       root.style.setProperty("--light-bg", dark);
       root.style.setProperty("--light-fg", light);
       root.style.setProperty("--dark-bg", light);
       root.style.setProperty("--dark-fg", dark);
+      console.log("theme was light, setting to dark", "light bg:",
+        getComputedStyle(root).getPropertyValue("--light-bg"),
+        "light fg:",
+        getComputedStyle(root).getPropertyValue("--light-fg"),
+        "dark bg:",
+        getComputedStyle(root).getPropertyValue("--dark-bg"),
+        "dark fg:",
+        getComputedStyle(root).getPropertyValue("--dark-fg")
+      );
     } else {
       root.style.setProperty("--light-bg", light);
       root.style.setProperty("--light-fg", dark);
       root.style.setProperty("--dark-bg", dark);
       root.style.setProperty("--dark-fg", light);
+      console.log("theme was dark, setting to light", "light bg:",
+        getComputedStyle(root).getPropertyValue("--light-bg"),
+        "light fg:",
+        getComputedStyle(root).getPropertyValue("--light-fg"),
+        "dark bg:",
+        getComputedStyle(root).getPropertyValue("--dark-bg"),
+        "dark fg:",
+        getComputedStyle(root).getPropertyValue("--dark-fg")
+      );
     }
     setTheme((theme) => !theme);
   }
 
   return (
-    <ColourSchemeButton onClick={() => SwapTheme(setTheme)}
-    variants={buttonVariants}
-    initial="hidden"
-    whileInView="visible"
-    transition={{delay: 3}}
+    <ColourSchemeButton
+      onClick={() => SwapTheme(setTheme)}
+      variants={buttonVariants}
+      initial="hidden"
+      whileInView="visible"
+      transition={{ delay: 3 }}
     >
       <CSBar
         variants={variants}
         initial={initialTheme}
         animate={theme ? "dark" : "light"}
-        transition={{duration: 0.2, ease: "easeOut"}}
+        transition={{ duration: 0.2, ease: "easeOut" }}
       />
       <CSButtonText>light</CSButtonText>
       <CSButtonText style={{ letterSpacing: "6px", marginTop: "6px" }}>

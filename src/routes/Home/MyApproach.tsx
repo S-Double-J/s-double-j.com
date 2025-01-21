@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
-const Frame = styled.div`
+const Frame = styled.section`
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
   gap: 20px;
   align-self: stretch;
+  padding: 40px;
 `;
+const SVGFrame = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex: 1;
+`
 const InnerFrame = styled.div`
   display: flex;
   width: 900px;
@@ -24,8 +32,8 @@ const TextRightFrame = styled.div`
 
 function MyApproach() {
   return (
-    <Frame>
-      <section id="My Approach">
+    <Frame id="My Approach">
+      <SVGFrame>
         <svg
           width="300"
           height="300"
@@ -43,6 +51,7 @@ function MyApproach() {
             d="M42 300C42 264.706 35.9994 258.824 0 258.824C36 258.824 36 247.059 36 211.767V211.765C36 247.059 42 252.941 84 252.941C42 252.941 42 264.706 42 300Z"
           />
         </svg>
+        </SVGFrame>
         <InnerFrame>
           <p>&#123; My approach &#125;</p>
           <TextRightFrame>
@@ -70,7 +79,6 @@ function MyApproach() {
             </p>
           </TextRightFrame>
         </InnerFrame>
-      </section>
     </Frame>
   );
 }
