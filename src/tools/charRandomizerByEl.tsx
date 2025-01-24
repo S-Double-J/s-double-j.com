@@ -5,22 +5,22 @@ const letters = `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!/?-@#£$%&
 const charRandomizerByEl = (element: HTMLElement) => {
   // Declare variables for the interval ID, interval duration and iteration count
   let interval: number | undefined;
-  let intervalDuration = 100;
+  let intervalDuration = 70;
   let iteration = -3;
   // Get the target element from the argument
   let target = element;
 
   // If the target is not a paragraph element, find the first paragraph element within the target
-  if (target!.tagName !== "P" && target!.tagName !== "H1") {
+  if (target!.tagName !== "P" && target!.tagName !== "H1" && target!.tagName !== "H3") {
     target = target!.querySelector("p") as HTMLElement;
   }
   // Depending on the length of the target, speed up the animation
   if (target.innerText.length < 15 && target.innerText.length > 5) {
-    intervalDuration = 60;
+    intervalDuration = 30;
     iteration = -2;
   }
   if (target.innerText.length > 15) {
-    intervalDuration = 10;
+    intervalDuration = 15;
   }
   // Clear any existing interval to avoid multiple intervals running simultaneously
   clearInterval(interval);

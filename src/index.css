@@ -33,5 +33,5 @@ path.approachSVG {
   color-scheme: light dark;
   transition: background var(--transition-duration),
     color var(--transition-duration), fill var(--transition-duration),
-    stroke var(--transition-duration), border-color var(--transition-duration);
+    stroke var(--transition-duration), border var(--transition-duration);
 }

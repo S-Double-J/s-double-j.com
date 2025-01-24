@@ -62,39 +62,16 @@ function ThemeButton() {
 
   function SwapTheme(setTheme: React.Dispatch<React.SetStateAction<boolean>>) {
     const root = document.documentElement;
-    const light = "#EAE3DA";
-    const dark = "#252323";
-    const currentLightBg =
-      getComputedStyle(root).getPropertyValue("--light-bg");
-    if (currentLightBg === light) {
-      root.style.setProperty("--light-bg", dark);
-      root.style.setProperty("--light-fg", light);
-      root.style.setProperty("--dark-bg", light);
-      root.style.setProperty("--dark-fg", dark);
-      console.log("theme was light, setting to dark", "light bg:",
-        getComputedStyle(root).getPropertyValue("--light-bg"),
-        "light fg:",
-        getComputedStyle(root).getPropertyValue("--light-fg"),
-        "dark bg:",
-        getComputedStyle(root).getPropertyValue("--dark-bg"),
-        "dark fg:",
-        getComputedStyle(root).getPropertyValue("--dark-fg")
-      );
-    } else {
-      root.style.setProperty("--light-bg", light);
-      root.style.setProperty("--light-fg", dark);
-      root.style.setProperty("--dark-bg", dark);
-      root.style.setProperty("--dark-fg", light);
-      console.log("theme was dark, setting to light", "light bg:",
-        getComputedStyle(root).getPropertyValue("--light-bg"),
-        "light fg:",
-        getComputedStyle(root).getPropertyValue("--light-fg"),
-        "dark bg:",
-        getComputedStyle(root).getPropertyValue("--dark-bg"),
-        "dark fg:",
-        getComputedStyle(root).getPropertyValue("--dark-fg")
-      );
-    }
+    const lightBG = getComputedStyle(root).getPropertyValue("--light-bg");
+    const lightFG = getComputedStyle(root).getPropertyValue("--light-fg");
+    const darkBG = getComputedStyle(root).getPropertyValue("--dark-bg");
+    const darkFG = getComputedStyle(root).getPropertyValue("--dark-fg");
+
+    root.style.setProperty("--light-bg", lightFG);
+    root.style.setProperty("--light-fg", lightBG);
+    root.style.setProperty("--dark-bg", darkFG);
+    root.style.setProperty("--dark-fg", darkBG);
+
     setTheme((theme) => !theme);
   }
 

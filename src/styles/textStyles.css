@@ -16,7 +16,6 @@ h2 {
   font-weight: 400;
 }
 h3 {
-  padding: 40px;
   color-scheme: light dark;
   color: light-dark(var(--light-fg), var(--dark-fg));
   font-family: "Space Mono";
@@ -45,4 +44,16 @@ h1.decorative {
 }
 .justify {
   text-align: justify;
+}
+p,
+h1,
+h2,
+h3 {
+  cursor: default;
+}
+p.pointer,
+h1.pointer,
+h2.pointer,
+h3.pointer {
+  cursor: pointer;
 }

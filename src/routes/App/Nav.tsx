@@ -218,7 +218,7 @@ function Nav({ children }: Props) {
                 animate={hovered[item] ? "hovered" : "notHovered"}
                 transition={{ duration: 0.65, type: spring, bounce: 0.15 }}
               />
-              <NavButtonText data-value={item}>{item}</NavButtonText>
+              <NavButtonText className="pointer" data-value={item}>{item}</NavButtonText>
             </NavButton>
           ))}
           <motion.p
@@ -290,6 +290,7 @@ function Nav({ children }: Props) {
           variants={outletVariants}
           initial="hidden"
           whileInView="visible"
+          transition={{ delay: 2 }}
         >
           {children}
         </OutletBorder>
@@ -370,7 +371,7 @@ const NavSpan = styled(motion.span)`
   z-index: 1;
 `;
 const NavButtonText = styled(motion.p)`
-  color: #EAE3DA;
+  color: #eae3da;
   font-size: 20px;
   letter-spacing: 5px;
   mix-blend-mode: difference;
@@ -380,7 +381,7 @@ const NavButtonText = styled(motion.p)`
 const OutletBorder = styled(motion.div)`
   height: calc(100svh - 80px);
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid light-dark(var(--light-fg), var(--dark-fg));
   background: light-dark(var(--light-bg), var(--dark-bg));
   z-index: 1;
@@ -434,11 +435,10 @@ const contentsVariants = {
 };
 const outletVariants = {
   hidden: {
-    border: "solid 1px transparent",
+    borderColor: "light-dark(var(--light-bg), var(--dark-bg))",
   },
   visible: {
-    border: "1px solid light-dark(var(--light-fg), var(--dark-fg))",
-    transition: { duration: 1, delay: 2 },
+    borderColor: "light-dark(var(--light-fg), var(--dark-fg))",
   },
 };
 const spanVariants = {
