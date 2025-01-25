@@ -106,14 +106,14 @@ function LandingPage() {
           transition={{ duration: 0.8, delay: 2.8 }}
           viewport={{ once: true }}
         >
-          <h2
+          <span
             ref={hiddenRef}
             style={{
               visibility: "hidden",
               whiteSpace: "nowrap",
               position: "absolute",
             }}
-          ></h2>
+          ></span>
           {lines.map((line, i) => (
             <span key={i}>{line}</span>
           ))}

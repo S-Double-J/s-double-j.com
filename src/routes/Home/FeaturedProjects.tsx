@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { MutableRefObject, useRef, useEffect, useState } from "react";
-import charRandomizerByEl from "../../tools/charRandomizerByEl";
+import charRandNoState from "../../tools/charRandNoState";
 
 interface Props {
   scrollRef: MutableRefObject<HTMLDivElement | null>;
@@ -19,13 +19,13 @@ function FeaturedProjects({ scrollRef }: Props) {
   });
   const translateX = useTransform(
     sprungX,
-    [0.05, 0.4, 0.7, 1],
+    [0.05, 0.2, 0.7, 0.95],
     ["0%", "-5%", "-45%", "-100%"]
   );
   const [title, setTitle] = useState("Nicki Wilkins");
   const [prevTitle, setPrevTitle] = useState("Nicki Wilkins");
   useEffect(() => {
-    charRandomizerByEl(document.getElementById("project-title")!);
+    charRandNoState(document.getElementById("project-title")!);
   }, []);
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (value) => {
@@ -33,14 +33,13 @@ function FeaturedProjects({ scrollRef }: Props) {
       if (floor === 7 && title === "Nicki Wilkins") {
         setTitle("Jo and Rick");
         setPrevTitle("Nicki Wilkins");
-        charRandomizerByEl(document.getElementById("project-title")!);
+        charRandNoState(document.getElementById("project-title")!);
       }
       if (floor < 7 && title === "Jo and Rick") {
         setTitle("Nicki Wilkins");
         setPrevTitle("Jo and Rick");
-        charRandomizerByEl(document.getElementById("project-title")!);
+        charRandNoState(document.getElementById("project-title")!);
       }
-      console.log(scrollYProgress);
     });
     return () => unsubscribe();
   }, [scrollYProgress, title]);

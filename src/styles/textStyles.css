@@ -57,3 +57,7 @@ h2.pointer,
 h3.pointer {
   cursor: pointer;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}

@@ -6,8 +6,10 @@ import charRandomizer from "../../tools/CharRandomiserMouseEvent";
 import charRandomizerByEl from "../../tools/charRandomizerByEl";
 interface Props {
   children: React.ReactNode;
+  complete: boolean;
+  handleComplete: (bool: boolean) => void;
 }
-function Nav({ children }: Props) {
+function Nav({ children, complete, handleComplete }: Props) {
   const objRefs = useRef<(HTMLElement | null)[]>([]);
   const contentRefs = useRef<(HTMLElement | null)[]>([]);
   const navRefs = useRef<(HTMLElement | null)[]>([]);
@@ -33,14 +35,14 @@ function Nav({ children }: Props) {
         const ref = objRefs.current[i];
         if (ref && typeof ref === "object") {
           await animate(ref, { opacity: 1 }, { delay: 0.02 });
-          charRandomizerByEl(ref);
+          charRandomizerByEl({ element: ref, complete, handleComplete });
         }
       }
       for (let i = 0; i < contentRefs.current.length; i++) {
         const ref = contentRefs.current[i];
         if (ref && typeof ref === "object") {
           await animate(ref, { opacity: 1 }, { delay: 0.4 });
-          charRandomizerByEl(ref);
+          charRandomizerByEl({ element: ref, complete, handleComplete });
         }
       }
       for (let i = 0; i < navRefs.current.length; i++) {
@@ -51,7 +53,7 @@ function Nav({ children }: Props) {
             { transform: "translateX(0%)" },
             { duration: 0.65, type: spring, bounce: 0.15, delay: i * 0.2 }
           );
-          charRandomizerByEl(ref);
+          charRandomizerByEl({ element: ref, complete, handleComplete });
         }
       }
       await animate(
@@ -77,7 +79,7 @@ function Nav({ children }: Props) {
             { opacity: 1 },
             { duration: 0.01, delay: i * 0.01 }
           );
-          charRandomizerByEl(ref);
+          charRandomizerByEl({ element: ref, complete, handleComplete });
         }
       }
     };
@@ -218,7 +220,9 @@ function Nav({ children }: Props) {
                 animate={hovered[item] ? "hovered" : "notHovered"}
                 transition={{ duration: 0.65, type: spring, bounce: 0.15 }}
               />
-              <NavButtonText className="pointer" data-value={item}>{item}</NavButtonText>
+              <NavButtonText className="pointer" data-value={item}>
+                {item}
+              </NavButtonText>
             </NavButton>
           ))}
           <motion.p

@@ -8,13 +8,10 @@ function textSplitter({ text, containerWidth, hiddenRef }: TextSplitterProps): s
   const words = text.split(" ");
   const tempLines: string[] = [];
   let currentLine = "";
-  console.log("max width:", containerWidth)
   words.forEach((word) => {
     const testLine = currentLine ? `${currentLine} ${word}` : word;
     if (hiddenRef.current) {
       hiddenRef.current.innerText = testLine;
-      console.log("test line:", testLine)
-      console.log("test width:", hiddenRef.current.scrollWidth)
       if (hiddenRef.current.scrollWidth > containerWidth) {
         tempLines.push(currentLine);
         currentLine = ` ${word}`;

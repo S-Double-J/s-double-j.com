@@ -4,6 +4,7 @@ import MyApproach from "./MyApproach";
 import FeaturedProjects from "./FeaturedProjects";
 import { useRef } from "react";
 import { motion } from "motion/react";
+import HomeServices from "./WhatCouldIDo4U";
 
 const Frame = styled(motion.div)`
   width: 100%;
@@ -26,6 +27,7 @@ function Home() {
         <LandingPage />
         <MyApproach />
         <FeaturedProjects scrollRef={scrollRef} />
+        <HomeServices />
       </Frame>
     </>
   );
