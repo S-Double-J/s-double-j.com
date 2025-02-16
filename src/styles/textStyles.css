@@ -61,3 +61,18 @@ h3.pointer {
 .uppercase {
   text-transform: uppercase;
 }
+
+.invertColor {
+
+  color-scheme: light dark;
+  color: light-dark(var(--light-bg), var(--dark-bg));
+}
+
+.gradient-text-p {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gradient-text-span {
+  padding-right: 12px;
+}

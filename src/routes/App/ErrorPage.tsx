@@ -1,5 +1,6 @@
 function ErrorPage(){
     return <>
+    whoops there was an error
     </>
 }
 

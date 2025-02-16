@@ -1,16 +1,22 @@
 import styled from "styled-components";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { MutableRefObject, useRef, useEffect, useState } from "react";
-import charRandNoState from "../../tools/charRandNoState";
+import charRandomizerByEl from "../../tools/charRandomizerByEl";
+import { useOutletContext } from "react-router-dom";
 
 interface Props {
   scrollRef: MutableRefObject<HTMLDivElement | null>;
+}
+interface ContextType {
+  complete: boolean;
+  handleComplete: (bool: boolean) => void;
 }
 function FeaturedProjects({ scrollRef }: Props) {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     container: scrollRef,
     target: targetRef,
+    layoutEffect: false
   });
   const sprungX = useSpring(scrollYProgress, {
     stiffness: 150,
@@ -24,21 +30,22 @@ function FeaturedProjects({ scrollRef }: Props) {
   );
   const [title, setTitle] = useState("Nicki Wilkins");
   const [prevTitle, setPrevTitle] = useState("Nicki Wilkins");
+  const {complete, handleComplete} = useOutletContext<ContextType>()
   useEffect(() => {
-    charRandNoState(document.getElementById("project-title")!);
-  }, []);
+    const element = document.getElementById("project-title")!;
+    charRandomizerByEl({element, complete, handleComplete});
+  }, [title]);
+
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (value) => {
-      const floor = Math.floor(value * 10);
-      if (floor === 7 && title === "Nicki Wilkins") {
+      const floor = Math.floor(value * 100);
+      if (floor > 70 && title === "Nicki Wilkins") {
         setTitle("Jo and Rick");
         setPrevTitle("Nicki Wilkins");
-        charRandNoState(document.getElementById("project-title")!);
       }
-      if (floor < 7 && title === "Jo and Rick") {
+      if (floor < 70 && title === "Jo and Rick") {
         setTitle("Nicki Wilkins");
         setPrevTitle("Jo and Rick");
-        charRandNoState(document.getElementById("project-title")!);
       }
     });
     return () => unsubscribe();
