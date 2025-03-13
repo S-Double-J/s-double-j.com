@@ -1,27 +1,32 @@
-import '../../styles/App.css'
-import '../../styles/textStyles.css'
-import { Outlet, ScrollRestoration } from "react-router-dom"
-import Nav from './Nav';
-import { useState } from 'react';
+import "../../styles/App.css";
+import "../../styles/textStyles.css";
+import { Outlet, ScrollRestoration } from "react-router-dom";
+import Nav from "./Nav";
+import styled from "styled-components";
+
+const Frame = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  background: var(--bg);
+  transition: background var(--color-transition) ease-in-out;
+  position: relative;
+`;
 function App() {
-const [complete, setComplete] = useState(true)
-
-const handleComplete = (bool : boolean) => {
-  setComplete(bool)
-}
-
   return (
-    <>
-    <Nav complete={complete} handleComplete={handleComplete}>
-    <Outlet context={{complete, handleComplete}}/>
-    </Nav>
-    <ScrollRestoration
-    getKey={(location => {
-      return location.pathname;
-    })}
-    />
-    </>
-  )
+    <Frame id="app-frame">
+      <Nav />
+      <Outlet />
+      <ScrollRestoration
+        getKey={(location) => {
+          return location.pathname;
+        }}
+      />
+    </Frame>
+  );
 }
 
-export default App
+export default App;

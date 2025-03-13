@@ -1,135 +1,191 @@
+import { motion, useScroll, useTransform } from "motion/react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { motion } from "motion/react";
-import textSplitter from "../../tools/LineSplitter";
-import { useEffect, useRef, useState } from "react";
 
-const Landing = styled.section`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  position: relative;
-  flex-shrink: 0;
-  padding: 40px;
-  box-sizing: border-box;
-`;
-const LandingInner = styled.div`
-  width: 100%;
-  max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 10px;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  padding: 40px;
-  box-sizing: border-box;
-`;
-const SayHi = styled(motion.button)`
-  display: flex;
-  padding: 10px 40px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  border: none;
-  background: none;
-  cursor: pointer;
+const Grid = styled.div`
   position: fixed;
-  right: 40px;
-  bottom: 40px;
-  background-color: #fffaf4;
-  mix-blend-mode: difference;
-  z-index: 2;
+  flex-shrink: 0;
+  top: 75;
+  left: 0;
+  display: grid;
+  width: 100%;
+  height: calc(100svh - 75px);
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-areas:
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
+    "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
+  z-index: 20;
+  pointer-events: none;
 `;
-const landingVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-  },
-};
-function LandingPage() {
-  const [containerWidth, setContainerWidth] = useState<number>(0);
-  const [lines, setLines] = useState<string[]>([]);
-  const hiddenRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleResize = () => {
-      const tagLineElement = document.getElementById("tag-line");
-      if (tagLineElement) {
-        setContainerWidth(tagLineElement.clientWidth - 80);
-      }
-    };
+const Blackout = styled(motion.div)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(195, 187, 182, 0.01);
+  backdrop-filter: blur(50px);
+  z-index: 1;
+`;
+const TopLeft = styled(motion.div)`
+  grid-area: TopLeft;
+  border-bottom-right-radius: 40px;
+  border-right: 0.5px solid var(--fg);
+  box-sizing: border-box;
+  background-color: var(--bg);
+  z-index: 2;
+  border-color: var(--fg);
+  transition: border var(--color-transition) ease-in-out;
+`;
+const TopRight = styled(motion.div)`
+  grid-area: TopRight;
+  border-bottom-left-radius: 40px;
+  border-bottom: 0.5px solid var(--fg);
+  box-sizing: border-box;
+  background-color: var(--bg);
+  position: relative;
+  z-index: 2;
+  transition: border var(--color-transition) ease-in-out;
+`;
+const BotLeft = styled(motion.div)`
+  grid-area: BotLeft;
+  border-top-right-radius: 40px;
+  border-top: 0.5px solid var(--fg);
+  box-sizing: border-box;
+  background-color: var(--bg);
+  z-index: 2;
+  transition: border var(--color-transition) ease-in-out;
+`;
+const BotRight = styled(motion.div)`
+  grid-area: BotRight;
+  border-top-left-radius: 40px;
+  border-left: 0.5px solid var(--fg);
+  box-sizing: border-box;
+  background-color: var(--bg);
+  display: flex;
+  padding: 40px;
+  box-sizing: border-box;
+  justify-content: flex-end;
+  z-index: 2;
+  transition: border var(--color-transition) ease-in-out;
+`;
+const TextContainer = styled.div`
+  display: flex;
+  max-width: 900px;
+  height: min-content;
+`;
+const BigCircle = styled(motion.div)`
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  background-color: var(--brutal-mb-light);
+  mix-blend-mode: difference;
+`;
+const HalfCircle = styled(motion.div)`
+  position: absolute;
+  top: 140px;
+  right: 40px;
+  width: 200px;
+  height: 10px;
+  border-bottom-right-radius: 200px;
+  border-bottom-left-radius: 200px;
+  background-color: var(--brutal-mb-light);
+  mix-blend-mode: difference;
+`;
+const SmallCircle = styled(motion.div)`
+  position: absolute;
+  top: 130px;
+  right: 40px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: var(--brutal-mb-light);
+  mix-blend-mode: difference;
+`;
 
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (containerWidth && hiddenRef.current) {
-      const newLines = textSplitter({
-        text: "I use the power of story, design & the latest technologies to transform your concept into a website that will turn heads.",
-        containerWidth,
-        hiddenRef,
-      });
-      setLines(newLines);
-    }
-  }, [containerWidth]);
-
+interface Props {
+  containerRef: React.RefObject<HTMLDivElement>;
+  targetRef: React.RefObject<HTMLDivElement>;
+}
+function Landing({ containerRef, targetRef }: Props) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    container: containerRef,
+    target: targetRef,
+    offset: ["start start", "end end"],
+  });
+  const positive1 = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
+  const negative1 = useTransform(scrollYProgress, [0, 0.8], ["0%", "-100%"]);
+  const positive2 = useTransform(scrollYProgress, [0.02, 0.8], ["0%", "100%"]);
+  const positive3 = useTransform(scrollYProgress, [0.06, 0.8], ["0%", "100%"]);
+  const negative3 = useTransform(scrollYProgress, [0.06, 0.8], ["0%", "-100%"]);
+  const negative4 = useTransform(scrollYProgress, [0.1, 0.8], ["0%", "-100%"]);
+  const blackOutOpacity = useTransform(scrollYProgress, [0.35, 0.65], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0.1, 0.4], [1, 0]);
   return (
-    <Landing id="S-Double-J">
-      <motion.h1
-        className="decorative"
-        variants={landingVariants}
-        initial="hidden"
-        whileInView="visible"
-        transition={{ duration: 0.8, delay: 2.6 }}
-        viewport={{ once: true }}
-      >
-        s-double-j
-      </motion.h1>
-      <LandingInner id="tag-line">
-        <motion.h2
-          className="justify"
-          variants={landingVariants}
-          initial="hidden"
-          whileInView="visible"
-          transition={{ duration: 0.8, delay: 2.8 }}
-          viewport={{ once: true }}
-        >
-          <span
-            ref={hiddenRef}
-            style={{
-              visibility: "hidden",
-              whiteSpace: "nowrap",
-              position: "absolute",
-            }}
-          ></span>
-          {lines.map((line, i) => (
-            <span key={i}>{line}</span>
-          ))}
-        </motion.h2>
-      </LandingInner>
-      <SayHi
-        variants={landingVariants}
-        initial="hidden"
-        whileInView="visible"
-        transition={{ duration: 0.8, delay: 3 }}
-        viewport={{ once: true }}
-      >
-        <p style={{ color: "#252323" }}>Say hi</p>
-      </SayHi>
-    </Landing>
+    <Grid ref={ref}>
+      <Blackout style={{ opacity: blackOutOpacity }} />
+      <TopLeft style={{ opacity, x: negative4, y: negative4 }}></TopLeft>
+      <TopRight style={{ opacity, x: positive1, y: negative1 }}>
+        <h1 className="page-title">s-double-j</h1>
+        <BigCircle
+          animate={{
+            x: ["0vw", "-65vw", "0vw"],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            delay: 2,
+          }}
+        />
+
+        <HalfCircle
+          animate={{
+            x: ["0vw", "-65vw", "0vw"],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            delay: 4,
+          }}
+        />
+
+        <SmallCircle
+          animate={{
+            x: ["0vw", "-78vw", "0vw"],
+            scale: ["100%", "150%", "100%"],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            delay: 6,
+          }}
+        />
+      </TopRight>
+      <BotLeft style={{ opacity, x: negative3, y: positive3 }}></BotLeft>
+      <BotRight style={{ opacity, x: positive2, y: positive2 }}>
+        <TextContainer>
+          <h3 className="justify">
+            I use the power of story, design & the latest technologies to
+            transform your concept into a website that will turn heads.
+          </h3>
+        </TextContainer>
+      </BotRight>
+    </Grid>
   );
 }
 
-export default LandingPage;
+export default Landing;

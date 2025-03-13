@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { MutableRefObject, useRef, useEffect, useState } from "react";
-import charRandomizerByEl from "../../tools/charRandomizerByEl";
+import charRandomizerByEl from "../tools/charRandomizerByEl";
 import { useOutletContext } from "react-router-dom";
 
 interface Props {

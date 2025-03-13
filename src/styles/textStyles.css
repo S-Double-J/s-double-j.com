@@ -1,33 +1,29 @@
 h1 {
-  color-scheme: light dark;
-  color: light-dark(var(--light-fg), var(--dark-fg));
-  font-family: "Space Mono", serif;
-  font-size: 64px;
+  color: var(--fg);
+  font-family:"Xanh Mono", serif;
+  font-size: 168px;
   text-transform: uppercase;
   font-weight: 400;
   margin: 0;
 }
 h2 {
-  color-scheme: light dark;
-  color: light-dark(var(--light-fg), var(--dark-fg));
+  color: var(--fg);
   font-family: "Space Mono";
-  font-size: 36px;
+  font-size: 40px;
   margin: 0;
   font-weight: 400;
 }
 h3 {
-  color-scheme: light dark;
-  color: light-dark(var(--light-fg), var(--dark-fg));
+  color: var(--fg);
   font-family: "Space Mono";
-  font-size: 24px;
+  font-size: 32px;
   margin: 0;
   font-weight: 400;
 }
 p {
-  color-scheme: light dark;
-  color: light-dark(var(--light-fg), var(--dark-fg));
+  color: var(--fg);
   font-family: "Space Mono";
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   font-weight: 400;
 }
@@ -36,11 +32,8 @@ p.small {
   margin: 0;
   font-weight: 400;
 }
-h1.decorative {
-  font-family: "Bruno ace";
-  font-size: calc(calc(100svw - 406px) / 10);
-  margin: 0;
-  font-weight: 400;
+p.large {
+  font-size: 20px;
 }
 .justify {
   text-align: justify;
@@ -50,6 +43,7 @@ h1,
 h2,
 h3 {
   cursor: default;
+  transition: color var(--color-transition) ease-in-out;
 }
 p.pointer,
 h1.pointer,
@@ -62,17 +56,22 @@ h3.pointer {
   text-transform: uppercase;
 }
 
-.invertColor {
-
-  color-scheme: light dark;
-  color: light-dark(var(--light-bg), var(--dark-bg));
+.page-title {
+  position: absolute;
+  top: 10%;
+  left: 20px;
+  width: max-content;
+  font-style: italic;
+  z-index: 2;
+  mix-blend-mode: difference;
+  color: var(--brutal-mb-light);
 }
 
-.gradient-text-p {
-  display: flex;
-  flex-wrap: wrap;
+.mix-blend-diff {
+  color: var(--brutal-mb-light);
+  mix-blend-mode: difference;
 }
 
-.gradient-text-span {
-  padding-right: 12px;
+.light {
+  color: var(--brutal-light);
 }
