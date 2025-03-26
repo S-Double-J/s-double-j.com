@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { motion, spring, useAnimate } from "motion/react";
 import React, { useState, useRef, useEffect } from "react";
 import ThemeButton from "./ThemeButton";
-import charRandomizer from "./tools/CharRandomiserMouseEvent";
-import charRandomizerByEl from "./tools/charRandomizerByEl";
+import charRandomizer from "../../tools/CharRandomiserMouseEvent";
+import charRandomizerByEl from "../../tools/charRandomizerByEl";
 interface Props {
   children: React.ReactNode;
   complete: boolean;

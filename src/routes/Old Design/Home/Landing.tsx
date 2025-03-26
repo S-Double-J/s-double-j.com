@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
-import textSplitter from "../tools/LineSplitter";
+import textSplitter from "../../../tools/LineSplitter";
 import { useEffect, useRef, useState } from "react";
 
 const Landing = styled.section`

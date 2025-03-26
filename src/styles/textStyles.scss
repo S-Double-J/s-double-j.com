@@ -1,6 +1,6 @@
 h1 {
   color: var(--fg);
-  font-family:"Xanh Mono", serif;
+  font-family: "Xanh Mono", serif;
   font-size: 168px;
   text-transform: uppercase;
   font-weight: 400;
@@ -20,7 +20,7 @@ h3 {
   margin: 0;
   font-weight: 400;
 }
-p {
+p, li {
   color: var(--fg);
   font-family: "Space Mono";
   font-size: 16px;
@@ -74,4 +74,28 @@ h3.pointer {
 
 .light {
   color: var(--brutal-light);
+}
+
+.gradient-text-p {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gradient-text-span {
+  margin-right: 12px;
+  position: relative;
+
+  .gradient-text-shadow {
+    position: absolute;
+    opacity: 0.1;
+  }
+}
+
+.link {
+  color: var(--fg);
+  font-family: "Space Mono";
+  font-size: 16px;
+  margin: 0;
+  font-weight: 400;
+  text-decoration: none;
 }

@@ -98,126 +98,126 @@ interface Props {
   scrollRef: MutableRefObject<HTMLDivElement | null>;
 }
 
-function MyApproach({ scrollRef }: Props) {
-  const paragraph =
-    "The media landscape is changing. Countless voices are vying for attention. Cutting through to your target audience means engaging their attention and making a narative connection. I aim to convey meaning and express your unique identity through a cohesive design strategy, engage users with interactive digital artworks, and tell your story with creativity. __break__ As a solo freelancer I am able to offer a more personal approach, there’s no middle men or micro-managers here. And because it’s just me I can offer my experience and flexibility at more competitive rates.";
-  // Split by spaces and newlines
-  const words = paragraph.split(" ");
-  const ref = useRef(null);
-  // const [offset, setOffset] = useState<OffsetValue[]>(["0 1.5", "1 1.2"]);
-  const { scrollYProgress } = useScroll({
-    container: scrollRef,
-    target: ref,
-    layoutEffect: false,
-    offset: ["0 1.5", "1 1.2"],
-  });
-  const sprungY = useSpring(scrollYProgress, {
-    stiffness: 150,
-    damping: 30,
-    restDelta: 0.001,
-  });
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     // Update the offset values based on window size
-  //     const newOffset: OffsetValue[] = [
-  //       `0 ${window.innerWidth < 1760 ? 0.85 : 0.85}`,
-  //       `1 ${window.innerWidth < 768 ? 0.88 : 0.83}`,
-  //     ];
-  //     setOffset(newOffset);
-  //   };
+// function MyApproach({ scrollRef }: Props) {
+//   const paragraph =
+//     "The media landscape is changing. Countless voices are vying for attention. Cutting through to your target audience means engaging their attention and making a narative connection. I aim to convey meaning and express your unique identity through a cohesive design strategy, engage users with interactive digital artworks, and tell your story with creativity. __break__ As a solo freelancer I am able to offer a more personal approach, there’s no middle men or micro-managers here. And because it’s just me I can offer my experience and flexibility at more competitive rates.";
+//   // Split by spaces and newlines
+//   const words = paragraph.split(" ");
+//   const ref = useRef(null);
+//   // const [offset, setOffset] = useState<OffsetValue[]>(["0 1.5", "1 1.2"]);
+//   const { scrollYProgress } = useScroll({
+//     container: scrollRef,
+//     target: ref,
+//     layoutEffect: false,
+//     offset: ["0 1.5", "1 1.2"],
+//   });
+//   const sprungY = useSpring(scrollYProgress, {
+//     stiffness: 150,
+//     damping: 30,
+//     restDelta: 0.001,
+//   });
+//   // useEffect(() => {
+//   //   const handleResize = () => {
+//   //     // Update the offset values based on window size
+//   //     const newOffset: OffsetValue[] = [
+//   //       `0 ${window.innerWidth < 1760 ? 0.85 : 0.85}`,
+//   //       `1 ${window.innerWidth < 768 ? 0.88 : 0.83}`,
+//   //     ];
+//   //     setOffset(newOffset);
+//   //   };
 
-  //   // Add event listener for window resize
-  //   window.addEventListener("resize", handleResize);
+//   //   // Add event listener for window resize
+//   //   window.addEventListener("resize", handleResize);
 
-  //   // Call handleResize once to set initial values
-  //   handleResize();
+//   //   // Call handleResize once to set initial values
+//   //   handleResize();
 
-  //   // Cleanup event listener on unmount
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-  return (
-    <>
-      <StickyFrame id="My Approach">
-        <InnerFrame>
-          <RGB scrollRef={scrollRef} />
-          {/* <SVGFrame>
-            <svg
-              width="300"
-              height="300"
-              viewBox="0 0 300 300"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="150" cy="150" r="149.5" />
-              <path
-                className="approachSVG"
-                d="M300 41.1765C264 41.1765 252 35.2941 252 0C252 35.2941 246 52.9412 210 52.9412C246 52.9412 264 58.8235 264 94.1176C264 58.8235 264 41.1765 300 41.1765Z"
-              />
-              <path
-                className="approachSVG"
-                d="M42 300C42 264.706 35.9994 258.824 0 258.824C36 258.824 36 247.059 36 211.767V211.765C36 247.059 42 252.941 84 252.941C42 252.941 42 264.706 42 300Z"
-              />
-            </svg>
-          </SVGFrame> */}
+//   //   // Cleanup event listener on unmount
+//   //   return () => window.removeEventListener("resize", handleResize);
+//   // }, []);
+//   return (
+//     <>
+//       <StickyFrame id="My Approach">
+//         <InnerFrame>
+//           <RGB scrollRef={scrollRef} />
+//           {/* <SVGFrame>
+//             <svg
+//               width="300"
+//               height="300"
+//               viewBox="0 0 300 300"
+//               fill="none"
+//               xmlns="http://www.w3.org/2000/svg"
+//             >
+//               <circle cx="150" cy="150" r="149.5" />
+//               <path
+//                 className="approachSVG"
+//                 d="M300 41.1765C264 41.1765 252 35.2941 252 0C252 35.2941 246 52.9412 210 52.9412C246 52.9412 264 58.8235 264 94.1176C264 58.8235 264 41.1765 300 41.1765Z"
+//               />
+//               <path
+//                 className="approachSVG"
+//                 d="M42 300C42 264.706 35.9994 258.824 0 258.824C36 258.824 36 247.059 36 211.767V211.765C36 247.059 42 252.941 84 252.941C42 252.941 42 264.706 42 300Z"
+//               />
+//             </svg>
+//           </SVGFrame> */}
 
-          <TitleFrame>
-            <h3>&#123; My approach &#125;</h3>
-          </TitleFrame>
+//           <TitleFrame>
+//             <h3>&#123; My approach &#125;</h3>
+//           </TitleFrame>
 
-          <TextRightFrame id="approach-p">
-            <h3
-              style={{
-                fontWeight: 700,
-                alignSelf: "stretch",
-              }}
-            >
-              Every business needs an online presence.
-            </h3>
-            <p className="gradient-text-p">
-              {words.map((word, i) => {
-                if (word === "__break__") {
-                  // Render a line break for newline characters
-                  return <span style={{ width: "100%", height: 26 }} key={i} />;
-                } else {
-                  // Render a word for non-newline tokens
-                  const start = i / words.length;
-                  const end = start + 1 / words.length;
-                  return (
-                    <Word key={i} range={[start, end]} progress={sprungY}>
-                      {word}
-                    </Word>
-                  );
-                }
-              })}
-            </p>
-          </TextRightFrame>
-        </InnerFrame>
-      </StickyFrame>
-      <Buffer ref={ref}></Buffer>
-    </>
-  );
-}
+//           <TextRightFrame id="approach-p">
+//             <h3
+//               style={{
+//                 fontWeight: 700,
+//                 alignSelf: "stretch",
+//               }}
+//             >
+//               Every business needs an online presence.
+//             </h3>
+//             <p className="gradient-text-p">
+//               {words.map((word, i) => {
+//                 if (word === "__break__") {
+//                   // Render a line break for newline characters
+//                   return <span style={{ width: "100%", height: 26 }} key={i} />;
+//                 } else {
+//                   // Render a word for non-newline tokens
+//                   const start = i / words.length;
+//                   const end = start + 1 / words.length;
+//                   return (
+//                     <Word key={i} range={[start, end]} progress={sprungY}>
+//                       {word}
+//                     </Word>
+//                   );
+//                 }
+//               })}
+//             </p>
+//           </TextRightFrame>
+//         </InnerFrame>
+//       </StickyFrame>
+//       <Buffer ref={ref}></Buffer>
+//     </>
+//   );
+// }
 
-const Word = ({
-  children,
-  range,
-  progress,
-}: {
-  children: string;
-  range: number[];
-  progress: MotionValue;
-}) => {
-  const opacity = useTransform(progress, range, [0, 1]);
+// const Word = ({
+//   children,
+//   range,
+//   progress,
+// }: {
+//   children: string;
+//   range: number[];
+//   progress: MotionValue;
+// }) => {
+//   const opacity = useTransform(progress, range, [0, 1]);
 
-  return (
-    <span className="gradient-text-span">
-      <span className="gradient-text-shadow">{children}</span>
-      <motion.span style={{ opacity, whiteSpace: "pre-line" }}>
-        {children}
-      </motion.span>
-    </span>
-  );
-};
+//   return (
+//     <span className="gradient-text-span">
+//       <span className="gradient-text-shadow">{children}</span>
+//       <motion.span style={{ opacity, whiteSpace: "pre-line" }}>
+//         {children}
+//       </motion.span>
+//     </span>
+//   );
+// };
 
 const RGB = ({ scrollRef }: Props) => {
   const ref = useRef(null);
@@ -283,4 +283,4 @@ const RGB = ({ scrollRef }: Props) => {
   );
 };
 
-export default MyApproach;
+// export default MyApproach;

@@ -4,11 +4,12 @@
     --brutal-mb-light: #f2ebe3;
     --brutal-red: #710000;
     --bh-light: #EDDFD8;
+    --bh-mb-light: "";
     --bh-red: #9A4034;
     --absurd-red: #C11616;
     --absurd-white: #FAECEC;
 
     --bg: var(--brutal-light);
     --fg: var(--brutal-dark);
-    --color-transition: 0.5s
+    --color-transition: 0.2s
 }

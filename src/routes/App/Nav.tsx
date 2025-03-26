@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Frame = styled.div`
   height: 75px;
@@ -32,7 +33,7 @@ const Button = styled.button`
   align-items: flex-end;
   justify-content: flex-end;
   cursor: pointer;
-  & p {
+  & > Link {
     cursor: pointer;
     margin-bottom: -3px;
   }
@@ -65,10 +66,10 @@ function Nav() {
       </LogoContainer>
       <ButtonContainer>
         <Button>
-          <p>Home</p>
+          <Link className="link" to="/">Home</Link>
         </Button>
         <Button>
-          <p>Services</p>
+        <Link className="link" to="/services">Services</Link>
         </Button>
         <Button>
           <p>Index</p>

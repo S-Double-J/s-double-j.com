@@ -1,16 +1,18 @@
 import styled from "styled-components";
 import {
   motion,
+  useAnimate,
+  useInView,
   useMotionValue,
   useScroll,
   useSpring,
   useTransform,
 } from "motion/react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100svh - 75px) * 5);
+  height: calc((100svh - 75px) * 3);
   flex-shrink: 0;
   display: flex;
   align-items: start;
@@ -18,7 +20,7 @@ const ScrollDiv = styled.div`
   position: relative;
   flex-direction: column;
 `;
-const Frame = styled.div`
+const Frame = styled(motion.div)`
   position: sticky;
   top: 0;
   left: 0;
@@ -55,8 +57,16 @@ const ServiceBg = styled(motion.div)`
   transform-style: preserve-3d;
   padding: 20px;
   transition: background var(--color-transition) ease-in-out;
-  transition: all 2s ease-out;
+  cursor: pointer;
+  & > div,
+  h1,
+  h2,
+  h3,
+  p {
+    cursor: pointer;
+  }
 `;
+
 const InnerTop = styled.div`
   display: flex;
   padding: 10px 0px;
@@ -141,16 +151,21 @@ const OverlayText = styled.p`
   margin-bottom: calc((-100vh + 115px) / 14);
 `;
 const ProgressIcon = styled(motion.svg)`
-position: absolute;
-top: 40px;
-right: 40px;
-stroke: white;
-
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  stroke: var(--fg);
+  mix-blend-mode: exclusion;
+  fill: none;
 `;
-const ProgressIconBg = styled(motion.circle)``;
+const ProgressIconBg = styled(motion.circle)`
+  stroke-width: 10;
+  opacity: 0.2;
+`;
 const ProgressIconIndication = styled(motion.circle)`
-stroke-dashoffset: 0;
-stroke-width: 5`;
+  stroke-dashoffset: 0;
+  stroke-width: 10;
+`;
 interface Props {
   containerRef: React.RefObject<HTMLDivElement>;
 }
@@ -279,27 +294,62 @@ function ServHome({ containerRef }: Props) {
     container: containerRef,
     target: targetRef,
   });
-  const SprungY = useSpring(scrollYProgress);
 
-  const translateX1 = useTransform(SprungY, [0.1, 0.2], ["-100vw", "0vw"]);
-  const translateX2 = useTransform(SprungY, [0.2, 0.3], ["-100vw", "0vw"]);
-  const translateX3 = useTransform(SprungY, [0.3, 0.4], ["-100vw", "0vw"]);
+  const [scope, animate] = useAnimate();
+
+  const isInView = useInView(scope, { once: true, amount: "all" });
+  const duration = 2.5;
+  const bounce = 0.4;
+
+  useEffect(() => {
+    if (isInView) {
+      animate(
+        "#serviceBg1",
+        { y: "0vh" },
+        {
+          type: "spring",
+          duration: duration * 0.6,
+          bounce: bounce + 0.1,
+          delay: 0.5,
+        }
+      );
+      animate(
+        "#serviceBg2",
+        { y: "0vh" },
+        {
+          type: "spring",
+          duration: duration * 0.8,
+          bounce: bounce,
+          delay: 0.1,
+        }
+      );
+      animate(
+        "#serviceBg3",
+        { y: "0vh" },
+        {
+          type: "spring",
+          duration: duration,
+          bounce: bounce,
+        }
+      );
+    }
+  }, [isInView]);
 
   return (
     <ScrollDiv ref={targetRef}>
-      <Frame id="My Services">
+      <Frame id="My Services" ref={scope}>
         <ProgressIcon width="75" height="75" viewBox="0 0 100 100">
           <ProgressIconBg
             cx="50"
             cy="50"
-            r="30"
+            r="40"
             pathLength="1"
             className="bg"
           />
           <ProgressIconIndication
             cx="50"
             cy="50"
-            r="30"
+            r="40"
             pathLength="1"
             style={{
               pathLength: scrollYProgress,
@@ -307,18 +357,20 @@ function ServHome({ containerRef }: Props) {
           />
         </ProgressIcon>
         <ServiceBg
+          id="serviceBg1"
           onMouseMove={handleMouseMove1}
           onMouseLeave={handleMouseLeave1}
           style={{
             rotateX: rotateX1,
             rotateY: rotateY1,
-            translateX: translateX3,
+            y: "-150vh",
           }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <Service>
             <InnerTop>
               <h2
-                className="light"
                 style={{
                   fontSize: 140,
                   fontWeight: 700,
@@ -329,13 +381,13 @@ function ServHome({ containerRef }: Props) {
                 CW
               </h2>
               <TopBottom>
-                <p className="uppercase light" style={{ transform: smallZ }}>
+                <p className="uppercase " style={{ transform: smallZ }}>
                   commercial website
                 </p>
               </TopBottom>
             </InnerTop>
             <InnerMid>
-              <p className="light justify" style={{ transform: smallZ }}>
+              <p className=" justify" style={{ transform: smallZ }}>
                 Sometimes you don’t need a website with all the techy trimmings
                 and tiny designy details. Sometimes you just need to get online
                 with a website that fulfils your business’s unique needs. Let's
@@ -343,7 +395,7 @@ function ServHome({ containerRef }: Props) {
               </p>
             </InnerMid>
             <InnerBottom>
-              <p className="light justify" style={{ transform: smallZ }}>
+              <p className=" justify" style={{ transform: smallZ }}>
                 01
               </p>
               <Circle>
@@ -362,18 +414,21 @@ function ServHome({ containerRef }: Props) {
           </Service>
         </ServiceBg>
         <ServiceBg
+          id="serviceBg2"
           onMouseMove={handleMouseMove2}
           onMouseLeave={handleMouseLeave2}
           style={{
             rotateX: rotateX2,
             rotateY: rotateY2,
-            translateX: translateX2,
+            y: "-150vh",
           }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <Service>
             <InnerTop>
               <h2
-                className="light"
+                className=""
                 style={{
                   fontSize: 140,
                   fontWeight: 700,
@@ -384,13 +439,13 @@ function ServHome({ containerRef }: Props) {
                 CP
               </h2>
               <TopBottom>
-                <p className="uppercase light" style={{ transform: smallZ }}>
+                <p className="uppercase " style={{ transform: smallZ }}>
                   creative project
                 </p>
               </TopBottom>
             </InnerTop>
             <InnerMid>
-              <p className="light justify" style={{ transform: smallZ }}>
+              <p className=" justify" style={{ transform: smallZ }}>
                 Do you need a state of the art website? Sweet. Creating
                 interactive and interesting digital experiences is exactly what
                 I love to do. Together we’ll find the overlap between
@@ -399,7 +454,7 @@ function ServHome({ containerRef }: Props) {
               </p>
             </InnerMid>
             <InnerBottom>
-              <p className="light justify" style={{ transform: smallZ }}>
+              <p className=" justify" style={{ transform: smallZ }}>
                 02
               </p>
               <Circle>
@@ -418,18 +473,21 @@ function ServHome({ containerRef }: Props) {
           </Service>
         </ServiceBg>
         <ServiceBg
+          id="serviceBg3"
           onMouseMove={handleMouseMove3}
           onMouseLeave={handleMouseLeave3}
           style={{
             rotateX: rotateX3,
             rotateY: rotateY3,
-            translateX: translateX1,
+            y: "-150vh",
           }}
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <Service>
             <InnerTop>
               <h2
-                className="light"
+                className=""
                 style={{
                   fontSize: 140,
                   fontWeight: 700,
@@ -440,13 +498,13 @@ function ServHome({ containerRef }: Props) {
                 CC
               </h2>
               <TopBottom>
-                <p className="uppercase light" style={{ transform: smallZ }}>
+                <p className="uppercase " style={{ transform: smallZ }}>
                   content consultation
                 </p>
               </TopBottom>
             </InnerTop>
             <InnerMid>
-              <p className="light justify" style={{ transform: smallZ }}>
+              <p className=" justify" style={{ transform: smallZ }}>
                 So you’re making your website yourself? You’re the type of
                 person who likes to get their hands dirty. But there’s a lot
                 going on when making a website, and maybe you don’t know where
@@ -454,7 +512,7 @@ function ServHome({ containerRef }: Props) {
               </p>
             </InnerMid>
             <InnerBottom>
-              <p className="light justify" style={{ transform: smallZ }}>
+              <p className=" justify" style={{ transform: smallZ }}>
                 01
               </p>
               <Circle>

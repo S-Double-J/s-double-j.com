@@ -1,5 +1,5 @@
 import "../../styles/App.css";
-import "../../styles/textStyles.css";
+import "../../styles/textStyles.scss";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import Nav from "./Nav";
 import styled from "styled-components";

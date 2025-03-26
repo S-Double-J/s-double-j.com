@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, MotionValue } from "motion/react";
 import styled from "styled-components";
 
 const Grid = styled.div`
@@ -23,7 +23,7 @@ const Grid = styled.div`
 `;
 
 const TextBox = styled.div`
-align-self: end;
+  align-self: end;
   grid-area: Text;
   display: flex;
   height: max-content;
@@ -35,8 +35,9 @@ align-self: end;
   border: 40px solid var(--fg);
   background: var(--fg);
   box-sizing: border-box;
-  gap: 10px;
+  gap: 40px;
   transition: all var(--color-transition) ease-in-out;
+  position: relative;
   & > p {
     color: var(--bg);
     text-align: justify;
@@ -80,55 +81,78 @@ function Focus({ containerRef, targetRef }: Props) {
     container: containerRef,
     target: targetRef,
   });
-  const scaleY = useTransform(scrollYProgress, [0.5, 1], ["100%", "55%"]);
+
+    const { scrollYProgress: gradientScrollYProgress } = useScroll({
+      container: containerRef,
+      target: targetRef,
+      layoutEffect: false,
+      offset: ["0.35 1.5", "1 1.2"],
+    });
+  const scaleY = useTransform(scrollYProgress, [0.1, 1], ["100%", "70%"]);
+  const paragraph = `Every business has a story. __break__ My focus is telling your story. The digital landscape is evolving fast, and standing out in a sea of voices requires more than just visibility—it demands meaningful connection. Story is humanity's universal language and I believe it is the best way for creatives and businesses to leave the lasting impression they deserve. __break__ As a solo freelancer, I offer a personal touch that larger agencies can’t match, so let’s create something extraordinary together. Your story deserves to be seen, felt, and remembered.`;
+  const words = paragraph.split(" ");
+
   return (
-      <Grid>
-        <TextBox>
-          <p>
-            <b>Every business needs an online presence.</b>
-          </p>
-          <p>
-            The digital landscape is evolving fast, and standing out in a sea of
-            voices requires more than just visibility—it demands meaningful
-            connection. My focus is helping creatives and businesses leave the lasting impression they .
-             by
-            crafting cohesive design strategies that reflect their unique
-            identity, engage users with interactive digital experiences, and
-            evoke emotions that leave a lasting impression.
-          </p>
-          <p>
-            As a solo freelancer, I offer a personal touch that larger agencies
-            can’t match. Without middlemen or micromanagers, you’ll work
-            directly with me—someone who truly understands your vision and is
-            committed to bringing it to life. My focus is on delivering
-            high-quality results through a hands-on approach, combining creative
-            experience with the flexibility to meet your needs at competitive
-            rates.
-          </p>
-          <p>
-            Let’s create something extraordinary together. Your story deserves
-            to be seen, felt, and remembered.
-          </p>
-        </TextBox>
-        <FocusBox>
-            <h2
-              style={{
-                fontFamily: "Xanh Mono",
-                fontStyle: "italic",
-                position: "absolute",
-                top: 40,
-                zIndex: 2
-              }}
-            >
-              MY
-            </h2>
-          <Blur style={{ scaleY }}>
-          </Blur>
-          <FocusText>FOCUS</FocusText>
-          <Blur style={{ scaleY }}></Blur>
-        </FocusBox>
-      </Grid>
+    <Grid>
+      <TextBox>
+        <p className="gradient-text-p">
+          {words.map((word, i) => {
+            if (word === "__break__") {
+              // Render a line break for newline characters
+              return <span style={{ width: "100%", height: 16 }} key={i} />;
+            } else {
+              // Render a word for non-newline tokens
+              const start = i / words.length;
+              const end = start + 1 / words.length;
+              return (
+                <Word key={i} range={[start, end]} progress={gradientScrollYProgress}>
+                  {word}
+                </Word>
+              );
+            }
+          })}
+        </p>
+      </TextBox>
+      <FocusBox>
+        <h2
+          style={{
+            fontFamily: "Xanh Mono",
+            fontStyle: "italic",
+            position: "absolute",
+            top: 40,
+            zIndex: 2,
+          }}
+        >
+          MY
+        </h2>
+        <Blur style={{ scaleY }}></Blur>
+        <FocusText>FOCUS</FocusText>
+        <Blur style={{ scaleY }}></Blur>
+      </FocusBox>
+    </Grid>
   );
 }
 
 export default Focus;
+
+ 
+const Word = ({
+  children,
+  range,
+  progress,
+}: {
+  children: string;
+  range: number[];
+  progress: MotionValue<number>;
+}) => {
+  const opacity = useTransform(progress, range, [0, 1]);
+
+  return (
+    <span className="gradient-text-span">
+      <span className="gradient-text-shadow">{children}</span>
+      <motion.span style={{ opacity }}>
+        {children}
+      </motion.span>
+    </span>
+  );
+};

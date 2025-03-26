@@ -39,6 +39,7 @@ const TopLeft = styled(motion.div)`
   z-index: 2;
   border-color: var(--fg);
   transition: border var(--color-transition) ease-in-out;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 const TopRight = styled(motion.div)`
   grid-area: TopRight;
@@ -49,6 +50,7 @@ const TopRight = styled(motion.div)`
   position: relative;
   z-index: 2;
   transition: border var(--color-transition) ease-in-out;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 const BotLeft = styled(motion.div)`
   grid-area: BotLeft;
@@ -58,6 +60,7 @@ const BotLeft = styled(motion.div)`
   background-color: var(--bg);
   z-index: 2;
   transition: border var(--color-transition) ease-in-out;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 const BotRight = styled(motion.div)`
   grid-area: BotRight;
@@ -71,6 +74,7 @@ const BotRight = styled(motion.div)`
   justify-content: flex-end;
   z-index: 2;
   transition: border var(--color-transition) ease-in-out;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 const TextContainer = styled.div`
   display: flex;
@@ -120,14 +124,14 @@ function Landing({ containerRef, targetRef }: Props) {
     target: targetRef,
     offset: ["start start", "end end"],
   });
-  const positive1 = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
-  const negative1 = useTransform(scrollYProgress, [0, 0.8], ["0%", "-100%"]);
-  const positive2 = useTransform(scrollYProgress, [0.02, 0.8], ["0%", "100%"]);
-  const positive3 = useTransform(scrollYProgress, [0.06, 0.8], ["0%", "100%"]);
-  const negative3 = useTransform(scrollYProgress, [0.06, 0.8], ["0%", "-100%"]);
-  const negative4 = useTransform(scrollYProgress, [0.1, 0.8], ["0%", "-100%"]);
-  const blackOutOpacity = useTransform(scrollYProgress, [0.35, 0.65], [1, 0]);
-  const opacity = useTransform(scrollYProgress, [0.1, 0.4], [1, 0]);
+  const positive1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
+  const negative1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "-100%"]);
+  const positive2 = useTransform(scrollYProgress, [0.02, 0.5], ["0%", "100%"]);
+  const positive3 = useTransform(scrollYProgress, [0.06, 0.5], ["0%", "100%"]);
+  const negative3 = useTransform(scrollYProgress, [0.06, 0.5], ["0%", "-100%"]);
+  const negative4 = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "-100%"]);
+  const blackOutOpacity = useTransform(scrollYProgress, [0.15, 0.3], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0.1, 0.25], [1, 0]);
   return (
     <Grid ref={ref}>
       <Blackout style={{ opacity: blackOutOpacity }} />
@@ -136,20 +140,19 @@ function Landing({ containerRef, targetRef }: Props) {
         <h1 className="page-title">s-double-j</h1>
         <BigCircle
           animate={{
-            x: ["0vw", "-65vw", "0vw"],
+            x: ["0vw", "-60vw", "0vw"],
           }}
           transition={{
             duration: 8,
             repeat: Infinity,
             ease: "easeInOut",
             times: [0, 0.5, 1],
-            delay: 2,
+            delay: 0.5,
           }}
         />
-
         <HalfCircle
           animate={{
-            x: ["0vw", "-65vw", "0vw"],
+            x: ["0vw", "-60vw", "0vw"],
             rotate: [0, 180, 360],
           }}
           transition={{
@@ -157,21 +160,27 @@ function Landing({ containerRef, targetRef }: Props) {
             repeat: Infinity,
             ease: "easeInOut",
             times: [0, 0.5, 1],
-            delay: 4,
+            delay: 3.5,
+            rotate: {
+              duration: 8,
+              repeat: Infinity,
+              times: [0, 0.5, 1],
+              delay: 3.5,
+              ease: "linear",
+            },
           }}
         />
-
         <SmallCircle
           animate={{
-            x: ["0vw", "-78vw", "0vw"],
-            scale: ["100%", "150%", "100%"],
+            x: ["0vw", "-70vw", "0vw"],
+            scale: ["100%", "50%", "100%"],
           }}
           transition={{
             duration: 8,
             repeat: Infinity,
             ease: "easeInOut",
             times: [0, 0.5, 1],
-            delay: 6,
+            delay: 5.5,
           }}
         />
       </TopRight>

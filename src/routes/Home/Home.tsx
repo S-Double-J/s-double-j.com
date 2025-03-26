@@ -3,6 +3,7 @@ import Landing from "./Landing";
 import Focus from "./Focus";
 import ServHome from "./ServicesHome";
 import Footer from "./Footer";
+import SayHi from "../../componenets/SayHi";
 import { useRef } from "react";
 import { motion } from "motion/react";
 
@@ -17,28 +18,10 @@ const Frame = styled.div`
   position: relative;
   gap: 200px;
 `;
-const SayHi = styled.button`
-  display: flex;
-  padding: 10px 40px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background-color: var(--brutal-mb-light);
-  mix-blend-mode: difference;
-  z-index: 20;
-  & > p {
-    cursor: pointer;
-  }
-`;
+
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100svh - 75px) * 5);
+  height: calc((100svh - 75px) * 10);
   flex-shrink: 0;
   display: flex;
   align-items: start;
@@ -67,14 +50,7 @@ function Home() {
   const containerRef = useRef(null);
   return (
     <Frame ref={containerRef} id="containerRef">
-      <SayHi>
-        <p
-          className="large mix-blend-diff"
-          style={{ color: "var(--brutal-mb-light)" }}
-        >
-          Say hi
-        </p>
-      </SayHi>
+      <SayHi />
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("light")}
         onViewportLeave={() => updateCSSVariable("dark")}
