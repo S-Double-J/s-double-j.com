@@ -7,7 +7,7 @@ import SayHi from "../../componenets/SayHi";
 import { useRef } from "react";
 import { motion } from "motion/react";
 
-const Frame = styled.div`
+const Frame = styled(motion.div)`
   width: 100%;
   height: calc(100svh - 75px);
   overflow-y: auto;
@@ -39,17 +39,28 @@ function Home() {
     if (value === "dark") {
       document.documentElement.style.setProperty("--fg", "var(--brutal-light)");
       document.documentElement.style.setProperty("--bg", "var(--brutal-dark)");
+      document.documentElement.style.setProperty(
+        "--fg-mb",
+        "var(--brutal-mb-light)"
+      );
     }
     if (value === "light") {
       document.documentElement.style.setProperty("--bg", "var(--brutal-light)");
       document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
+      document.documentElement.style.setProperty(
+        "--fg-mb",
+        "var(--brutal-mb-light)"
+      );
     }
   };
 
   const targetRef = useRef(null);
   const containerRef = useRef(null);
   return (
-    <Frame ref={containerRef} id="containerRef">
+    <Frame
+      ref={containerRef}
+      id="containerRef"
+    >
       <SayHi />
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("light")}

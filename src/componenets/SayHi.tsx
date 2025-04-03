@@ -12,13 +12,15 @@ const Button = styled.button`
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background-color: var(--brutal-mb-light);
+  background-color: var(--fg-mb);
   mix-blend-mode: difference;
   z-index: 20;
   & > p {
     cursor: pointer;
-    color: var(--brutal-mb-light);
+    color: var(--fg-mb);
     mix-blend-mode: difference;
+    font-weight: 900;
+    border: transparent;
   }
 `;
 

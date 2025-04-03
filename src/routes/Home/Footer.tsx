@@ -70,22 +70,6 @@ const BannerText = styled.h1`
   font-style: italic;
 `;
 
-const SayHi = styled.button`
-  display: flex;
-  width: max-content;
-  padding: 10px 40px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  background-color: var(--brutal-mb-light);
-  mix-blend-mode: difference;
-  & > p {
-    cursor: pointer;
-  }
-`;
 const CircleFrame = styled(motion.div)`
   grid-area: c;
   position: relative;
@@ -127,19 +111,16 @@ function Footer() {
   return (
     <Grid>
       <Tagline>
-        <p className="light">
+        <p className="fg">
           Helping people find their own little slice of the net.
         </p>
-        <SayHi>
-          <p className="large mix-blend-diff light">Say hi</p>
-        </SayHi>
       </Tagline>
       <PageLinks>
-        <p className="light">Home</p>
-        <p className="light">My focus</p>
-        <p className="light">Services</p>
-        <p className="light">Index</p>
-        <p className="light">Contact</p>
+        <p className="fg">Home</p>
+        <p className="fg">My focus</p>
+        <p className="fg">Services</p>
+        <p className="fg">Index</p>
+        <p className="fg">Contact</p>
       </PageLinks>
       <CircleFrame>
         <BigCircle
@@ -169,16 +150,16 @@ function Footer() {
         </BigCircle>
       </CircleFrame>
       <Banner>
-        <p className="light">hi@s-double-j.com</p>
-        <p className="small light">©S-Double-J 2024</p>
+        <p className="fg">hi@s-double-j.com</p>
+        <p className="small fg">©S-Double-J 2024</p>
         <BannerScroller>
           <BannerSizeSet>s-double-j</BannerSizeSet>
           <BannerHolder
             animate={{ x: "-50%" }}
             transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           >
-            <BannerText className="light">s-double-j</BannerText>
-            <BannerText className="light">s-double-j</BannerText>
+            <BannerText className="fg">s-double-j</BannerText>
+            <BannerText className="fg">s-double-j</BannerText>
           </BannerHolder>
         </BannerScroller>
       </Banner>
