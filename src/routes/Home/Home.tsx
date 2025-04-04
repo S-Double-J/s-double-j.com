@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Landing from "./Landing";
 import Focus from "./Focus";
 import ServHome from "./ServicesHome";
-import Footer from "./Footer";
+import Footer from "../../componenets/Footer";
 import SayHi from "../../componenets/SayHi";
 import { useRef } from "react";
 import { motion } from "motion/react";

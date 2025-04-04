@@ -20,7 +20,8 @@ h3 {
   margin: 0;
   font-weight: 400;
 }
-p, li {
+p,
+li {
   color: var(--fg);
   font-family: "Space Mono";
   font-size: 16px;
@@ -98,12 +99,20 @@ h3.pointer {
   margin: 0;
   font-weight: 400;
   text-decoration: none;
+  transition: color var(--color-transition) ease-in-out;
 }
 
 .fg {
-  color: var(--fg)
+  color: var(--fg);
 }
 
 .bg {
-  color: var(--bg)
+  color: var(--bg);
+}
+
+path {
+  transition: stroke var(--color-transition) ease-in-out;
+}
+svg {
+  transition: fill var(--color-transition) ease-in-out;
 }

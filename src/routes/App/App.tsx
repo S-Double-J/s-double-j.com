@@ -1,8 +1,9 @@
 import "../../styles/App.css";
 import "../../styles/textStyles.scss";
 import { Outlet, ScrollRestoration } from "react-router-dom";
-import Nav from "./Nav";
+import Nav from "../../componenets/Nav";
 import styled from "styled-components";
+
 
 const Frame = styled.div`
   display: flex;
@@ -16,8 +17,9 @@ const Frame = styled.div`
   position: relative;
 `;
 function App() {
+
   return (
-    <Frame id="app-frame">
+    <Frame id="app-frame" >
       <Nav />
       <Outlet />
       <ScrollRestoration

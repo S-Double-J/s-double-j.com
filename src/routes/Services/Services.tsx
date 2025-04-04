@@ -1,10 +1,11 @@
 import Hero from "./Hero";
-import SayHi from "../../../componenets/SayHi";
+import SayHi from "../../componenets/SayHi";
 import styled from "styled-components";
 import { motion } from "motion/react";
 import CoverText from "./CoverText";
 import Table from "./Table";
-import Footer from "../../Home/Footer";
+import Footer from "../../componenets/Footer";
+import { useRef } from "react";
 
 const Frame = styled(motion.div)`
   width: 100%;
@@ -27,6 +28,7 @@ const ScrollDiv = styled.div`
   position: relative;
   flex-direction: column;
 `;
+
 const ColorChangeDiv = styled(motion.div)`
   display: flex;
   flex-direction: column;
@@ -34,27 +36,33 @@ const ColorChangeDiv = styled(motion.div)`
 `;
 function Services() {
   const updateCSSVariable = (value: string) => {
-    if (value === "dark") {
-      document.documentElement.style.setProperty("--fg", "var(--bh-light)");
-      document.documentElement.style.setProperty("--bg", "var(--brutal-dark)")
-      document.documentElement.style.setProperty("--fg-mb", "var(--brutal-mb-light)");
+    if (value === "footer") {
+      document.documentElement.style.setProperty("--fg", "var(--bh-red)");
+      document.documentElement.style.setProperty("--bg", "var(--bh-light");
+      document.documentElement.style.setProperty("--fg-mb", "var(--bh-mb-red)");
     }
     if (value === "light") {
       document.documentElement.style.setProperty("--bg", "var(--bh-light)");
-      document.documentElement.style.setProperty("--fg", "var(--brutal-dark)")
-      document.documentElement.style.setProperty("--fg-mb", "var(--bh-mb-light)");
+      document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
+      document.documentElement.style.setProperty(
+        "--fg-mb",
+        "var(--bh-mb-light)"
+      );
     }
   };
+
+  const container = useRef(null);
+  const target = useRef(null);
   return (
-    <Frame onViewportEnter={() => updateCSSVariable("light")}>
+    <Frame onViewportEnter={() => updateCSSVariable("light")} ref={container}>
       <SayHi />
-      <ScrollDiv>
-        <Hero />
-        <CoverText />
+      <ScrollDiv ref={target}>
+        <Hero container={container} target={target} />
+        <CoverText container={container} target={target} />
       </ScrollDiv>
-      <Table />
+      <Table container={container} />
       <ColorChangeDiv
-        onViewportEnter={() => updateCSSVariable("dark")}
+        onViewportEnter={() => updateCSSVariable("footer")}
         onViewportLeave={() => updateCSSVariable("light")}
       >
         <Footer />

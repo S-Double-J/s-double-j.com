@@ -26,9 +26,8 @@ const Blackout = styled(motion.div)`
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(195, 187, 182, 0.01);
+  background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(50px);
-  z-index: 1;
 `;
 const TopLeft = styled(motion.div)`
   grid-area: TopLeft;
@@ -123,6 +122,7 @@ function Landing({ containerRef, targetRef }: Props) {
     container: containerRef,
     target: targetRef,
     offset: ["start start", "end end"],
+    layoutEffect: false,
   });
   const positive1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
   const negative1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "-100%"]);

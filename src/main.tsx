@@ -5,7 +5,7 @@ import App from "./routes/App/App.tsx";
 import "./index.css";
 import ErrorPage from "./routes/App/ErrorPage.tsx";
 import Home from "./routes/Home/Home.tsx";
-import Services from "./routes/App/Services/Services.tsx";
+import Services from "./routes/Services/Services.tsx";
 
 const router = createBrowserRouter([
   {

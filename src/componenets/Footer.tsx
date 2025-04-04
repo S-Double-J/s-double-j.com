@@ -19,6 +19,7 @@ const Grid = styled.div`
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
+ 
 `;
 
 const Tagline = styled.div`
@@ -65,9 +66,10 @@ const BannerText = styled.h1`
   margin-bottom: -4vw;
   margin-top: -4vw;
   margin-right: 8.5vw;
-  color: var(--brutal-mb-light);
+  color: var(--fg-mb);
   mix-blend-mode: difference;
   font-style: italic;
+  transition: color var(--color-transition) ease-in-out;
 `;
 
 const CircleFrame = styled(motion.div)`
@@ -81,9 +83,10 @@ const BigCircle = styled(motion.div)`
   transform: translate(-50%, -50%);
   width: 500px;
   height: 500px;
-  background-color: var(--brutal-mb-light);
+  background-color: var(--fg-mb);
   mix-blend-mode: difference;
   border-radius: 100%;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 const MedCircle = styled(motion.div)`
   position: absolute;
@@ -92,9 +95,10 @@ const MedCircle = styled(motion.div)`
   transform: translate(-50%, -50%);
   width: 200px;
   height: 200px;
-  background-color: var(--brutal-mb-light);
+  background-color: var(--fg-mb);
   mix-blend-mode: difference;
   border-radius: 100%;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 const SmallCircle = styled(motion.div)`
   position: absolute;
@@ -103,9 +107,10 @@ const SmallCircle = styled(motion.div)`
   transform: translate(-50%, -50%);
   width: 30px;
   height: 30px;
-  background-color: var(--brutal-mb-light);
+  background-color: var(--fg-mb);
   mix-blend-mode: difference;
   border-radius: 100%;
+  transition: background-color var(--color-transition) ease-in-out;
 `;
 function Footer() {
   return (

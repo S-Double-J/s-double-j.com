@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Card from "./Card";
 import cardData from "./CardData";
+import React, { useRef } from "react";
+import { useScroll } from "motion/react";
 
 const Scroll = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 100px;
 `;
 const Container = styled.div`
   height: calc(100svh - 75px);
@@ -25,14 +27,25 @@ const ArtText = styled.h2`
   font-weight: 900;
   line-height: 34px;
 `;
-function Table() {
+interface Props {
+  container: React.RefObject<HTMLDivElement>;
+}
+function Table({ container }: Props) {
+  const target = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: target,
+    container: container,
+    offset: ["start start", "end start"],
+    layoutEffect: false,
+  });
 
   return (
-    <Scroll>
+    <Scroll ref={target}>
       {cardData.map((card, i) => {
+        const targetScale = 1 - (cardData.length - i) * 0.05;
         if (card.id === "CW") {
           return (
-            <Container>
+            <Container key={i}>
               <Card
                 key={card.id}
                 title={card.title}
@@ -42,6 +55,9 @@ function Table() {
                 gridBgColor={card.gridBgColor}
                 textColor={card.textColor}
                 i={i}
+                progress={scrollYProgress}
+                range={[(i * 0.33), 1]}
+                targetScale={targetScale}
               >
                 <ArtText
                   style={{
@@ -60,7 +76,7 @@ function Table() {
         }
         if (card.id === "CP") {
           return (
-            <Container>
+            <Container key={i}>
               <Card
                 key={card.id}
                 title={card.title}
@@ -70,6 +86,9 @@ function Table() {
                 gridBgColor={card.gridBgColor}
                 textColor={card.textColor}
                 i={i}
+                progress={scrollYProgress}
+                range={[(i * 0.33), 1]}
+                targetScale={targetScale}
               >
                 <ArtText>
                   <s
@@ -90,7 +109,7 @@ function Table() {
         }
         if (card.id === "CC") {
           return (
-            <Container>
+            <Container key={i}>
               <Card
                 key={card.id}
                 title={card.title}
@@ -100,6 +119,9 @@ function Table() {
                 gridBgColor={card.gridBgColor}
                 textColor={card.textColor}
                 i={i}
+                progress={scrollYProgress}
+                range={[0,0]}
+                targetScale={1}
               >
                 <ArtText />
               </Card>

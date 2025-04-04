@@ -1,6 +1,8 @@
+import { MotionValue } from "motion/react";
+import { motion, useTransform } from "motion/react";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
-const Grid = styled.div`
+const Grid = styled(motion.div)`
   height: calc(100svh - 235px);
   width: calc(100% - 20px);
   padding: 40px;
@@ -73,6 +75,9 @@ interface Props {
   gridBgColor: string;
   textColor: string;
   i: number;
+  progress: MotionValue<number>;
+  range: number[];
+  targetScale: number;
 }
 
 function Card({
@@ -84,6 +89,7 @@ function Card({
   gridBgColor,
   textColor,
   i,
+  progress, range, targetScale
 }: Props) {
   const descRef = useRef<HTMLDivElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -107,9 +113,11 @@ function Card({
     return () => resizeObserver.disconnect();
   }, []);
 
+  const scale = useTransform(progress, range, [1, targetScale])
+
   return (
     <Grid
-      style={{ backgroundColor: gridBgColor, top: `calc(-5% + ${i * 50}px)` }}
+      style={{ backgroundColor: gridBgColor, top: `calc(-5% + ${i * 50}px)`, scale }}
     >
       <Header style={{ color: textColor }}>{title}</Header>
       <ArtFrame id="CP-art">

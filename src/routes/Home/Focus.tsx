@@ -80,6 +80,7 @@ function Focus({ containerRef, targetRef }: Props) {
   const { scrollYProgress } = useScroll({
     container: containerRef,
     target: targetRef,
+    layoutEffect: false
   });
 
     const { scrollYProgress: gradientScrollYProgress } = useScroll({

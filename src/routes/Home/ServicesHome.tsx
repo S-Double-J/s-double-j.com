@@ -35,7 +35,6 @@ const Frame = styled(motion.div)`
   flex-shrink: 0;
   background-color: var(--bg);
   transition: background var(--color-transition) ease-in-out;
-  overflow: hidden;
 `;
 const Service = styled(motion.div)`
   display: flex;
@@ -51,6 +50,7 @@ const Service = styled(motion.div)`
   transform-style: preserve-3d;
   transform: translateZ(35px);
   transition: background var(--color-transition) ease-in-out;
+  
 `;
 const ServiceBg = styled(motion.div)`
   background-color: var(--fg);
@@ -58,6 +58,7 @@ const ServiceBg = styled(motion.div)`
   padding: 20px;
   transition: background var(--color-transition) ease-in-out;
   cursor: pointer;
+  opacity: 0;
   & > div,
   h1,
   h2,
@@ -293,6 +294,7 @@ function ServHome({ containerRef }: Props) {
   const { scrollYProgress } = useScroll({
     container: containerRef,
     target: targetRef,
+    layoutEffect: false
   });
 
   const [scope, animate] = useAnimate();
@@ -305,7 +307,7 @@ function ServHome({ containerRef }: Props) {
     if (isInView) {
       animate(
         "#serviceBg1",
-        { y: "0vh" },
+        { y: "0vh", opacity: 1 },
         {
           type: "spring",
           duration: duration * 0.6,
@@ -315,7 +317,7 @@ function ServHome({ containerRef }: Props) {
       );
       animate(
         "#serviceBg2",
-        { y: "0vh" },
+        { y: "0vh", opacity: 1 },
         {
           type: "spring",
           duration: duration * 0.8,
@@ -325,7 +327,7 @@ function ServHome({ containerRef }: Props) {
       );
       animate(
         "#serviceBg3",
-        { y: "0vh" },
+        { y: "0vh", opacity: 1 },
         {
           type: "spring",
           duration: duration,

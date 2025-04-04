@@ -15,6 +15,7 @@ const Button = styled.button`
   background-color: var(--fg-mb);
   mix-blend-mode: difference;
   z-index: 20;
+  transition: background-color var(--color-transition) ease-in-out;
   & > p {
     cursor: pointer;
     color: var(--fg-mb);
