@@ -1,5 +1,4 @@
 import Hero from "./Hero";
-import SayHi from "../../componenets/SayHi";
 import styled from "styled-components";
 import { motion } from "motion/react";
 import CoverText from "./CoverText";
@@ -34,12 +33,14 @@ const ColorChangeDiv = styled(motion.div)`
   flex-direction: column;
   gap: 200px;
 `;
+
 function Services() {
+
   const updateCSSVariable = (value: string) => {
     if (value === "footer") {
       document.documentElement.style.setProperty("--fg", "var(--bh-red)");
       document.documentElement.style.setProperty("--bg", "var(--bh-light");
-      document.documentElement.style.setProperty("--fg-mb", "var(--bh-mb-red)");
+      document.documentElement.style.setProperty("--fg-mb", "var(--bh-mb-light)");
     }
     if (value === "light") {
       document.documentElement.style.setProperty("--bg", "var(--bh-light)");
@@ -55,7 +56,6 @@ function Services() {
   const target = useRef(null);
   return (
     <Frame onViewportEnter={() => updateCSSVariable("light")} ref={container}>
-      <SayHi center="false" />
       <ScrollDiv ref={target}>
         <Hero container={container} target={target} />
         <CoverText container={container} target={target} />

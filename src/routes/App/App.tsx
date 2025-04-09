@@ -5,11 +5,12 @@ import Nav from "../../componenets/Nav";
 import styled from "styled-components";
 import StickyCursor from "../../componenets/StickyCursor";
 import { useRef } from "react";
+import SayHi from "../../componenets/SayHi";
 
 const Frame = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 100svh;
   justify-content: start;
   align-items: center;
   flex-direction: column;
@@ -22,12 +23,22 @@ function App() {
     home: useRef<HTMLAnchorElement>(null),
     services: useRef<HTMLAnchorElement>(null),
     contact: useRef<HTMLAnchorElement>(null),
+    sayHi: useRef<HTMLButtonElement>(null),
+    sayHiCenter: useRef<HTMLButtonElement>(null),
   };
   return (
     <Frame id="app-frame">
       <StickyCursor stickyElements={stickyElementRefs} />
-      <Nav refs={stickyElementRefs} />
-      <Outlet />
+      <SayHi center={false} ref={stickyElementRefs.sayHi} />
+      <SayHi key="centered"center={true} ref={stickyElementRefs.sayHiCenter}/>
+      <Nav
+        refs={{
+          home: stickyElementRefs.home,
+          services: stickyElementRefs.services,
+          contact: stickyElementRefs.contact,
+        }}
+      />
+      <Outlet context={{sayHi: stickyElementRefs.sayHi, sayHiCenter: stickyElementRefs.sayHiCenter}} />
       <ScrollRestoration getKey={(location) => location.pathname} />
     </Frame>
   );

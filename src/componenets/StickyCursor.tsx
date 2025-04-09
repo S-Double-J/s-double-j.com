@@ -15,17 +15,21 @@ const Cursor = styled(motion.div)`
 
 interface Props {
   stickyElements: {
-    [key: string]: RefObject<HTMLAnchorElement>;
+    [key: string]: RefObject<HTMLAnchorElement> | RefObject<HTMLButtonElement>;
   };
 }
 
 function StickyCursor({ stickyElements }: Props) {
   const [hoveredElement, setHoveredElement] = useState<{
-    ref: RefObject<HTMLAnchorElement>;
+    ref: RefObject<HTMLAnchorElement> | RefObject<HTMLButtonElement>;
     key: string;
   } | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
- 
+   // Store the hovered element in a ref to avoid stale closures
+  const hoveredElementRef = useRef(hoveredElement);
+  useEffect(() => {
+    hoveredElementRef.current = hoveredElement;
+  }, [hoveredElement]);
 
   const cursorSize =
     hoveredElement && hoveredElement.ref.current
@@ -44,11 +48,7 @@ function StickyCursor({ stickyElements }: Props) {
   };
 
 
-  // Store the hovered element in a ref to avoid stale closures
-  const hoveredElementRef = useRef(hoveredElement);
-  useEffect(() => {
-    hoveredElementRef.current = hoveredElement;
-  }, [hoveredElement]);
+
 
   const manageMouseMove = useCallback((e: MouseEvent) => {
     const { clientX, clientY } = e;
@@ -59,22 +59,16 @@ function StickyCursor({ stickyElements }: Props) {
       const rect = currentHovered.ref.current.getBoundingClientRect();
       const { left, top, width, height } = rect;
       const center = { x: left + width / 2, y: top + height / 2 };
-      const cursorSize = width + 40;
-      console.log(center, cursorSize)
+      const cursorSize = width + 20;
 
-      mouse.x.set(center.x - (cursorSize / 2) + 10);
-      mouse.y.set(center.y - (cursorSize / 2) + 10);
+      mouse.x.set(center.x - cursorSize / 2);
+      mouse.y.set(center.y - cursorSize / 2);
     } else {
       const cursorSize = 20;
       mouse.x.set(clientX - cursorSize / 2);
       mouse.y.set(clientY - cursorSize / 2);
     }
-  }, []); // No dependencies needed now
-
-  useEffect(() => {
-    window.addEventListener('mousemove', manageMouseMove);
-    return () => window.removeEventListener('mousemove', manageMouseMove);
-  }, [manageMouseMove]);
+  }, []);
 
   useEffect(() => {
     const elements = Object.entries(stickyElements);
@@ -111,7 +105,6 @@ function StickyCursor({ stickyElements }: Props) {
       });
     };
   }, [stickyElements]);
-
 
 
   return (

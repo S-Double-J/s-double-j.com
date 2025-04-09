@@ -3,7 +3,6 @@ import Landing from "./Landing";
 import Focus from "./Focus";
 import ServHome from "./ServicesHome";
 import Footer from "../../componenets/Footer";
-import SayHi from "../../componenets/SayHi";
 import { useRef } from "react";
 import { motion } from "motion/react";
 
@@ -34,6 +33,7 @@ const ColorChangeDiv = styled(motion.div)`
   flex-direction: column;
   gap: 200px;
 `;
+
 function Home() {
   const updateCSSVariable = (value: string) => {
     if (value === "dark") {
@@ -61,7 +61,6 @@ function Home() {
       ref={containerRef}
       id="containerRef"
     >
-      <SayHi center="false"/>
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("light")}
         onViewportLeave={() => updateCSSVariable("dark")}

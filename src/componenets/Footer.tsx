@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Grid = styled.div`
@@ -28,12 +27,6 @@ const Tagline = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-`;
-const PageLinks = styled.div`
-  grid-area: r;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
 `;
 const Banner = styled.div`
   grid-area: b;
@@ -121,12 +114,6 @@ function Footer() {
           Helping people find their own little slice of the net.
         </p>
       </Tagline>
-      <PageLinks>
-        <Link to="/" className="fg">Home</Link>
-        <Link to="" className="fg">My focus</Link>
-        <Link to="services" className="fg">Services</Link>
-        <Link to="contact" className="fg">Contact</Link>
-      </PageLinks>
       <CircleFrame>
         <BigCircle
           style={{ x: "-50%", y: "-50%" }}
