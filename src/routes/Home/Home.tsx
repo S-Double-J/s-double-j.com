@@ -61,7 +61,7 @@ function Home() {
       ref={containerRef}
       id="containerRef"
     >
-      <SayHi />
+      <SayHi center="false"/>
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("light")}
         onViewportLeave={() => updateCSSVariable("dark")}
