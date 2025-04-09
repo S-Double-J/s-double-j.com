@@ -42,7 +42,6 @@ const cardData = [
       "Charged and booked hourly",
       "Guidance for content",
       "Creative expression",
-      "No design advice",
       "Go at your own pace",
       "Maximum affordability",
       "As many sessions as you need",

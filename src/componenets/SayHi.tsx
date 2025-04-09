@@ -8,7 +8,6 @@ const Button = styled.button`
   border-radius: 50px;
   border: none;
   background: none;
-  cursor: pointer;
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -17,18 +16,37 @@ const Button = styled.button`
   z-index: 20;
   transition: background-color var(--color-transition) ease-in-out;
   & > p {
-    cursor: pointer;
-    color: var(--fg-mb);
-    mix-blend-mode: difference;
     font-weight: 900;
     border: transparent;
   }
 `;
 
-function SayHi() {
+interface Props {
+  center: string;
+}
+
+function SayHi({ center }: Props) {
+  if (center === "true") {
+    return (
+      <Button
+        style={{
+          bottom: "50%",
+          right: "50%",
+          transform: "translate(50%, 50%)",
+          backgroundColor: "var(--absurd-light)",
+          mixBlendMode: "normal",
+          position: "absolute",
+        }}
+      >
+        <p className="large" style={{ color: "var(--brutal-dark)" }}>
+          Say hi
+        </p>
+      </Button>
+    );
+  }
   return (
     <Button>
-      <p className="large">Say hi</p>
+      <p className="large mix-blend-diff">Say hi</p>
     </Button>
   );
 }

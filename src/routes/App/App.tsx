@@ -3,7 +3,8 @@ import "../../styles/textStyles.scss";
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import Nav from "../../componenets/Nav";
 import styled from "styled-components";
-
+import StickyCursor from "../../componenets/StickyCursor";
+import { useRef } from "react";
 
 const Frame = styled.div`
   display: flex;
@@ -17,16 +18,17 @@ const Frame = styled.div`
   position: relative;
 `;
 function App() {
-
+  const stickyElementRefs = {
+    home: useRef<HTMLAnchorElement>(null),
+    services: useRef<HTMLAnchorElement>(null),
+    contact: useRef<HTMLAnchorElement>(null),
+  };
   return (
-    <Frame id="app-frame" >
-      <Nav />
+    <Frame id="app-frame">
+      <StickyCursor stickyElements={stickyElementRefs} />
+      <Nav refs={stickyElementRefs} />
       <Outlet />
-      <ScrollRestoration
-        getKey={(location) => {
-          return location.pathname;
-        }}
-      />
+      <ScrollRestoration getKey={(location) => location.pathname} />
     </Frame>
   );
 }

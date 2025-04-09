@@ -46,7 +46,7 @@ function Services() {
       document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
       document.documentElement.style.setProperty(
         "--fg-mb",
-        "var(--bh-mb-light)"
+        "var(--bh-light)"
       );
     }
   };
@@ -55,7 +55,7 @@ function Services() {
   const target = useRef(null);
   return (
     <Frame onViewportEnter={() => updateCSSVariable("light")} ref={container}>
-      <SayHi />
+      <SayHi center="false" />
       <ScrollDiv ref={target}>
         <Hero container={container} target={target} />
         <CoverText container={container} target={target} />

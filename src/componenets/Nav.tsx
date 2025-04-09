@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { forwardRef, RefObject } from "react";
 
 const Frame = styled.div`
   height: 75px;
@@ -20,10 +21,16 @@ const Frame = styled.div`
 `;
 const ButtonContainer = styled.div`
   display: flex;
-  align-items: end;
-  justify-content: space-between;
+  justify-content: flex-end;
   grid-area: but;
   box-sizing: border-box;
+  & > div {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    flex: 1 0 0;
+    max-width: 900px;
+  }
 `;
 const Button = styled.button`
   text-decoration: none;
@@ -33,9 +40,8 @@ const Button = styled.button`
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  cursor: pointer;
+  position: relative;
   & > Link {
-    cursor: pointer;
     margin-bottom: -3px;
   }
 `;
@@ -51,36 +57,49 @@ const LogoContainer = styled.div`
   box-sizing: border-box;
 `;
 
-function Nav() {
-  return (
-    <Frame>
-      <LogoContainer>
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-          <path d="M3 53L3.00002 3H53V53L3 53Z" fill="var(--bg)" />
-          <path
-            d="M30.5 10.5H10.5L10.5 20.5H30.5L30.5 30.5H10.5M38 10.5V38H10.5M10.5 45.5H45.5V10.5M3.00002 3L3 53L53 53V3H3.00002Z"
-            stroke="var(--fg)"
-            strokeWidth="5"
-            strokeLinecap="square"
-          />
-        </svg>
-      </LogoContainer>
-      <ButtonContainer>
-        <Button>
-          <Link className="link" to="/">Home</Link>
-        </Button>
-        <Button>
-        <Link className="link" to="/services">Services</Link>
-        </Button>
-        <Button>
-          <p>Index</p>
-        </Button>
-        <Button>
-          <p>Contact</p>
-        </Button>
-      </ButtonContainer>
-    </Frame>
-  );
+interface NavProps {
+  refs: {
+    [key: string]: RefObject<HTMLAnchorElement>;
+  };
 }
+
+const Nav = forwardRef<HTMLAnchorElement, NavProps>(function Nav({ refs }) {
+  return (
+
+      <Frame>
+        <LogoContainer>
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+            <path d="M3 53L3.00002 3H53V53L3 53Z" fill="var(--bg)" />
+            <path
+              d="M30.5 10.5H10.5L10.5 20.5H30.5L30.5 30.5H10.5M38 10.5V38H10.5M10.5 45.5H45.5V10.5M3.00002 3L3 53L53 53V3H3.00002Z"
+              stroke="var(--fg)"
+              strokeWidth="5"
+              strokeLinecap="square"
+            />
+          </svg>
+        </LogoContainer>
+        <ButtonContainer>
+          <div>
+            <Button>
+              <Link ref={refs.home} className="link" to="/">
+                Home
+              </Link>
+            </Button>
+            <Button>
+              <Link ref={refs.services} className="link" to="/services">
+                Services
+              </Link>
+            </Button>
+            <Button>
+              <Link ref={refs.contact} className="link" to="/contact">
+                Contact
+              </Link>
+            </Button>
+          </div>
+        </ButtonContainer>
+      </Frame>
+    );
+  }
+);
 
 export default Nav;

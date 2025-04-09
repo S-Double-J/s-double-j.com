@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Grid = styled.div`
@@ -121,11 +122,10 @@ function Footer() {
         </p>
       </Tagline>
       <PageLinks>
-        <p className="fg">Home</p>
-        <p className="fg">My focus</p>
-        <p className="fg">Services</p>
-        <p className="fg">Index</p>
-        <p className="fg">Contact</p>
+        <Link to="/" className="fg">Home</Link>
+        <Link to="" className="fg">My focus</Link>
+        <Link to="services" className="fg">Services</Link>
+        <Link to="contact" className="fg">Contact</Link>
       </PageLinks>
       <CircleFrame>
         <BigCircle
