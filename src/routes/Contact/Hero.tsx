@@ -1,6 +1,20 @@
-import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import styled from "styled-components";
 import { useEffect, useRef } from "react";
+import useMultiStepForm from "../../componenets/contact form/useMultiStepForm";
+import Name from "../../componenets/contact form/form steps/Name";
+import { NewOrExisting } from "../../componenets/contact form/form steps/NewOrExisting";
+import { ProjectType } from "../../componenets/contact form/form steps/ProjectType";
+import { Email } from "../../componenets/contact form/form steps/Email";
+import { Requires } from "../../componenets/contact form/form steps/Requires";
+import { Deadline } from "../../componenets/contact form/form steps/Deadline";
+import { PS } from "../../componenets/contact form/form steps/PS";
 
 const Grid = styled(motion.div)`
   position: relative;
@@ -83,6 +97,22 @@ const Circle = styled(motion.div)`
   border-radius: 100%;
   background-color: var(--brutal-dark);
 `;
+const FormDiv = styled.div`
+  position: absolute;
+  top: 25%;
+  left: 0;
+  /* transform: translate(-50%, -50%); */
+  width: max-content;
+  max-width: 400px;
+  padding: 20px;
+  z-index: 2;
+  display: flex;
+`;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+`;
 
 function Hero() {
   const pupilRef = useRef<HTMLDivElement>(null);
@@ -103,21 +133,22 @@ function Hero() {
 
   const manageMouseMove = (e: MouseEvent) => {
     const { clientX, clientY } = e;
-  
+
     if (!pupilRef.current) return;
-  
-    const { top, left, width, height } = pupilRef.current.getBoundingClientRect();
+
+    const { top, left, width, height } =
+      pupilRef.current.getBoundingClientRect();
     const center = { x: left + width / 2, y: top + height / 2 };
-    
+
     // Get mouse position relative to the eye's center
     const mouseX = clientX - center.x;
     const mouseY = clientY - center.y;
-  
+
     // Compensate for parent rotation (45deg counter-clockwise)
     const angle = Math.PI / 4; // 45deg in radians
     const rotatedX = mouseX * Math.cos(angle) - mouseY * Math.sin(angle);
     const rotatedY = mouseX * Math.sin(angle) + mouseY * Math.cos(angle);
-  
+
     // Apply the adjusted values
     pupil.x.set(rotatedX);
     pupil.y.set(rotatedY);
@@ -132,9 +163,30 @@ function Hero() {
 
   const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px)`;
 
+  // const [data, setData]=useState(INITIAL_DATA)
+
+  const { steps, next, } = useMultiStepForm([
+    <Name />,
+    <NewOrExisting />,
+    <ProjectType />,
+    <Requires />,
+    <Deadline />,
+    <Email />,
+    <PS />,
+  ]);
+
   return (
     <Grid>
-
+      <FormDiv>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            next();
+          }}
+        >
+          {steps}
+        </Form>
+      </FormDiv>
       <TopLeft></TopLeft>
       <TopRight id="top-right-serv-hero">
         <h1 className="page-title">contact</h1>
