@@ -7,32 +7,25 @@ export default function multiStepForm(steps: ReactElement[]) {
     setCurrentStepIndex((i) => (i >= steps.length - 1 ? i : i + 1));
   }
 
-  function back() {
-    setCurrentStepIndex((i) => (i <= 0 ? i : i - 1));
-  }
-
-  function goTo(index: number) {
-    setCurrentStepIndex(Math.min(Math.max(index, 0), steps.length - 1));
-  }
-
   // Render all steps up to the current index
-  const renderedSteps = steps.slice(0, currentStepIndex + 1).map((step, index) => (
-    <div 
-      key={index}
-      className={`step ${index === currentStepIndex ? "active" : "completed"}`}
-    >
-      {step}
-    </div>
-  ));
+  const renderedSteps = steps
+    .slice(0, currentStepIndex + 1)
+    .map((step, index) => (
+      <div
+        key={index}
+        className={`step ${
+          index === currentStepIndex ? "active" : "completed"
+        }`}
+        style={{ width: index === steps.length - 1 ? "100%" : "auto" }}
+      >
+        {step}
+      </div>
+    ));
 
   return {
     currentStepIndex,
-    steps: renderedSteps,
-    step: steps[currentStepIndex],  // Now returns all steps up to current
-    goTo,
+    renderedSteps,
     next,
-    back,
-    isFirstStep: currentStepIndex === 0,
     isLastStep: currentStepIndex === steps.length - 1,
   };
 }

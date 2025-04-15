@@ -6,6 +6,7 @@ import styled from "styled-components";
 import StickyCursor from "../../componenets/StickyCursor";
 import { useRef } from "react";
 import SayHi from "../../componenets/SayHi";
+import emailjs from "@emailjs/browser";
 
 const Frame = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const Frame = styled.div`
   position: relative;
 `;
 function App() {
+  emailjs.init({ publicKey: "TvubRJoGGsFpnHNBQ" });
   const stickyElementRefs = {
     home: useRef<HTMLAnchorElement>(null),
     services: useRef<HTMLAnchorElement>(null),
@@ -30,7 +32,7 @@ function App() {
     <Frame id="app-frame">
       <StickyCursor stickyElements={stickyElementRefs} />
       <SayHi center={false} ref={stickyElementRefs.sayHi} />
-      <SayHi key="centered"center={true} ref={stickyElementRefs.sayHiCenter}/>
+      <SayHi key="centered" center={true} ref={stickyElementRefs.sayHiCenter} />
       <Nav
         refs={{
           home: stickyElementRefs.home,
@@ -38,7 +40,12 @@ function App() {
           contact: stickyElementRefs.contact,
         }}
       />
-      <Outlet context={{sayHi: stickyElementRefs.sayHi, sayHiCenter: stickyElementRefs.sayHiCenter}} />
+      <Outlet
+        context={{
+          sayHi: stickyElementRefs.sayHi,
+          sayHiCenter: stickyElementRefs.sayHiCenter,
+        }}
+      />
       <ScrollRestoration getKey={(location) => location.pathname} />
     </Frame>
   );

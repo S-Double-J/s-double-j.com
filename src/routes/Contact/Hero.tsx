@@ -6,7 +6,7 @@ import {
   useTransform,
 } from "motion/react";
 import styled from "styled-components";
-import { useEffect, useRef } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import useMultiStepForm from "../../componenets/contact form/useMultiStepForm";
 import Name from "../../componenets/contact form/form steps/Name";
 import { NewOrExisting } from "../../componenets/contact form/form steps/NewOrExisting";
@@ -15,6 +15,7 @@ import { Email } from "../../componenets/contact form/form steps/Email";
 import { Requires } from "../../componenets/contact form/form steps/Requires";
 import { Deadline } from "../../componenets/contact form/form steps/Deadline";
 import { PS } from "../../componenets/contact form/form steps/PS";
+import emailjs from '@emailjs/browser'
 
 const Grid = styled(motion.div)`
   position: relative;
@@ -101,7 +102,6 @@ const FormDiv = styled.div`
   position: absolute;
   top: 25%;
   left: 0;
-  /* transform: translate(-50%, -50%); */
   width: max-content;
   max-width: 400px;
   padding: 20px;
@@ -110,9 +110,27 @@ const FormDiv = styled.div`
 `;
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
-  gap: 45px;
+  flex-wrap: wrap;
+  gap: 10px;
 `;
+type FormData = {
+  name: string;
+  newOrExisting: string;
+  projectType: string;
+  requires: string[];
+  deadline: string;
+  email: string;
+  extraInfo: string;
+};
+const INITIAL_DATA: FormData = {
+  name: "",
+  newOrExisting: "",
+  projectType: "",
+  requires: [],
+  deadline: "",
+  email: "",
+  extraInfo: "",
+};
 
 function Hero() {
   const pupilRef = useRef<HTMLDivElement>(null);
@@ -163,28 +181,84 @@ function Hero() {
 
   const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px)`;
 
-  // const [data, setData]=useState(INITIAL_DATA)
+  const formRef = useRef<HTMLFormElement>(null);
+  const subButtonRef = useRef<HTMLButtonElement>(null);
+  const [data, setData] = useState(INITIAL_DATA);
+  function updateFields(fields: Partial<FormData>) {
+    setData((prev) => {
+      return { ...prev, ...fields };
+    });
+  }
+  const { renderedSteps, next, currentStepIndex, isLastStep } =
+    useMultiStepForm([
+      <Name {...data} updateFields={updateFields} />,
+      <NewOrExisting {...data} updateFields={updateFields} />,
+      <ProjectType {...data} updateFields={updateFields} />,
+      <Requires {...data} updateFields={updateFields} />,
+      <Deadline {...data} updateFields={updateFields} />,
+      <Email {...data} updateFields={updateFields} />,
+      <PS {...data} updateFields={updateFields} />,
+    ]);
 
-  const { steps, next, } = useMultiStepForm([
-    <Name />,
-    <NewOrExisting />,
-    <ProjectType />,
-    <Requires />,
-    <Deadline />,
-    <Email />,
-    <PS />,
-  ]);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    if (!isLastStep) {
+      return next();
+    } else if (isLastStep) {
+      const submitter = (e.nativeEvent as SubmitEvent).submitter;
+      if (submitter !== subButtonRef.current) {
+        return next();
+      }
+      const requiredFields = {
+        name: data.name,
+        newOrExisting: data.newOrExisting,
+        projectType: data.projectType,
+        requires: data.requires,
+        deadline: data.deadline,
+        email: data.email,
+      };
+
+      const emptyFields = Object.entries(requiredFields)
+        .filter(([_, value]) => {
+          if (Array.isArray(value)) return value.length === 0;
+          return value.trim() === "";
+        })
+        .map(([key]) => key);
+
+      if (emptyFields.length > 0) {
+        alert(`Please fill out all required fields: ${emptyFields.join(", ")}`);
+        return; // Prevent form submission
+      }
+      emailjs.send('service_73wrahl', 'template_9eam2j6', data).then(
+        (response) => {
+          console.log('SUCCESS!', response.status, response.text);
+        },
+        (error) => {
+          console.log('FAILED...', error);
+        },
+      
+      )
+      alert("message sent!");
+    }
+  };
 
   return (
     <Grid>
       <FormDiv>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            next();
-          }}
-        >
-          {steps}
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          {renderedSteps}
+          <button
+            ref={subButtonRef}
+            className="form-enter-button"
+            style={{
+              padding: 0,
+              visibility: currentStepIndex === 6 ? "visible" : "hidden",
+            }}
+            type="submit"
+          >
+            <p>[ Submit message ]</p>
+          </button>
         </Form>
       </FormDiv>
       <TopLeft></TopLeft>

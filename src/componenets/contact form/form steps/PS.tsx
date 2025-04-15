@@ -1,17 +1,63 @@
-export function PS() {
-    return (
-      <label>
-        <p>p.s.</p>
-        <span
-          className="form-span"
-          role="textbox"
-          contentEditable="true"
-          aria-placeholder="extra info"
-          aria-required="true"
-          inputMode="text"
-          autoFocus={true}
-          aria-multiline="false"
-        />
-      </label>
-    );
-  }
+import { useRef, useEffect } from "react";
+
+type UserData = {
+  extraInfo: string;
+};
+
+type FormProps = UserData & {
+  updateFields: (fields: Partial<UserData>) => void;
+};
+
+export function PS({ extraInfo, updateFields }: FormProps) {
+  const psRef = useRef<HTMLSpanElement>(null);
+
+  // Sync the ps prop with the contentEditable element
+  useEffect(() => {
+    if (psRef.current && psRef.current.textContent !== extraInfo) {
+extraInfo    }
+  }, [extraInfo]);
+
+  const handleInput = (e: React.FormEvent<HTMLSpanElement>) => {
+    updateFields({ extraInfo: e.currentTarget.textContent || "" });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === "Enter") {
+      e.stopPropagation();
+    }
+  };
+
+  return (
+    <label
+      style={{
+        paddingBottom: 10,
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        width: "100%",
+      }}
+    >
+      <p>P.S.</p>
+      <span
+        ref={psRef}
+        className="form-span"
+        role="textbox"
+        contentEditable
+        aria-placeholder="extra info"
+        aria-required="true"
+        inputMode="text"
+        autoFocus
+        aria-multiline="true"
+        style={{
+          border: "1px solid var(--fg)",
+          borderRadius: 20,
+          padding: "10px",
+          boxSizing: "border-box",
+        }}
+        onInput={handleInput}
+        onKeyDown={handleKeyDown}
+        suppressContentEditableWarning={true}
+      />
+    </label>
+  );
+}
