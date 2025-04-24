@@ -106,7 +106,7 @@ function CoverText({  target }: Props) {
       </TextBox>
       <ArtGridArea>
         <ArtContainer style={{opacity}}>
-          <motion.img src="/public/CoverArt.svg" style={{opacity}} />
+          <motion.img src="CoverArt.svg" style={{opacity}} />
         </ArtContainer>
       </ArtGridArea>
     </Grid>

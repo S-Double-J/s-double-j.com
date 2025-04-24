@@ -13,7 +13,7 @@ const cardData = [
       "Code or no-code",
     ],
     desc: "This service is ideal for those looking to get online quickly and simply, or for those working on a tighter budget. Maybe you want to see if your business idea will go the distance before you invest in a more state of the art website. Maybe you just want a simple landing page for your portfolio. Maybe you want a website that will scale as your business grows. If any of those statements are true, this is likely the service for you.",
-    artSrc: "public/CW.svg",
+    artSrc: "CW.svg",
     gridBgColor: "rgba(50, 47, 46, 0.1)",
     textColor: "var(--brutal-dark)"
   },
@@ -31,7 +31,7 @@ const cardData = [
       "Code only",
     ],
     desc: "This service is all about defying expectations. Using cutting-edge tech, design tools, creative expression and no small amount of hard work, I’ll build you a website that will truly stand out from the crowd. If you’re in a creative field and you need an online space that doesn’t just showcase your work, but elevates it, or if you’re a business looking for a website that captures exactly what makes you special, this is for you.",
-    artSrc: "public/CP.svg",
+    artSrc: "CP.svg",
     gridBgColor: "var(--bh-red)",
     textColor: "var(--bh-light)"
   },
