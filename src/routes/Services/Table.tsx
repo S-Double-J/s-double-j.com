@@ -16,7 +16,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   position: sticky;
-  top: 0;
+  top: 75px;
 `;
 const ArtText = styled.h2`
   position: absolute;
