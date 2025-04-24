@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { animate } from "motion";
-import { motion, useInView } from "motion/react";
+import { useInView } from "motion/react";
 
 type UserData = {
   extraInfo: string;
