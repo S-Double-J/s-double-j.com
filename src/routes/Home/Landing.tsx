@@ -113,13 +113,11 @@ const SmallCircle = styled(motion.div)`
 `;
 
 interface Props {
-  containerRef: React.RefObject<HTMLDivElement>;
   targetRef: React.RefObject<HTMLDivElement>;
 }
-function Landing({ containerRef, targetRef }: Props) {
+function Landing({  targetRef }: Props) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
-    container: containerRef,
     target: targetRef,
     offset: ["start start", "end end"],
     layoutEffect: false,

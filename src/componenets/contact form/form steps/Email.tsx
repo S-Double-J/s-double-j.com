@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import { animate } from "motion";
+import {  useInView } from "motion/react";
 
 type UserData = {
   email: string;
@@ -11,6 +13,17 @@ type FormProps = UserData & {
 export function Email({ email, updateFields }: FormProps) {
   const [hasContent, setHasContent] = useState(!!email);
   const emailRef = useRef<HTMLSpanElement>(null);
+
+  const ref = useRef(null);
+  const isInView = useInView(ref);
+
+  useEffect(() => {
+    animate(
+      "label",
+      { opacity: 1 },
+      { delay: 0.3, duration: 0.4, ease: "easeIn" }
+    );
+  }, [isInView]);
 
   // Sync the email prop with the contentEditable element
   useEffect(() => {
@@ -30,7 +43,7 @@ export function Email({ email, updateFields }: FormProps) {
     if (e.key === "Enter") {
       e.preventDefault();
       e.stopPropagation();
-      
+
       if (hasContent) {
         const form = e.currentTarget.closest("form");
         if (form) {
@@ -45,7 +58,7 @@ export function Email({ email, updateFields }: FormProps) {
   };
 
   return (
-    <label>
+    <label ref={ref} style={{opacity: 0}}>
       <p>You can email me back at</p>
       <span
         ref={emailRef}

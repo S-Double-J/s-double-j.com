@@ -8,9 +8,6 @@ import { useRef } from "react";
 
 const Frame = styled(motion.div)`
   width: 100%;
-  height: calc(100svh - 75px);
-  overflow-y: auto;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   scrollbar-width: none;
@@ -35,32 +32,30 @@ const ColorChangeDiv = styled(motion.div)`
 `;
 
 function Services() {
-
   const updateCSSVariable = (value: string) => {
     if (value === "footer") {
       document.documentElement.style.setProperty("--fg", "var(--bh-red)");
       document.documentElement.style.setProperty("--bg", "var(--bh-light");
-      document.documentElement.style.setProperty("--fg-mb", "var(--bh-mb-light)");
+      document.documentElement.style.setProperty(
+        "--fg-mb",
+        "var(--bh-mb-light)"
+      );
     }
     if (value === "light") {
       document.documentElement.style.setProperty("--bg", "var(--bh-light)");
       document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
-      document.documentElement.style.setProperty(
-        "--fg-mb",
-        "var(--bh-light)"
-      );
+      document.documentElement.style.setProperty("--fg-mb", "var(--bh-light)");
     }
   };
 
-  const container = useRef(null);
   const target = useRef(null);
   return (
-    <Frame onViewportEnter={() => updateCSSVariable("light")} ref={container}>
+    <Frame onViewportEnter={() => updateCSSVariable("light")}>
       <ScrollDiv ref={target}>
-        <Hero container={container} target={target} />
-        <CoverText container={container} target={target} />
+        <Hero target={target} />
+        <CoverText target={target} />
       </ScrollDiv>
-      <Table container={container} />
+      <Table />
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("footer")}
         onViewportLeave={() => updateCSSVariable("light")}

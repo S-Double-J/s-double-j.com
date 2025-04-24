@@ -1,4 +1,7 @@
 import { FormEvent } from "react";
+import { animate } from "motion";
+import {  useInView } from "motion/react";
+import { useEffect, useRef } from "react";
 
 type UserData = {
   projectType: string
@@ -8,6 +11,13 @@ type FormProps = UserData & {
 }
 
 export function ProjectType({ projectType, updateFields }: FormProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref)
+
+  useEffect(()=>{
+    animate("label", { opacity: 1}, { delay: 0.3, duration: 0.4, ease: "easeIn" })
+  }, [isInView])
+
   const handleButtonClick = (buttonType: string, e: FormEvent) => {
     const newValue = projectType === buttonType ? "" : buttonType;
     updateFields({ projectType: newValue });
@@ -18,7 +28,7 @@ export function ProjectType({ projectType, updateFields }: FormProps) {
   };
 
   return (
-    <label>
+    <label ref={ref} style={{opacity: 0}}>
       <p>The project is a</p>
       {[
         "creative webite",

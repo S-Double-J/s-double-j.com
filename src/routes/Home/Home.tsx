@@ -6,16 +6,14 @@ import Footer from "../../componenets/Footer";
 import { useRef } from "react";
 import { motion } from "motion/react";
 
+
 const Frame = styled(motion.div)`
   width: 100%;
-  height: calc(100svh - 75px);
-  overflow-y: auto;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   scrollbar-width: none;
-  position: relative;
   gap: 200px;
+  left: 0;
 `;
 
 const ScrollDiv = styled.div`
@@ -55,26 +53,23 @@ function Home() {
   };
 
   const targetRef = useRef(null);
-  const containerRef = useRef(null);
   return (
     <Frame
-      ref={containerRef}
-      id="containerRef"
     >
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("light")}
         onViewportLeave={() => updateCSSVariable("dark")}
       >
         <ScrollDiv id="focus-scroll-div" ref={targetRef}>
-          <Landing containerRef={containerRef} targetRef={targetRef}></Landing>
-          <Focus containerRef={containerRef} targetRef={targetRef}></Focus>
+          <Landing targetRef={targetRef}></Landing>
+          <Focus targetRef={targetRef}></Focus>
         </ScrollDiv>
       </ColorChangeDiv>
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("dark")}
         onViewportLeave={() => updateCSSVariable("light")}
       >
-        <ServHome containerRef={containerRef}></ServHome>
+        <ServHome></ServHome>
         <Footer></Footer>
       </ColorChangeDiv>
     </Frame>

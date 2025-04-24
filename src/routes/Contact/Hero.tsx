@@ -15,7 +15,8 @@ import { Email } from "../../componenets/contact form/form steps/Email";
 import { Requires } from "../../componenets/contact form/form steps/Requires";
 import { Deadline } from "../../componenets/contact form/form steps/Deadline";
 import { PS } from "../../componenets/contact form/form steps/PS";
-import emailjs from '@emailjs/browser'
+import emailjs from "@emailjs/browser";
+import { animate } from "motion";
 
 const Grid = styled(motion.div)`
   position: relative;
@@ -100,15 +101,18 @@ const Circle = styled(motion.div)`
 `;
 const FormDiv = styled.div`
   position: absolute;
-  top: 25%;
-  left: 0;
-  width: max-content;
-  max-width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
   padding: 20px;
   z-index: 2;
   display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  opacity: 0;
 `;
-const Form = styled.form`
+const Form = styled(motion.form)`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -202,11 +206,17 @@ function Hero() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const submitter = (e.nativeEvent as SubmitEvent).submitter;
+    const currentStepElement = formRef.current?.children[currentStepIndex];
+    const isValidSubmission =
+      submitter && currentStepElement?.contains(submitter);
 
     if (!isLastStep) {
-      return next();
+      if (isValidSubmission) {
+        return next();
+      }
+      return;
     } else if (isLastStep) {
-      const submitter = (e.nativeEvent as SubmitEvent).submitter;
       if (submitter !== subButtonRef.current) {
         return next();
       }
@@ -230,40 +240,79 @@ function Hero() {
         alert(`Please fill out all required fields: ${emptyFields.join(", ")}`);
         return; // Prevent form submission
       }
-      emailjs.send('service_73wrahl', 'template_9eam2j6', data).then(
+      emailjs.send("service_73wrahl", "template_9eam2j6", data).then(
         (response) => {
-          console.log('SUCCESS!', response.status, response.text);
+          console.log("SUCCESS!", response.status, response.text);
         },
         (error) => {
-          console.log('FAILED...', error);
-        },
-      
-      )
-      alert("message sent!");
+          console.log("FAILED...", error);
+        }
+      );
+
+      animate(
+        document.getElementById("form"),
+        { opacity: 0 },
+        { duration: 0.4 }
+      );
+      animate(
+        document.getElementById("form"),
+        { visibility: "hidden" },
+        { delay: 0.4 }
+      );
+      animate(
+        document.getElementById("sent-message"),
+        { visibility: "visible", },
+        { delay: 0.4, }
+      );
+      animate(
+        document.getElementById("sent-message"),
+        { opacity: 1 },
+        { delay: 0.4, duration: 0.4 }
+      );
+      alert(
+        "Thank you for your message! I will endeavour to respond within 3 working days"
+      );
     }
   };
 
   return (
     <Grid>
-      <FormDiv>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+      <FormDiv id="form">
+        <Form ref={formRef} onSubmit={handleSubmit} id="form">
           {renderedSteps}
           <button
             ref={subButtonRef}
             className="form-enter-button"
             style={{
               padding: 0,
-              visibility: currentStepIndex === 6 ? "visible" : "hidden",
+              display: currentStepIndex === 6 ? "block" : "none",
+              cursor: "pointer"
             }}
             type="submit"
           >
-            <p>[ Submit message ]</p>
+            <p style={{  cursor: "pointer"}}>[ Submit message ]</p>
           </button>
         </Form>
       </FormDiv>
+      <h3
+        id="sent-message"
+        style={{
+          position: "absolute",
+          opacity: 0,
+          visibility: "hidden",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          zIndex: 5
+        }}
+      >
+        Message Sent.
+      </h3>
       <TopLeft></TopLeft>
       <TopRight id="top-right-serv-hero">
-        <h1 className="page-title">contact</h1>
+        <h1 id="contact" className="page-title">
+          contact
+        </h1>
         <Eye>
           <Circle style={{ transform }} ref={pupilRef} />
         </Eye>
@@ -271,7 +320,9 @@ function Hero() {
       <BotLeft></BotLeft>
       <BotRight>
         <TextContainer>
-          <h3 className="justify">What's on your mind?</h3>
+          <h3 id="header" className="justify">
+            What's on your mind?
+          </h3>
         </TextContainer>
       </BotRight>
     </Grid>

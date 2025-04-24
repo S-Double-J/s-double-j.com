@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Card from "./Card";
 import cardData from "./CardData";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useScroll } from "motion/react";
 
 const Scroll = styled.div`
@@ -27,14 +27,11 @@ const ArtText = styled.h2`
   font-weight: 900;
   line-height: 34px;
 `;
-interface Props {
-  container: React.RefObject<HTMLDivElement>;
-}
-function Table({ container }: Props) {
+
+function Table() {
   const target = useRef(null);
   const { scrollYProgress } = useScroll({
     target: target,
-    container: container,
     offset: ["start start", "end start"],
     layoutEffect: false,
   });
@@ -45,7 +42,7 @@ function Table({ container }: Props) {
         const targetScale = 1 - (cardData.length - i) * 0.05;
         if (card.id === "CW") {
           return (
-            <Container key={i}>
+            <Container key={i} id="CW">
               <Card
                 key={card.id}
                 title={card.title}
@@ -56,7 +53,7 @@ function Table({ container }: Props) {
                 textColor={card.textColor}
                 i={i}
                 progress={scrollYProgress}
-                range={[(i * 0.33), 1]}
+                range={[i * 0.33, 1]}
                 targetScale={targetScale}
               >
                 <ArtText
@@ -76,7 +73,7 @@ function Table({ container }: Props) {
         }
         if (card.id === "CP") {
           return (
-            <Container key={i}>
+            <Container key={i} id="CP">
               <Card
                 key={card.id}
                 title={card.title}
@@ -87,7 +84,7 @@ function Table({ container }: Props) {
                 textColor={card.textColor}
                 i={i}
                 progress={scrollYProgress}
-                range={[(i * 0.33), 1]}
+                range={[i * 0.33, 1]}
                 targetScale={targetScale}
               >
                 <ArtText>
@@ -109,7 +106,7 @@ function Table({ container }: Props) {
         }
         if (card.id === "CC") {
           return (
-            <Container key={i}>
+            <Container key={i} id="CC">
               <Card
                 key={card.id}
                 title={card.title}
@@ -120,7 +117,7 @@ function Table({ container }: Props) {
                 textColor={card.textColor}
                 i={i}
                 progress={scrollYProgress}
-                range={[0,0]}
+                range={[0, 0]}
                 targetScale={1}
               >
                 <ArtText />

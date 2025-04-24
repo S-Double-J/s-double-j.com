@@ -7,7 +7,6 @@ export default function multiStepForm(steps: ReactElement[]) {
     setCurrentStepIndex((i) => (i >= steps.length - 1 ? i : i + 1));
   }
 
-  // Render all steps up to the current index
   const renderedSteps = steps
     .slice(0, currentStepIndex + 1)
     .map((step, index) => (

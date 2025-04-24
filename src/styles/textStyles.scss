@@ -164,10 +164,12 @@ span[contentEditable="true"] {
   background-color: transparent;
   width: max-content;
   height: min-content;
+  cursor: pointer;
   & > p {
     white-space: nowrap;
     pointer-events: none;
   }
+
 }
 
 .form-enter-button {

@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Grid = styled(motion.div)`
   position: sticky;
   flex-shrink: 0;
-  top: 0;
+  top: 75px;
   left: 0;
   display: grid;
   width: 100%;
@@ -68,10 +68,9 @@ const Circle = styled(motion.div)`
 `;
 
 interface Props {
-  container: React.RefObject<HTMLDivElement>;
   target: React.RefObject<HTMLDivElement>;
 }
-function Hero({ container, target }: Props) {
+function Hero({  target }: Props) {
   const [arr, setArr] = useState<string[]>([]);
 
   useEffect(() => {
@@ -97,12 +96,12 @@ function Hero({ container, target }: Props) {
   }, []);
 
   const { scrollYProgress } = useScroll({
-    container: container,
     target: target,
     offset: ["start start", "end end"],
+    layoutEffect: false
   });
 
-  const opacity = useTransform(scrollYProgress, [0.25, 0.3], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0.15, 0.35], [1, 0]);
 
   return (
     <Grid style={{ opacity }}>
@@ -122,6 +121,7 @@ function Hero({ container, target }: Props) {
           return (
             <C
               i={i}
+              key={i}
               progress={scrollYProgress}
               target={target}
               largestIndex={arr.length}

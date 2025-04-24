@@ -18,6 +18,8 @@ export default function Name({name, updateFields}: FormProps) {
     e.currentTarget.style.borderBottom = "";
   };
 
+  
+
   return (
     <label >
       <p>Hello, my name is</p>
@@ -53,6 +55,7 @@ export default function Name({name, updateFields}: FormProps) {
           }
         }}
       />
+      
     </label>
   );
 }

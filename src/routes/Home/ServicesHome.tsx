@@ -9,6 +9,7 @@ import {
   useTransform,
 } from "motion/react";
 import React, { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const ScrollDiv = styled.div`
   width: 100%;
@@ -22,7 +23,7 @@ const ScrollDiv = styled.div`
 `;
 const Frame = styled(motion.div)`
   position: sticky;
-  top: 0;
+  top: 75px;
   left: 0;
   display: flex;
   padding: 20px;
@@ -50,7 +51,6 @@ const Service = styled(motion.div)`
   transform-style: preserve-3d;
   transform: translateZ(35px);
   transition: background var(--color-transition) ease-in-out;
-  
 `;
 const ServiceBg = styled(motion.div)`
   background-color: var(--fg);
@@ -167,10 +167,14 @@ const ProgressIconIndication = styled(motion.circle)`
   stroke-dashoffset: 0;
   stroke-width: 10;
 `;
-interface Props {
-  containerRef: React.RefObject<HTMLDivElement>;
-}
-function ServHome({ containerRef }: Props) {
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  border: none;
+  background-color: none;
+  box-shadow: none;
+`;
+
+function ServHome() {
   const positiveDeg = "4deg";
   const negativeDeg = "-4deg";
 
@@ -292,9 +296,8 @@ function ServHome({ containerRef }: Props) {
   };
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    container: containerRef,
     target: targetRef,
-    layoutEffect: false
+    layoutEffect: false,
   });
 
   const [scope, animate] = useAnimate();
@@ -358,180 +361,186 @@ function ServHome({ containerRef }: Props) {
             }}
           />
         </ProgressIcon>
-        <ServiceBg
-          id="serviceBg1"
-          onMouseMove={handleMouseMove1}
-          onMouseLeave={handleMouseLeave1}
-          style={{
-            rotateX: rotateX1,
-            rotateY: rotateY1,
-            y: "-150vh",
-          }}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <Service>
-            <InnerTop>
-              <h2
-                style={{
-                  fontSize: 140,
-                  fontWeight: 700,
-                  lineHeight: "105px",
-                  transform: bigZ,
-                }}
-              >
-                CW
-              </h2>
-              <TopBottom>
-                <p className="uppercase " style={{ transform: smallZ }}>
-                  commercial website
+        <CustomLink to={{ pathname: "services", hash: "CW" }}>
+          <ServiceBg
+            id="serviceBg1"
+            onMouseMove={handleMouseMove1}
+            onMouseLeave={handleMouseLeave1}
+            style={{
+              rotateX: rotateX1,
+              rotateY: rotateY1,
+              y: "-150vh",
+            }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <Service>
+              <InnerTop>
+                <h2
+                  style={{
+                    fontSize: 140,
+                    fontWeight: 700,
+                    lineHeight: "105px",
+                    transform: bigZ,
+                  }}
+                >
+                  CW
+                </h2>
+                <TopBottom>
+                  <p className="uppercase " style={{ transform: smallZ }}>
+                    commercial website
+                  </p>
+                </TopBottom>
+              </InnerTop>
+              <InnerMid>
+                <p className=" justify" style={{ transform: smallZ }}>
+                  Sometimes you don’t need a website with all the techy
+                  trimmings and tiny designy details. Sometimes you just need to
+                  get online with a website that fulfils your business’s unique
+                  needs. Let's find those tangible results you’re looking for.
                 </p>
-              </TopBottom>
-            </InnerTop>
-            <InnerMid>
-              <p className=" justify" style={{ transform: smallZ }}>
-                Sometimes you don’t need a website with all the techy trimmings
-                and tiny designy details. Sometimes you just need to get online
-                with a website that fulfils your business’s unique needs. Let's
-                find those tangible results you’re looking for.
-              </p>
-            </InnerMid>
-            <InnerBottom>
-              <p className=" justify" style={{ transform: smallZ }}>
-                01
-              </p>
-              <Circle>
-                <CircleHalf
-                  style={{
-                    backgroundColor: "#434141",
-                  }}
-                />
-                <CircleHalf
-                  style={{
-                    backgroundColor: "#D4CABB",
-                  }}
-                />
-              </Circle>
-            </InnerBottom>
-          </Service>
-        </ServiceBg>
-        <ServiceBg
-          id="serviceBg2"
-          onMouseMove={handleMouseMove2}
-          onMouseLeave={handleMouseLeave2}
-          style={{
-            rotateX: rotateX2,
-            rotateY: rotateY2,
-            y: "-150vh",
-          }}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <Service>
-            <InnerTop>
-              <h2
-                className=""
-                style={{
-                  fontSize: 140,
-                  fontWeight: 700,
-                  lineHeight: "105px",
-                  transform: bigZ,
-                }}
-              >
-                CP
-              </h2>
-              <TopBottom>
-                <p className="uppercase " style={{ transform: smallZ }}>
-                  creative project
+              </InnerMid>
+              <InnerBottom>
+                <p className=" justify" style={{ transform: smallZ }}>
+                  01
                 </p>
-              </TopBottom>
-            </InnerTop>
-            <InnerMid>
-              <p className=" justify" style={{ transform: smallZ }}>
-                Do you need a state of the art website? Sweet. Creating
-                interactive and interesting digital experiences is exactly what
-                I love to do. Together we’ll find the overlap between
-                aesthetics, cutting-edge tech, and creative thinking to make
-                your website turn heads.
-              </p>
-            </InnerMid>
-            <InnerBottom>
-              <p className=" justify" style={{ transform: smallZ }}>
-                02
-              </p>
-              <Circle>
-                <CircleHalf
+                <Circle>
+                  <CircleHalf
+                    style={{
+                      backgroundColor: "#434141",
+                    }}
+                  />
+                  <CircleHalf
+                    style={{
+                      backgroundColor: "#D4CABB",
+                    }}
+                  />
+                </Circle>
+              </InnerBottom>
+            </Service>
+          </ServiceBg>
+        </CustomLink>
+        <CustomLink to={{ pathname: "services", hash: "CP" }}>
+          <ServiceBg
+            id="serviceBg2"
+            onMouseMove={handleMouseMove2}
+            onMouseLeave={handleMouseLeave2}
+            style={{
+              rotateX: rotateX2,
+              rotateY: rotateY2,
+              y: "-150vh",
+            }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <Service>
+              <InnerTop>
+                <h2
+                  className=""
                   style={{
-                    backgroundColor: "#434141",
+                    fontSize: 140,
+                    fontWeight: 700,
+                    lineHeight: "105px",
+                    transform: bigZ,
                   }}
-                />
-                <CircleHalf
-                  style={{
-                    backgroundColor: "#D4CABB",
-                  }}
-                />
-              </Circle>
-            </InnerBottom>
-          </Service>
-        </ServiceBg>
-        <ServiceBg
-          id="serviceBg3"
-          onMouseMove={handleMouseMove3}
-          onMouseLeave={handleMouseLeave3}
-          style={{
-            rotateX: rotateX3,
-            rotateY: rotateY3,
-            y: "-150vh",
-          }}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <Service>
-            <InnerTop>
-              <h2
-                className=""
-                style={{
-                  fontSize: 140,
-                  fontWeight: 700,
-                  lineHeight: "105px",
-                  transform: bigZ,
-                }}
-              >
-                CC
-              </h2>
-              <TopBottom>
-                <p className="uppercase " style={{ transform: smallZ }}>
-                  content consultation
+                >
+                  CP
+                </h2>
+                <TopBottom>
+                  <p className="uppercase " style={{ transform: smallZ }}>
+                    creative project
+                  </p>
+                </TopBottom>
+              </InnerTop>
+              <InnerMid>
+                <p className=" justify" style={{ transform: smallZ }}>
+                  Do you need a state of the art website? Sweet. Creating
+                  interactive and interesting digital experiences is exactly
+                  what I love to do. Together we’ll find the overlap between
+                  aesthetics, cutting-edge tech, and creative thinking to make
+                  your website turn heads.
                 </p>
-              </TopBottom>
-            </InnerTop>
-            <InnerMid>
-              <p className=" justify" style={{ transform: smallZ }}>
-                So you’re making your website yourself? You’re the type of
-                person who likes to get their hands dirty. But there’s a lot
-                going on when making a website, and maybe you don’t know where
-                to start. I’ll help you get on your feet and find your voice.
-              </p>
-            </InnerMid>
-            <InnerBottom>
-              <p className=" justify" style={{ transform: smallZ }}>
-                01
-              </p>
-              <Circle>
-                <CircleHalf
+              </InnerMid>
+              <InnerBottom>
+                <p className=" justify" style={{ transform: smallZ }}>
+                  02
+                </p>
+                <Circle>
+                  <CircleHalf
+                    style={{
+                      backgroundColor: "#434141",
+                    }}
+                  />
+                  <CircleHalf
+                    style={{
+                      backgroundColor: "#D4CABB",
+                    }}
+                  />
+                </Circle>
+              </InnerBottom>
+            </Service>
+          </ServiceBg>
+        </CustomLink>
+        <CustomLink to={{ pathname: "services", hash: "CC" }}>
+          <ServiceBg
+            id="serviceBg3"
+            onMouseMove={handleMouseMove3}
+            onMouseLeave={handleMouseLeave3}
+            style={{
+              rotateX: rotateX3,
+              rotateY: rotateY3,
+              y: "-150vh",
+            }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <Service>
+              <InnerTop>
+                <h2
+                  className=""
                   style={{
-                    backgroundColor: "#434141",
+                    fontSize: 140,
+                    fontWeight: 700,
+                    lineHeight: "105px",
+                    transform: bigZ,
                   }}
-                />
-                <CircleHalf
-                  style={{
-                    backgroundColor: "#D4CABB",
-                  }}
-                />
-              </Circle>
-            </InnerBottom>
-          </Service>
-        </ServiceBg>
+                >
+                  CC
+                </h2>
+                <TopBottom>
+                  <p className="uppercase " style={{ transform: smallZ }}>
+                    content consultation
+                  </p>
+                </TopBottom>
+              </InnerTop>
+              <InnerMid>
+                <p className=" justify" style={{ transform: smallZ }}>
+                  So you’re making your website yourself? You’re the type of
+                  person who likes to get their hands dirty. But there’s a lot
+                  going on when making a website, and maybe you don’t know where
+                  to start. I’ll help you get on your feet and find your voice.
+                </p>
+              </InnerMid>
+              <InnerBottom>
+                <p className=" justify" style={{ transform: smallZ }}>
+                  01
+                </p>
+                <Circle>
+                  <CircleHalf
+                    style={{
+                      backgroundColor: "#434141",
+                    }}
+                  />
+                  <CircleHalf
+                    style={{
+                      backgroundColor: "#D4CABB",
+                    }}
+                  />
+                </Circle>
+              </InnerBottom>
+            </Service>
+          </ServiceBg>
+        </CustomLink>
         <Overlay>
           <OverlayLine>
             {["W", "H", "A", "T", "z"].map((l, i) => {

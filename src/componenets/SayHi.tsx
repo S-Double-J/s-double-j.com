@@ -1,4 +1,6 @@
+import { animate } from "motion";
 import { forwardRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -25,15 +27,42 @@ const Button = styled.button`
   }
 `;
 
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  border: none;
+  background-color: none;
+  box-shadow: none;
+`;
+
 interface Props {
   center: boolean;
 }
 
 const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
+  const handleClick = () => {
+    const title = document.getElementById("contact");
+    const header = document.getElementById("header");
+    const button = document.getElementById("center-button");
+    const form = document.getElementById("form");
+    console.log("button clicked", title, header);
+    animate(title, { visibility: "hidden" }, { delay: 0.4 });
+    animate(header, { visibility: "hidden" }, { delay: 0.4 });
+    animate(button, { visibility: "hidden" }, { delay: 0.4 });
+    animate(
+      form,
+      { opacity: 1 },
+      { delay: 0.3, duration: 0.4, ease: "easeIn" }
+    );
+    animate(title, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
+    animate(header, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
+    animate(button, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
+  };
   if (center === true) {
     return (
       <Button
+        onClick={handleClick}
         ref={ref}
+        id="center-button"
         style={{
           bottom: "50%",
           right: "50%",
@@ -51,9 +80,11 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
     );
   }
   return (
-    <Button ref={ref}>
-      <p className="large mix-blend-diff">Say hi</p>
-    </Button>
+    <CustomLink to='contact'>
+      <Button ref={ref}>
+        <p className="large mix-blend-diff">Say hi</p>
+      </Button>
+    </CustomLink>
   );
 });
 SayHi.displayName = "SayHi";

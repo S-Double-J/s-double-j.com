@@ -1,4 +1,7 @@
 import { FormEvent, useState } from "react";
+import { animate } from "motion";
+import {  useInView } from "motion/react";
+import { useEffect, useRef } from "react";
 
 type UserData = {
   requires: string[];
@@ -10,6 +13,12 @@ type FormProps = UserData & {
 
 export function Requires({ requires, updateFields }: FormProps) {
   const [localSelection, setLocalSelection] = useState<string[]>(requires);
+  const ref = useRef(null)
+  const isInView = useInView(ref)
+
+  useEffect(()=>{
+    animate("label", { opacity: 1}, { delay: 0.3, duration: 0.4, ease: "easeIn" })
+  }, [isInView])
 
   const handleButtonClick = (buttonType: string) => {
     if(requires.length !== 0){
@@ -40,7 +49,7 @@ export function Requires({ requires, updateFields }: FormProps) {
   ];
 
   return (
-    <label>
+    <label ref={ref} style={{opacity: 0}}>
       <p>which requires</p>
       {buttonConfig.map((button) => (
         <button
@@ -55,9 +64,10 @@ export function Requires({ requires, updateFields }: FormProps) {
             backgroundColor: localSelection.includes(button.type)
               ? "rgba(244, 192, 192, 0.5)"
               : "transparent",
+              cursor: "pointer"
           }}
         >
-          <p>{button.label}</p>
+          <p style={{cursor: "pointer"}}>{button.label}</p>
         </button>
       ))}
       <button
@@ -66,9 +76,10 @@ export function Requires({ requires, updateFields }: FormProps) {
         onClick={(e) => handleSubmit(e)}
         style={{
           display: requires.length > 0 ? "none" : "block",
+          cursor: "pointer"
         }}
       >
-        <p>[ Enter ]</p>
+        <p style={{cursor: "pointer"}}>[ Enter ]</p>
       </button>
     </label>
   );

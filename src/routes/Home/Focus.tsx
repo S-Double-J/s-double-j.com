@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Grid = styled.div`
   position: sticky;
-  top: 0;
+  top: 75px;
   left: 0;
   flex-shrink: 0;
   display: grid;
@@ -73,18 +73,15 @@ const FocusText = styled.p`
 `;
 
 interface Props {
-  containerRef: React.RefObject<HTMLDivElement>;
   targetRef: React.RefObject<HTMLDivElement>;
 }
-function Focus({ containerRef, targetRef }: Props) {
+function Focus({  targetRef }: Props) {
   const { scrollYProgress } = useScroll({
-    container: containerRef,
     target: targetRef,
     layoutEffect: false
   });
 
     const { scrollYProgress: gradientScrollYProgress } = useScroll({
-      container: containerRef,
       target: targetRef,
       layoutEffect: false,
       offset: ["0.35 1.5", "1 1.2"],
@@ -120,7 +117,7 @@ function Focus({ containerRef, targetRef }: Props) {
             fontFamily: "Xanh Mono",
             fontStyle: "italic",
             position: "absolute",
-            top: 40,
+            top: 120,
             zIndex: 2,
           }}
         >

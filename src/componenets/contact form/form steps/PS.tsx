@@ -1,4 +1,6 @@
 import { useRef, useEffect } from "react";
+import { animate } from "motion";
+import { motion, useInView } from "motion/react";
 
 type UserData = {
   extraInfo: string;
@@ -10,6 +12,12 @@ type FormProps = UserData & {
 
 export function PS({ extraInfo, updateFields }: FormProps) {
   const psRef = useRef<HTMLSpanElement>(null);
+  const ref = useRef(null)
+  const isInView = useInView(ref)
+
+useEffect(()=>{
+  animate("label", { opacity: 1}, { delay: 0.3, duration: 0.4, ease: "easeIn" })
+}, [isInView])
 
   // Sync the ps prop with the contentEditable element
   useEffect(() => {
@@ -29,12 +37,14 @@ extraInfo    }
 
   return (
     <label
+    ref={ref}
       style={{
         paddingBottom: 10,
         display: "flex",
         flexDirection: "column",
         gap: 10,
         width: "100%",
+        opacity: 0
       }}
     >
       <p>P.S.</p>

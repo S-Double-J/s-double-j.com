@@ -3,8 +3,6 @@ import { motion, useMotionValue, useSpring } from "motion/react";
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 const Cursor = styled(motion.div)`
-  width: 10px;
-  height: 20px;
   background-color: var(--fg-mb);
   mix-blend-mode: difference;
   position: fixed;
@@ -109,6 +107,7 @@ function StickyCursor({ stickyElements }: Props) {
 
   return (
     <Cursor
+    className="cursor"
       ref={cursorRef}
       style={{
         left: smoothMouse.x,

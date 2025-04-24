@@ -60,18 +60,15 @@ const ArtContainer = styled(motion.div)`
   position: relative;
 `;
 interface Props {
-  container: React.RefObject<HTMLDivElement>;
   target: React.RefObject<HTMLDivElement>;
 }
-function CoverText({ container, target }: Props) {
+function CoverText({  target }: Props) {
   const { scrollYProgress } = useScroll({
-    container: container,
     target: target,
     layoutEffect: false,
   });
 
   const { scrollYProgress: gradientScrollYProgress } = useScroll({
-    container: container,
     target: target,
     layoutEffect: false,
     offset: ["0.4 1.5", "0.8 0.8"],
@@ -109,7 +106,7 @@ function CoverText({ container, target }: Props) {
       </TextBox>
       <ArtGridArea>
         <ArtContainer style={{opacity}}>
-          <motion.img src="src/assets/CoverArt.svg" style={{opacity}} />
+          <motion.img src="public/CoverArt.svg" style={{opacity}} />
         </ArtContainer>
       </ArtGridArea>
     </Grid>
