@@ -47,7 +47,7 @@ const cardData = [
       "As many sessions as you need",
     ],
     desc: "This service aims to provide clients with guidance and advice in the creation of their text, image and video content (This does not include design advice!). This service is provided over video call. There are two work flows we can follow: We can meet, share ideas and I’ll help you get started, then we will come together again at a later date to edit the text copy you have produced in the meantime. Alternatively we could sit down and curate your content together each step of the way. I charge hourly and you can book your sessions easily through Cal.com.",
-    artSrc: "public/CC.svg",
+    artSrc: "CC.svg",
     gridBgColor: "var(--brutal-dark)",
     textColor: "var(--bh-light)"
   },
