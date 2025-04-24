@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Grid = styled.div`
   position: sticky;
-  top: 0;
+  top: 75px;
   left: 0;
   flex-shrink: 0;
   display: grid;
