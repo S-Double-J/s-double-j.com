@@ -11,9 +11,7 @@ const Frame = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  scrollbar-width: none;
   gap: 200px;
-  left: 0;
 `;
 
 const ScrollDiv = styled.div`

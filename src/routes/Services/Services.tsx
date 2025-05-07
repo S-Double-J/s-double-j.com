@@ -10,7 +10,6 @@ const Frame = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  scrollbar-width: none;
   position: relative;
   gap: 200px;
 `;
@@ -38,10 +37,10 @@ function Services() {
       document.documentElement.style.setProperty("--bg", "var(--bh-light");
       document.documentElement.style.setProperty(
         "--fg-mb",
-        "var(--bh-mb-light)"
+        "var(--bh-mb-red)"
       );
     }
-    if (value === "light") {
+    if (value === "bauhaus") {
       document.documentElement.style.setProperty("--bg", "var(--bh-light)");
       document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
       document.documentElement.style.setProperty("--fg-mb", "var(--bh-light)");
@@ -50,15 +49,18 @@ function Services() {
 
   const target = useRef(null);
   return (
-    <Frame onViewportEnter={() => updateCSSVariable("light")}>
-      <ScrollDiv ref={target}>
+    <Frame >
+      <ColorChangeDiv  onViewportEnter={() => updateCSSVariable("bauhaus")}
+        onViewportLeave={() => updateCSSVariable("footer")} >
+      <ScrollDiv ref={target} >
         <Hero target={target} />
         <CoverText target={target} />
       </ScrollDiv>
+      </ColorChangeDiv>
       <Table />
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("footer")}
-        onViewportLeave={() => updateCSSVariable("light")}
+        onViewportLeave={() => updateCSSVariable("bauhaus")}
       >
         <Footer />
       </ColorChangeDiv>

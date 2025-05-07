@@ -1,26 +1,26 @@
 import { useState } from "react";
 
 type UserData = {
-  name: string
-}
+  name: string;
+};
 type FormProps = UserData & {
-  updateFields: (fields: Partial<UserData>) => void
-}
+  updateFields: (fields: Partial<UserData>) => void;
+};
 
-export default function Name({name, updateFields}: FormProps) {
+export default function Name({ name, updateFields }: FormProps) {
   const [hasContent, setHasContent] = useState(!!name.trim());
   const [showButton, setShowButton] = useState(true);
 
   const handleInput = (e: React.FormEvent<HTMLSpanElement>) => {
     const content = e.currentTarget.textContent || "";
-    updateFields({name: content});
+    updateFields({ name: content });
     setHasContent(!!content.trim());
-    
+
     // Show button again if content is edited after submission
     if (!showButton) {
       setShowButton(true);
     }
-    
+
     e.currentTarget.style.borderBottom = "";
   };
 
@@ -28,7 +28,7 @@ export default function Name({name, updateFields}: FormProps) {
     if (e.key === "Enter") {
       e.preventDefault();
       e.stopPropagation();
-      
+
       if (hasContent) {
         setShowButton(false);
         const form = e.currentTarget.closest("form");
@@ -40,6 +40,8 @@ export default function Name({name, updateFields}: FormProps) {
       } else {
         e.currentTarget.style.borderBottom = "4px solid red";
       }
+    } else {
+      return;
     }
   };
 
@@ -85,7 +87,7 @@ export default function Name({name, updateFields}: FormProps) {
           }}
         />
         {showButton && (
-          <button 
+          <button
             onClick={handleButtonClick}
             tabIndex={-1}
             style={{
@@ -97,7 +99,7 @@ export default function Name({name, updateFields}: FormProps) {
               fontSize: "inherit",
               fontFamily: "inherit",
               outline: "none",
-              userSelect: "none"
+              userSelect: "none",
             }}
             aria-label="Submit form"
             onMouseDown={(e) => e.preventDefault()}

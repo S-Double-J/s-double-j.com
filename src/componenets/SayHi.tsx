@@ -21,6 +21,32 @@ const Button = styled.button`
   transition: background-color var(--color-transition) ease-in-out;
   transition: opacity 0.3s ease-in-out;
   opacity: var(--sh-opacity);
+  display: var(--sh-visibility);
+  & > p {
+    font-weight: 900;
+    pointer-events: none;
+  }
+`;
+
+const CenterButton = styled.button`
+  display: flex;
+  padding: 10px 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  border: none;
+  background: none;
+  position: absolute;
+  left: 50svw;
+  top: 50svh;
+  background-color: var(--fg-mb);
+  mix-blend-mode: difference;
+  z-index: 20;
+  cursor: pointer;
+  transition: background-color var(--color-transition) ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  opacity: var(--sh-cen-opacity);
+  visibility: var(--sh-cen-visibility);
   & > p {
     font-weight: 900;
     pointer-events: none;
@@ -44,7 +70,6 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
     const header = document.getElementById("header");
     const button = document.getElementById("center-button");
     const form = document.getElementById("form");
-    console.log("button clicked", title, header);
     animate(title, { visibility: "hidden" }, { delay: 0.4 });
     animate(header, { visibility: "hidden" }, { delay: 0.4 });
     animate(button, { visibility: "hidden" }, { delay: 0.4 });
@@ -59,28 +84,13 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
   };
   if (center === true) {
     return (
-      <Button
-        onClick={handleClick}
-        ref={ref}
-        id="center-button"
-        style={{
-          bottom: "50%",
-          right: "50%",
-          transform: "translate(50%, 50%)",
-          backgroundColor: "var(--absurd-light)",
-          mixBlendMode: "normal",
-          position: "absolute",
-          opacity: "var(--sh-cen-opacity)",
-          visibility:
-            "var(--sh-cen-visibility)" as React.CSSProperties["visibility"],
-        }}
-      >
+      <CenterButton onClick={handleClick} ref={ref} id="center-button">
         <p className="large mix-blend-diff">Say hi</p>
-      </Button>
+      </CenterButton>
     );
   }
   return (
-    <CustomLink to='contact'>
+    <CustomLink to={{pathname: "contact", hash: "form-grid", }}>
       <Button ref={ref}>
         <p className="large mix-blend-diff">Say hi</p>
       </Button>

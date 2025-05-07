@@ -5,8 +5,8 @@
   --brutal-red: #710000;
   --bh-light: #eddfd8;
   --bh-red: #9a4034;
-  --bh-mb-red: #519b9b;
-  --bh-mb-light: #476c77;
+  --bh-mb-red: #44a4a4;
+  --bh-mb-light: #b8b8b8;
   --absurd-red: #ce1919;
   --absurd-light: #d3f2ef;
   --absurd-mb-light: #00fff7;
@@ -17,6 +17,7 @@
   --color-transition: 0.3s;
 
   --sh-opacity: 1;
+  --sh-visibility: none;
   --sh-cen-opacity: 0;
   --sh-cen-visibility: hidden;
 

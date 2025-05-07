@@ -8,7 +8,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ScrollDiv = styled.div`
@@ -20,6 +20,7 @@ const ScrollDiv = styled.div`
   justify-content: start;
   position: relative;
   flex-direction: column;
+  z-index: 1;
 `;
 const Frame = styled(motion.div)`
   position: sticky;
@@ -36,6 +37,21 @@ const Frame = styled(motion.div)`
   flex-shrink: 0;
   background-color: var(--bg);
   transition: background var(--color-transition) ease-in-out;
+  z-index: 1;
+  @media screen and (max-width: 1270px) {
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+  }
+`;
+const Container = styled.div`
+  height: calc(100svh - 75px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 75px;
 `;
 const Service = styled(motion.div)`
   display: flex;
@@ -51,6 +67,19 @@ const Service = styled(motion.div)`
   transform-style: preserve-3d;
   transform: translateZ(35px);
   transition: background var(--color-transition) ease-in-out;
+  @media screen and (max-width: 1570px) {
+    width: 250px;
+    height: 350px;
+  }
+  @media screen and (max-width: 1270px) {
+    width: 450px;
+    height: 450px;
+  }
+  @media screen and (max-width: 700px) {
+    width: 250px;
+    height: 350px;
+    padding: 20px;
+  }
 `;
 const ServiceBg = styled(motion.div)`
   background-color: var(--fg);
@@ -89,6 +118,21 @@ const TopBottom = styled.div`
   flex: 1 0 0;
   align-self: stretch;
   transform-style: preserve-3d;
+  @media screen and (max-width: 1570px) {
+    & > p {
+      font-size: 12px;
+    }
+  }
+  @media screen and (max-width: 1270px) {
+    & > p {
+      font-size: 16px;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    & > p {
+      font-size: 12px;
+    }
+  }
 `;
 const InnerMid = styled.div`
   display: flex;
@@ -101,6 +145,21 @@ const InnerMid = styled.div`
   border-top-color: var(--fg);
   transition: border var(--color-transition) ease-in-out;
   transform-style: preserve-3d;
+  @media screen and (max-width: 1570px) {
+    & > p {
+      font-size: 12px;
+    }
+  }
+  @media screen and (max-width: 1270px) {
+    & > p {
+      font-size: 16px;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    & > p {
+      font-size: 12px;
+    }
+  }
 `;
 const InnerBottom = styled.div`
   display: flex;
@@ -125,7 +184,16 @@ const CircleHalf = styled.div`
   height: 10px;
   flex-shrink: 0;
 `;
-
+const OverlayContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  mix-blend-mode: exclusion;
+  pointer-events: none;
+`;
 const Overlay = styled.div`
   display: flex;
   width: 100%;
@@ -133,7 +201,8 @@ const Overlay = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
-  position: absolute;
+  position: sticky;
+  top: 75px;
   padding: 20px;
   box-sizing: border-box;
   pointer-events: none;
@@ -142,6 +211,7 @@ const OverlayLine = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
 `;
 const OverlayText = styled.p`
   color: var(--brutal-red);
@@ -150,6 +220,12 @@ const OverlayText = styled.p`
   mix-blend-mode: exclusion;
   margin-top: calc((-100vh + 115px) / 12);
   margin-bottom: calc((-100vh + 115px) / 14);
+  @media screen and (max-aspect-ratio: 1/1){
+    font-size: 20vw;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
 `;
 const ProgressIcon = styled(motion.svg)`
   position: absolute;
@@ -167,11 +243,15 @@ const ProgressIconIndication = styled(motion.circle)`
   stroke-dashoffset: 0;
   stroke-width: 10;
 `;
-const CustomLink = styled(Link)`
+const CustomLink = styled(motion(Link))`
   text-decoration: none;
   border: none;
   background-color: none;
   box-shadow: none;
+  position: relative;
+  @media screen and (max-width: 1270px){
+    top: -10%;
+  }
 `;
 
 function ServHome() {
@@ -199,6 +279,8 @@ function ServHome() {
   );
 
   const handleMouseMove1 = (e: React.MouseEvent<HTMLDivElement>) => {
+
+    console.log('element hovered')
     const rect = e.currentTarget.getBoundingClientRect();
 
     const width = rect.width;
@@ -298,11 +380,12 @@ function ServHome() {
   const { scrollYProgress } = useScroll({
     target: targetRef,
     layoutEffect: false,
+    offset: ["start start", "end start"],
   });
 
   const [scope, animate] = useAnimate();
 
-  const isInView = useInView(scope, { once: true, amount: "all" });
+  const isInView = useInView(scope, { once: true, amount: 0.2 });
   const duration = 2.5;
   const bounce = 0.4;
 
@@ -340,274 +423,310 @@ function ServHome() {
     }
   }, [isInView]);
 
+  const scale1 = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  const scale2 = useTransform(scrollYProgress, [0.33, 1], [1, 0.9]);
+
+  const [columnLayout, setColumnLayout] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const shouldUseColumnLayout = window.innerWidth <= 1270;
+      setColumnLayout(shouldUseColumnLayout);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <ScrollDiv ref={targetRef}>
       <Frame id="My Services" ref={scope}>
-        <ProgressIcon width="75" height="75" viewBox="0 0 100 100">
-          <ProgressIconBg
-            cx="50"
-            cy="50"
-            r="40"
-            pathLength="1"
-            className="bg"
-          />
-          <ProgressIconIndication
-            cx="50"
-            cy="50"
-            r="40"
-            pathLength="1"
-            style={{
-              pathLength: scrollYProgress,
-            }}
-          />
-        </ProgressIcon>
-        <CustomLink to={{ pathname: "services", hash: "CW" }}>
-          <ServiceBg
-            id="serviceBg1"
-            onMouseMove={handleMouseMove1}
-            onMouseLeave={handleMouseLeave1}
-            style={{
-              rotateX: rotateX1,
-              rotateY: rotateY1,
-              y: "-150vh",
-            }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+        <OverlayContainer>
+          <ProgressIcon width="75" height="75" viewBox="0 0 100 100">
+            <ProgressIconBg
+              cx="50"
+              cy="50"
+              r="40"
+              pathLength="1"
+              className="bg"
+            />
+            <ProgressIconIndication
+              cx="50"
+              cy="50"
+              r="40"
+              pathLength="1"
+              style={{
+                pathLength: scrollYProgress,
+              }}
+            />
+          </ProgressIcon>
+          <Overlay>
+            <OverlayLine>
+              {["W", "H", "A", "T", "z"].map((l, i) => {
+                if (l === "z") {
+                  return (
+                    <OverlayText style={{ opacity: 0 }} key={i}>
+                      {l}
+                    </OverlayText>
+                  );
+                } else {
+                  return <OverlayText key={i}>{l}</OverlayText>;
+                }
+              })}
+            </OverlayLine>
+            <OverlayLine>
+              {["C", "O", "U", "L", "D"].map((l, i) => {
+                if (l === "z") {
+                  return (
+                    <OverlayText style={{ opacity: 0 }} key={i}>
+                      {l}
+                    </OverlayText>
+                  );
+                } else {
+                  return <OverlayText key={i}>{l}</OverlayText>;
+                }
+              })}
+            </OverlayLine>
+            <OverlayLine>
+              {["I", "z", "D", "O", "z"].map((l, i) => {
+                if (l === "z") {
+                  return (
+                    <OverlayText style={{ opacity: 0 }} key={i}>
+                      {l}
+                    </OverlayText>
+                  );
+                } else {
+                  return <OverlayText key={i}>{l}</OverlayText>;
+                }
+              })}
+            </OverlayLine>
+            <OverlayLine>
+              {["F", "O", "R", "z", "z"].map((l, i) => {
+                if (l === "z") {
+                  return (
+                    <OverlayText style={{ opacity: 0 }} key={i}>
+                      {l}
+                    </OverlayText>
+                  );
+                } else {
+                  return <OverlayText key={i}>{l}</OverlayText>;
+                }
+              })}
+            </OverlayLine>
+            <OverlayLine>
+              {["Y", "O", "U", "?", "z"].map((l, i) => {
+                if (l === "z") {
+                  return (
+                    <OverlayText style={{ opacity: 0 }} key={i}>
+                      {l}
+                    </OverlayText>
+                  );
+                } else {
+                  return <OverlayText key={i}>{l}</OverlayText>;
+                }
+              })}
+            </OverlayLine>
+          </Overlay>
+        </OverlayContainer>
+        <Container>
+          <CustomLink
+            to={{ pathname: "services", hash: "CW" }}
+            style={columnLayout ? { scale: scale1 } : undefined}
           >
-            <Service>
-              <InnerTop>
-                <h2
-                  style={{
-                    fontSize: 140,
-                    fontWeight: 700,
-                    lineHeight: "105px",
-                    transform: bigZ,
-                  }}
-                >
-                  CW
-                </h2>
-                <TopBottom>
-                  <p className="uppercase " style={{ transform: smallZ }}>
-                    commercial website
+            <ServiceBg
+              id="serviceBg1"
+              onMouseMove={handleMouseMove1}
+              onMouseLeave={handleMouseLeave1}
+              style={{
+                rotateX: rotateX1,
+                rotateY: rotateY1,
+                y: "-150vh",
+              }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <Service>
+                <InnerTop>
+                  <h2
+                    className="services-home-h2"
+                    style={{
+                      fontWeight: 700,
+                      lineHeight: "105px",
+                      transform: bigZ,
+                    }}
+                  >
+                    CW
+                  </h2>
+                  <TopBottom>
+                    <p className="uppercase " style={{ transform: smallZ }}>
+                      commercial website
+                    </p>
+                  </TopBottom>
+                </InnerTop>
+                <InnerMid>
+                  <p className=" justify" style={{ transform: smallZ }}>
+                    Sometimes you don’t need a website with all the techy
+                    trimmings and tiny designy details. Sometimes you just need
+                    to get online with a website that fulfils your business’s
+                    unique needs. Let's find those tangible results you’re
+                    looking for.
                   </p>
-                </TopBottom>
-              </InnerTop>
-              <InnerMid>
-                <p className=" justify" style={{ transform: smallZ }}>
-                  Sometimes you don’t need a website with all the techy
-                  trimmings and tiny designy details. Sometimes you just need to
-                  get online with a website that fulfils your business’s unique
-                  needs. Let's find those tangible results you’re looking for.
-                </p>
-              </InnerMid>
-              <InnerBottom>
-                <p className=" justify" style={{ transform: smallZ }}>
-                  01
-                </p>
-                <Circle>
-                  <CircleHalf
-                    style={{
-                      backgroundColor: "#434141",
-                    }}
-                  />
-                  <CircleHalf
-                    style={{
-                      backgroundColor: "#D4CABB",
-                    }}
-                  />
-                </Circle>
-              </InnerBottom>
-            </Service>
-          </ServiceBg>
-        </CustomLink>
-        <CustomLink to={{ pathname: "services", hash: "CP" }}>
-          <ServiceBg
-            id="serviceBg2"
-            onMouseMove={handleMouseMove2}
-            onMouseLeave={handleMouseLeave2}
-            style={{
-              rotateX: rotateX2,
-              rotateY: rotateY2,
-              y: "-150vh",
-            }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+                </InnerMid>
+                <InnerBottom>
+                  <p className=" justify" style={{ transform: smallZ }}>
+                    01
+                  </p>
+                  <Circle>
+                    <CircleHalf
+                      style={{
+                        backgroundColor: "#434141",
+                      }}
+                    />
+                    <CircleHalf
+                      style={{
+                        backgroundColor: "#D4CABB",
+                      }}
+                    />
+                  </Circle>
+                </InnerBottom>
+              </Service>
+            </ServiceBg>
+          </CustomLink>
+        </Container>
+        <Container>
+          <CustomLink
+            to={{ pathname: "services", hash: "CP" }}
+            style={ columnLayout ? { top: `calc(-10% + 75px)`, scale: scale2 } : undefined}
           >
-            <Service>
-              <InnerTop>
-                <h2
-                  className=""
-                  style={{
-                    fontSize: 140,
-                    fontWeight: 700,
-                    lineHeight: "105px",
-                    transform: bigZ,
-                  }}
-                >
-                  CP
-                </h2>
-                <TopBottom>
-                  <p className="uppercase " style={{ transform: smallZ }}>
-                    creative project
+            <ServiceBg
+              id="serviceBg2"
+              onMouseMove={handleMouseMove2}
+              onMouseLeave={handleMouseLeave2}
+              style={{
+                rotateX: rotateX2,
+                rotateY: rotateY2,
+                y: "-150vh",
+              }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <Service>
+                <InnerTop>
+                  <h2
+                    className="services-home-h2"
+                    style={{
+                      fontWeight: 700,
+                      lineHeight: "105px",
+                      transform: bigZ,
+                    }}
+                  >
+                    CP
+                  </h2>
+                  <TopBottom>
+                    <p className="uppercase " style={{ transform: smallZ }}>
+                      creative project
+                    </p>
+                  </TopBottom>
+                </InnerTop>
+                <InnerMid>
+                  <p className=" justify" style={{ transform: smallZ }}>
+                    Do you need a state of the art website? Sweet. Creating
+                    interactive and interesting digital experiences is exactly
+                    what I love to do. Together we’ll find the overlap between
+                    aesthetics, cutting-edge tech, and creative thinking to make
+                    your website turn heads.
                   </p>
-                </TopBottom>
-              </InnerTop>
-              <InnerMid>
-                <p className=" justify" style={{ transform: smallZ }}>
-                  Do you need a state of the art website? Sweet. Creating
-                  interactive and interesting digital experiences is exactly
-                  what I love to do. Together we’ll find the overlap between
-                  aesthetics, cutting-edge tech, and creative thinking to make
-                  your website turn heads.
-                </p>
-              </InnerMid>
-              <InnerBottom>
-                <p className=" justify" style={{ transform: smallZ }}>
-                  02
-                </p>
-                <Circle>
-                  <CircleHalf
-                    style={{
-                      backgroundColor: "#434141",
-                    }}
-                  />
-                  <CircleHalf
-                    style={{
-                      backgroundColor: "#D4CABB",
-                    }}
-                  />
-                </Circle>
-              </InnerBottom>
-            </Service>
-          </ServiceBg>
-        </CustomLink>
-        <CustomLink to={{ pathname: "services", hash: "CC" }}>
-          <ServiceBg
-            id="serviceBg3"
-            onMouseMove={handleMouseMove3}
-            onMouseLeave={handleMouseLeave3}
-            style={{
-              rotateX: rotateX3,
-              rotateY: rotateY3,
-              y: "-150vh",
-            }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+                </InnerMid>
+                <InnerBottom>
+                  <p className=" justify" style={{ transform: smallZ }}>
+                    02
+                  </p>
+                  <Circle>
+                    <CircleHalf
+                      style={{
+                        backgroundColor: "#434141",
+                      }}
+                    />
+                    <CircleHalf
+                      style={{
+                        backgroundColor: "#D4CABB",
+                      }}
+                    />
+                  </Circle>
+                </InnerBottom>
+              </Service>
+            </ServiceBg>
+          </CustomLink>
+        </Container>
+        <Container>
+          <CustomLink
+            to={{ pathname: "services", hash: "CC" }}
+            style={ columnLayout ? { top: `calc(-10% + 150px)` } : undefined}
           >
-            <Service>
-              <InnerTop>
-                <h2
-                  className=""
-                  style={{
-                    fontSize: 140,
-                    fontWeight: 700,
-                    lineHeight: "105px",
-                    transform: bigZ,
-                  }}
-                >
-                  CC
-                </h2>
-                <TopBottom>
-                  <p className="uppercase " style={{ transform: smallZ }}>
-                    content consultation
+            <ServiceBg
+              id="serviceBg3"
+              onMouseMove={handleMouseMove3}
+              onMouseLeave={handleMouseLeave3}
+              style={{
+                rotateX: rotateX3,
+                rotateY: rotateY3,
+                y: "-150vh",
+              }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <Service>
+                <InnerTop>
+                  <h2
+                    className="services-home-h2"
+                    style={{
+                      fontWeight: 700,
+                      lineHeight: "105px",
+                      transform: bigZ,
+                    }}
+                  >
+                    CC
+                  </h2>
+                  <TopBottom>
+                    <p className="uppercase " style={{ transform: smallZ }}>
+                      content consultation
+                    </p>
+                  </TopBottom>
+                </InnerTop>
+                <InnerMid>
+                  <p className=" justify" style={{ transform: smallZ }}>
+                    So you’re making your website yourself? You’re the type of
+                    person who likes to get their hands dirty. But there’s a lot
+                    going on when making a website, and maybe you don’t know
+                    where to start. I’ll help you get on your feet and find your
+                    voice.
                   </p>
-                </TopBottom>
-              </InnerTop>
-              <InnerMid>
-                <p className=" justify" style={{ transform: smallZ }}>
-                  So you’re making your website yourself? You’re the type of
-                  person who likes to get their hands dirty. But there’s a lot
-                  going on when making a website, and maybe you don’t know where
-                  to start. I’ll help you get on your feet and find your voice.
-                </p>
-              </InnerMid>
-              <InnerBottom>
-                <p className=" justify" style={{ transform: smallZ }}>
-                  01
-                </p>
-                <Circle>
-                  <CircleHalf
-                    style={{
-                      backgroundColor: "#434141",
-                    }}
-                  />
-                  <CircleHalf
-                    style={{
-                      backgroundColor: "#D4CABB",
-                    }}
-                  />
-                </Circle>
-              </InnerBottom>
-            </Service>
-          </ServiceBg>
-        </CustomLink>
-        <Overlay>
-          <OverlayLine>
-            {["W", "H", "A", "T", "z"].map((l, i) => {
-              if (l === "z") {
-                return (
-                  <OverlayText style={{ opacity: 0 }} key={i}>
-                    {l}
-                  </OverlayText>
-                );
-              } else {
-                return <OverlayText key={i}>{l}</OverlayText>;
-              }
-            })}
-          </OverlayLine>
-          <OverlayLine>
-            {["C", "O", "U", "L", "D"].map((l, i) => {
-              if (l === "z") {
-                return (
-                  <OverlayText style={{ opacity: 0 }} key={i}>
-                    {l}
-                  </OverlayText>
-                );
-              } else {
-                return <OverlayText key={i}>{l}</OverlayText>;
-              }
-            })}
-          </OverlayLine>
-          <OverlayLine>
-            {["I", "z", "D", "O", "z"].map((l, i) => {
-              if (l === "z") {
-                return (
-                  <OverlayText style={{ opacity: 0 }} key={i}>
-                    {l}
-                  </OverlayText>
-                );
-              } else {
-                return <OverlayText key={i}>{l}</OverlayText>;
-              }
-            })}
-          </OverlayLine>
-          <OverlayLine>
-            {["F", "O", "R", "z", "z"].map((l, i) => {
-              if (l === "z") {
-                return (
-                  <OverlayText style={{ opacity: 0 }} key={i}>
-                    {l}
-                  </OverlayText>
-                );
-              } else {
-                return <OverlayText key={i}>{l}</OverlayText>;
-              }
-            })}
-          </OverlayLine>
-          <OverlayLine>
-            {["Y", "O", "U", "?", "z"].map((l, i) => {
-              if (l === "z") {
-                return (
-                  <OverlayText style={{ opacity: 0 }} key={i}>
-                    {l}
-                  </OverlayText>
-                );
-              } else {
-                return <OverlayText key={i}>{l}</OverlayText>;
-              }
-            })}
-          </OverlayLine>
-        </Overlay>
+                </InnerMid>
+                <InnerBottom>
+                  <p className=" justify" style={{ transform: smallZ }}>
+                    01
+                  </p>
+                  <Circle>
+                    <CircleHalf
+                      style={{
+                        backgroundColor: "#434141",
+                      }}
+                    />
+                    <CircleHalf
+                      style={{
+                        backgroundColor: "#D4CABB",
+                      }}
+                    />
+                  </Circle>
+                </InnerBottom>
+              </Service>
+            </ServiceBg>
+          </CustomLink>
+        </Container>
       </Frame>
     </ScrollDiv>
   );

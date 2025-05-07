@@ -5,12 +5,8 @@ import Hero from "./Hero";
 
 const Frame = styled(motion.div)`
   width: 100%;
-  height: calc(100svh - 75px);
-  overflow-y: auto;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  scrollbar-width: none;
   position: relative;
   gap: 200px;
 `;
@@ -36,10 +32,14 @@ function Contact() {
         "--sh-cen-visibility",
         "hidden"
       );
+      document.documentElement.style.setProperty(
+        "--sh-visibility",
+        "block"
+      );
     }
     if (value === "absurd") {
-      document.documentElement.style.setProperty("--bg", "var(--absurd-red)");
       document.documentElement.style.setProperty("--fg", "var(--absurd-light)");
+      document.documentElement.style.setProperty("--bg", "var(--absurd-red)");
       document.documentElement.style.setProperty(
         "--fg-mb",
         "var(--absurd-mb-light)"
@@ -50,15 +50,19 @@ function Contact() {
         "--sh-cen-visibility",
         "visible"
       );
+      document.documentElement.style.setProperty(
+        "--sh-visibility",
+        "none"
+      );
     }
   };
 
   return (
-    <Frame
-      onViewportEnter={() => updateCSSVariable("absurd")}
-      onViewportLeave={() => updateCSSVariable("footer")}
-    >
-      <ColorChangeDiv>
+    <Frame>
+      <ColorChangeDiv
+        onViewportEnter={() => updateCSSVariable("absurd")}
+        onViewportLeave={() => updateCSSVariable("footer")}
+      >
         <Hero />
       </ColorChangeDiv>
       <ColorChangeDiv

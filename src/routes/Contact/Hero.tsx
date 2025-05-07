@@ -276,7 +276,7 @@ function Hero() {
   };
 
   return (
-    <Grid>
+    <Grid id="form-grid">
       <FormDiv id="form">
         <Form ref={formRef} onSubmit={handleSubmit} id="form">
           {renderedSteps}
