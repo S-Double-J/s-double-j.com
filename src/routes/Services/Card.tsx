@@ -23,15 +23,10 @@ const Grid = styled(motion.div)`
   top: -10%;
   @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
     padding: 20px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-    grid-template-areas:
-      "header header header header"
-      ". . . ."
-      "desc desc desc desc "
-      "desc desc desc desc "
-      "details details details details"
-      "details details details details";
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: end;
   }
 `;
 const Header = styled.h2`
@@ -46,6 +41,8 @@ const Header = styled.h2`
     font-size: 40px;
     line-height: 40px;
     margin-top: -6px;
+    position: absolute;
+    top: 20px;
   }
 `;
 const ArtFrame = styled.div`
@@ -55,8 +52,14 @@ const ArtFrame = styled.div`
   position: relative;
   @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
     position: absolute;
+    top: 20px;
+    right: 5px;
     width: 100%;
     height: 90%;
+    opacity: 0.6;
+    @media (max-height: 835px){
+      opacity: 0.5;
+    }
   }
 `;
 const Art = styled.img`
@@ -91,9 +94,10 @@ const Details = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    & > p, li {
+    & > p,
+    li {
       @media screen and (max-width: 500px) {
-        font-weight: 700
+        font-weight: 700;
       }
     }
   }
@@ -164,6 +168,11 @@ function Card({
         {children}
         <Art src={artSrc} />
       </ArtFrame>
+      <Description>
+        <div ref={descRef}>
+          <p style={{ color: textColor, zIndex: 1 }}>{desc}</p>
+        </div>
+      </Description>
       <Details>
         <div ref={detailsRef}>
           <p style={{ color: textColor }}>Primary Objectives and Features</p>
@@ -176,11 +185,6 @@ function Card({
           </ul>
         </div>
       </Details>
-      <Description>
-        <div ref={descRef}>
-          <p style={{ color: textColor, zIndex: 1 }}>{desc}</p>
-        </div>
-      </Description>
     </Grid>
   );
 }
