@@ -50,7 +50,9 @@ const TextBox = styled.div`
   & > p {
     color: var(--bg);
     text-align: justify;
-
+    @media screen and (min-aspect-ratio: 1/1) and (max-width: 1100px){
+      font-size: 12px
+    }
   }
 `;
 

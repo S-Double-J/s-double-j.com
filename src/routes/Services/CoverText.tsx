@@ -45,9 +45,13 @@ const TextBox = styled(motion.div)`
   box-sizing: border-box;
   gap: 40px;
   position: relative;
+  flex-shrink: 0;
   & > p {
     color: var(--bh-light);
     text-align: justify;
+    @media screen and (min-aspect-ratio: 1/1) and (max-width: 1100px) {
+      font-size: 12px;
+    }
   }
   position: relative;
   @media screen and (max-width: 600px) {
@@ -62,12 +66,30 @@ const ArtGridArea = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  gap: 3px;
 `;
 const ArtContainer = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  height: calc(80vw * 0.66);
+  height: 100%;
+  width: 100%;
+  max-height: calc(50lvh - 95px);
+
+  & > img{
+    max-width: 90vw;
+    max-height: 90vw;
+  }
+  @media screen and (min-aspect-ratio: 1/1) {
+    & > img {
+
+      width: 50%;
+    }
+  }
+  @media screen and (max-aspect-ratio: 1/1) {
+    flex-shrink: 1;
+  }
 `;
 interface Props {
   target: React.RefObject<HTMLDivElement>;
@@ -108,10 +130,10 @@ function CoverText({ target }: Props) {
   return (
     <Grid>
       <ArtGridArea>
-        <ArtContainer style={{ opacity }}>
+        <ArtContainer style={columnLayout ? { rotate: 90} : { opacity }}>
           <motion.img
             src="CoverArt.svg"
-            style={columnLayout ? { rotate: 90, height: "80vw" } : { opacity }}
+            style={{ opacity }}
           />
         </ArtContainer>
       </ArtGridArea>

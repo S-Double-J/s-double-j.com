@@ -21,15 +21,6 @@ const Grid = styled(motion.div)`
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
   z-index: 1;
-  @media screen and (max-aspect-ratio: 1/1) and (max-height: 700px){
-    grid-template-areas:
-    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
-    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
-    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
-    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
-    "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
-    "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
-  }
 `;
 
 const TopLeft = styled.div`
@@ -40,6 +31,8 @@ const TopLeft = styled.div`
 const TopRight = styled.div`
   grid-area: TopRight;
   padding: 40px;
+  display: flex;
+  justify-content: end;
 
   box-sizing: border-box;
   background-color: var(--bg);
@@ -72,6 +65,9 @@ const CircleContainer = styled.div`
   justify-content: end;
   flex-wrap: wrap;
   position: relative;
+  @media screen and (max-aspect-ratio: 1/1){
+    max-width: 210px;
+  }
 `;
 const Circle = styled(motion.div)`
   width: 200px;

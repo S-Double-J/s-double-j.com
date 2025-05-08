@@ -21,12 +21,15 @@ const Grid = styled(motion.div)`
   overflow: hidden;
   position: relative;
   top: -10%;
-  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
-    padding: 20px;
+  @media screen and (max-aspect-ratio: 1/1) {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     justify-content: end;
+    gap: 20px;
+    @media screen and (max-width: 500px) {
+      padding: 20px;
+      gap: 10px;
+    }
   }
 `;
 const Header = styled.h2`
@@ -44,20 +47,30 @@ const Header = styled.h2`
     position: absolute;
     top: 20px;
   }
+  @media screen and (max-width: 1200px) and (max-height: 800px){
+    font-size: 64px;
+    line-height: 60px;
+    margin-top: -10px
+  }
+  @media screen and (max-width: 500px) and (max-height: 800px) {
+    font-size: 40px;
+    line-height: 40px;
+    margin-top: -6px;
+  }
 `;
 const ArtFrame = styled.div`
   grid-area: art;
   display: flex;
   justify-content: end;
   position: relative;
-  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
+  @media screen and (max-aspect-ratio: 1/1) {
     position: absolute;
     top: 20px;
     right: 5px;
     width: 100%;
     height: 90%;
     opacity: 0.6;
-    @media (max-height: 835px){
+    @media (max-height: 835px) {
       opacity: 0.5;
     }
   }
@@ -76,9 +89,12 @@ const Description = styled.div`
     text-align: justify;
     max-width: 500px;
     & > p {
-      @media screen and (max-width: 500px) {
+      @media screen and (max-aspect-ratio: 1/1) {
         font-weight: 700;
       }
+      @media screen and (max-width: 1200px) and (max-height: 800px){
+        font-size: 12px
+  }
     }
   }
 
@@ -86,19 +102,26 @@ const Description = styled.div`
 `;
 const Details = styled.div`
   grid-area: details;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: end;
+  @media screen and (max-aspect-ratio: 1/1){
+  max-height: 200px;
+  }
   & > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     & > p,
     li {
-      @media screen and (max-width: 500px) {
+      @media screen and (max-aspect-ratio: 1/1) {
         font-weight: 700;
       }
+      @media screen and (max-width: 1200px) and (max-height: 800px){
+        font-size: 12px
+  }
     }
   }
   z-index: 1;
