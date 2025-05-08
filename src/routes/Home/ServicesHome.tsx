@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100svh - 75px) * 3);
+  height: calc((100lvh - 75px) * 3);
   flex-shrink: 0;
   display: flex;
   align-items: start;

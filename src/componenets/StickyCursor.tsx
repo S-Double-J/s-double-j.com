@@ -9,6 +9,9 @@ const Cursor = styled(motion.div)`
   border-radius: 999px;
   z-index: 99999;
   pointer-events: none;
+  @media (pointer: none) {
+    display: none;
+  }
 `;
 
 interface Props {

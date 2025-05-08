@@ -102,6 +102,9 @@ const Details = styled.div`
     }
   }
   z-index: 1;
+  @media screen and (max-width: 500px) and (max-height: 750px) {
+    display: none;
+  }
 `;
 
 interface Props {

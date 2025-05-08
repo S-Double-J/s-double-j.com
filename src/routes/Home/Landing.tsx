@@ -25,7 +25,7 @@ const Grid = styled.div`
   left: 0;
   display: grid;
   width: 100%;
-  height: calc(100svh - 75px);
+  height: calc(100dvh - 75px);
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
   grid-template-areas:
