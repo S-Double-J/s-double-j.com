@@ -1,4 +1,5 @@
 import { motion, MotionValue, useScroll, useTransform } from "motion/react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const Grid = styled.div`
@@ -20,6 +21,12 @@ const Grid = styled.div`
     "Text Text Text Text art art art art art art art art"
     "Text Text Text Text art art art art art art art art"
     "Text Text Text Text art art art art art art art art";
+  @media screen and (max-aspect-ratio: 1/1) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: space-between;
+  }
 `;
 
 const TextBox = styled(motion.div)`
@@ -32,7 +39,8 @@ const TextBox = styled(motion.div)`
   align-items: flex-start;
   overflow-y: auto;
   border-radius: 40px 40px 40px 0px;
-  border: 40px solid var(--bh-red);
+  border: 1px solid var(--bh-red);
+  padding: 39px;
   background: var(--bh-red);
   box-sizing: border-box;
   gap: 40px;
@@ -40,6 +48,11 @@ const TextBox = styled(motion.div)`
   & > p {
     color: var(--bh-light);
     text-align: justify;
+  }
+  position: relative;
+  @media screen and (max-width: 600px) {
+    padding: 19px;
+    min-height: fit-content;
   }
 `;
 
@@ -53,16 +66,29 @@ const ArtGridArea = styled.div`
   gap: 3px;
 `;
 const ArtContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
+  height: calc(80vw * 0.66);
 `;
 interface Props {
   target: React.RefObject<HTMLDivElement>;
 }
-function CoverText({  target }: Props) {
+function CoverText({ target }: Props) {
+  const [columnLayout, setColumnLayout] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const shouldUseColumnLayout = window.innerWidth <= 1270;
+      setColumnLayout(shouldUseColumnLayout);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const { scrollYProgress } = useScroll({
     target: target,
     layoutEffect: false,
@@ -77,11 +103,19 @@ function CoverText({  target }: Props) {
   const paragraph = `Every project is unique, with its own set of goals and challenges. That’s why I offer a range of services designed to meet a variety of needs. It all starts with a conversation—we’ll get to know each other, discuss your vision, and uncover your goals and expectations. From there, I’ll take the time to craft a tailored plan that brings your ideas to life. __break__ Explore the services I offer to see how we can collaborate to create something truly special.`;
   const words = paragraph.split(" ");
 
-  const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0])
+  const opacity = useTransform(scrollYProgress, [0.8, 1], [1, 0]);
 
   return (
     <Grid>
-      <TextBox style={{opacity}}>
+      <ArtGridArea>
+        <ArtContainer style={{ opacity }}>
+          <motion.img
+            src="CoverArt.svg"
+            style={columnLayout ? { rotate: 90, height: "80vw" } : { opacity }}
+          />
+        </ArtContainer>
+      </ArtGridArea>
+      <TextBox style={{ opacity }}>
         <p className="gradient-text-p">
           {words.map((word, i) => {
             if (word === "__break__") {
@@ -104,11 +138,6 @@ function CoverText({  target }: Props) {
           })}
         </p>
       </TextBox>
-      <ArtGridArea>
-        <ArtContainer style={{opacity}}>
-          <motion.img src="CoverArt.svg" style={{opacity}} />
-        </ArtContainer>
-      </ArtGridArea>
     </Grid>
   );
 }

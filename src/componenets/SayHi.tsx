@@ -70,17 +70,21 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
     const header = document.getElementById("header");
     const button = document.getElementById("center-button");
     const form = document.getElementById("form");
-    animate(title, { visibility: "hidden" }, { delay: 0.4 });
-    animate(header, { visibility: "hidden" }, { delay: 0.4 });
-    animate(button, { visibility: "hidden" }, { delay: 0.4 });
-    animate(
-      form,
-      { opacity: 1 },
-      { delay: 0.3, duration: 0.4, ease: "easeIn" }
-    );
-    animate(title, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
-    animate(header, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
-    animate(button, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
+    if (title) animate(title, { visibility: "hidden" }, { delay: 0.4 });
+    if (header) animate(header, { visibility: "hidden" }, { delay: 0.4 });
+    if (button) animate(button, { visibility: "hidden" }, { delay: 0.4 });
+    if (form)
+      animate(
+        form,
+        { opacity: 1 },
+        { delay: 0.3, duration: 0.4, ease: "easeIn" }
+      );
+    if (title)
+      animate(title, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
+    if (header)
+      animate(header, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
+    if (button)
+      animate(button, { opacity: 0 }, { duration: 0.4, ease: "easeInOut" });
   };
   if (center === true) {
     return (
@@ -88,14 +92,19 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
         <p className="large mix-blend-diff">Say hi</p>
       </CenterButton>
     );
+  } else {
+    console.log('normal say hi should be rendered')
+    return (
+      <CustomLink
+        id="SayHi-Button"
+        to={{ pathname: "contact", hash: "form-grid" }}
+      >
+        <Button ref={ref}>
+          <p className="large mix-blend-diff">Say hi</p>
+        </Button>
+      </CustomLink>
+    );
   }
-  return (
-    <CustomLink to={{pathname: "contact", hash: "form-grid", }}>
-      <Button ref={ref}>
-        <p className="large mix-blend-diff">Say hi</p>
-      </Button>
-    </CustomLink>
-  );
 });
 SayHi.displayName = "SayHi";
 export default SayHi;

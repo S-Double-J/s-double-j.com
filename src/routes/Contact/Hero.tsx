@@ -53,6 +53,7 @@ const TopRight = styled.div`
   box-sizing: border-box;
   background-color: var(--bg);
   transition: background-color var(--color-transition) ease-in-out;
+  overflow: hidden;
   & > h1 {
     mix-blend-mode: normal;
     color: var(--fg);
@@ -92,12 +93,21 @@ const Eye = styled.div`
   right: -10px;
   top: -10px;
   overflow: hidden;
+  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
+    width: 150px;
+    height: 150px;
+    top: 0;
+  }
 `;
 const Circle = styled(motion.div)`
   width: 200px;
   height: 200px;
   border-radius: 100%;
   background-color: var(--brutal-dark);
+  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 const FormDiv = styled.div`
   position: absolute;
@@ -111,11 +121,14 @@ const FormDiv = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   opacity: 0;
+  max-width: 99vw;
+  box-sizing: border-box;
 `;
 const Form = styled(motion.form)`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
 `;
 type FormData = {
   name: string;
@@ -250,22 +263,22 @@ function Hero() {
       );
 
       animate(
-        document.getElementById("form"),
+        document.getElementById("form")!,
         { opacity: 0 },
         { duration: 0.4 }
       );
       animate(
-        document.getElementById("form"),
+        document.getElementById("form")!,
         { visibility: "hidden" },
         { delay: 0.4 }
       );
       animate(
-        document.getElementById("sent-message"),
-        { visibility: "visible", },
-        { delay: 0.4, }
+        document.getElementById("sent-message")!,
+        { visibility: "visible" },
+        { delay: 0.4 }
       );
       animate(
-        document.getElementById("sent-message"),
+        document.getElementById("sent-message")!,
         { opacity: 1 },
         { delay: 0.4, duration: 0.4 }
       );
@@ -286,11 +299,11 @@ function Hero() {
             style={{
               padding: 0,
               display: currentStepIndex === 6 ? "block" : "none",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             type="submit"
           >
-            <p style={{  cursor: "pointer"}}>[ Submit message ]</p>
+            <p style={{ cursor: "pointer" }}>[ Submit message ]</p>
           </button>
         </Form>
       </FormDiv>
@@ -303,17 +316,20 @@ function Hero() {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          zIndex: 5
+          zIndex: 5,
         }}
       >
         Message Sent.
       </h3>
       <TopLeft></TopLeft>
       <TopRight id="top-right-serv-hero">
-        <h1 id="contact" className="page-title">
+        <h1
+          id="contact"
+          className="page-title"
+        >
           contact
         </h1>
-        <Eye>
+          <Eye >
           <Circle style={{ transform }} ref={pupilRef} />
         </Eye>
       </TopRight>

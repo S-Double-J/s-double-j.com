@@ -175,6 +175,10 @@ span[contentEditable="true"] {
   font-size: 16px;
   margin: 0;
   font-weight: 400;
+  @media screen and (max-width: 600px) {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
 }
 
 .form-button {

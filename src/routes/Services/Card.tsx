@@ -1,4 +1,3 @@
-
 import { MotionValue } from "motion/react";
 import { motion, useTransform } from "motion/react";
 import { useEffect, useRef } from "react";
@@ -22,6 +21,18 @@ const Grid = styled(motion.div)`
   overflow: hidden;
   position: relative;
   top: -10%;
+  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
+    padding: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas:
+      "header header header header"
+      ". . . ."
+      "desc desc desc desc "
+      "desc desc desc desc "
+      "details details details details"
+      "details details details details";
+  }
 `;
 const Header = styled.h2`
   grid-area: header;
@@ -31,12 +42,22 @@ const Header = styled.h2`
   line-height: 90px;
   z-index: 1;
   width: min-content;
+  @media screen and (max-aspect-ratio: 1/1) {
+    font-size: 40px;
+    line-height: 40px;
+    margin-top: -6px;
+  }
 `;
 const ArtFrame = styled.div`
   grid-area: art;
   display: flex;
   justify-content: end;
   position: relative;
+  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+  }
 `;
 const Art = styled.img`
   height: 100%;
@@ -51,7 +72,13 @@ const Description = styled.div`
     flex-direction: column;
     text-align: justify;
     max-width: 500px;
+    & > p {
+      @media screen and (max-width: 500px) {
+        font-weight: 700;
+      }
+    }
   }
+
   z-index: 1;
 `;
 const Details = styled.div`
@@ -64,7 +91,13 @@ const Details = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    & > p, li {
+      @media screen and (max-width: 500px) {
+        font-weight: 700
+      }
+    }
   }
+  z-index: 1;
 `;
 
 interface Props {
@@ -90,7 +123,9 @@ function Card({
   gridBgColor,
   textColor,
   i,
-  progress, range, targetScale
+  progress,
+  range,
+  targetScale,
 }: Props) {
   const descRef = useRef<HTMLDivElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
@@ -114,11 +149,15 @@ function Card({
     return () => resizeObserver.disconnect();
   }, []);
 
-  const scale = useTransform(progress, range, [1, targetScale])
+  const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
     <Grid
-      style={{ backgroundColor: gridBgColor, top: `calc(-5% + ${i * 50}px)`, scale }}
+      style={{
+        backgroundColor: gridBgColor,
+        top: `calc(-5% + ${i * 50}px)`,
+        scale,
+      }}
     >
       <Header style={{ color: textColor }}>{title}</Header>
       <ArtFrame id="CP-art">

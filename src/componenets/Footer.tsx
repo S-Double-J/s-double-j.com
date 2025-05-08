@@ -19,7 +19,6 @@ const Grid = styled.div`
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
- 
 `;
 
 const Tagline = styled.div`
@@ -50,13 +49,18 @@ const BannerHolder = styled(motion.div)`
   mix-blend-mode: difference;
 `;
 const BannerSizeSet = styled.h1`
-  font-size: 19vw;
+  font-size: 18vw;
   margin-bottom: -4vw;
   margin-top: -4vw;
   opacity: 0;
+  white-space: nowrap;
+  @media screen and (max-width: 500px) {
+    font-size: 50vw;
+    margin-bottom: -9vw
+  }
 `;
 const BannerText = styled.h1`
-  font-size: 19vw;
+  font-size: 18vw;
   margin-bottom: -4vw;
   margin-top: -4vw;
   margin-right: 8.5vw;
@@ -64,6 +68,10 @@ const BannerText = styled.h1`
   mix-blend-mode: difference;
   font-style: italic;
   transition: color var(--color-transition) ease-in-out;
+  @media screen and (max-width: 500px) {
+    font-size: 50vw;
+    margin-bottom: -9vw
+  }
 `;
 
 const CircleFrame = styled(motion.div)`
@@ -81,6 +89,10 @@ const BigCircle = styled(motion.div)`
   mix-blend-mode: difference;
   border-radius: 100%;
   transition: background-color var(--color-transition) ease-in-out;
+  @media screen and (max-width: 650px) {
+    width: 90vw;
+    height: 90vw;
+  }
 `;
 const MedCircle = styled(motion.div)`
   position: absolute;
@@ -93,6 +105,10 @@ const MedCircle = styled(motion.div)`
   mix-blend-mode: difference;
   border-radius: 100%;
   transition: background-color var(--color-transition) ease-in-out;
+  @media screen and (max-width: 650px) {
+    width: 30vw;
+    height: 30vw;
+  }
 `;
 const SmallCircle = styled(motion.div)`
   position: absolute;
@@ -105,6 +121,10 @@ const SmallCircle = styled(motion.div)`
   mix-blend-mode: difference;
   border-radius: 100%;
   transition: background-color var(--color-transition) ease-in-out;
+  @media screen and (max-width: 650px) {
+    width: 6vw;
+    height: 6vw;
+  }
 `;
 function Footer() {
   return (

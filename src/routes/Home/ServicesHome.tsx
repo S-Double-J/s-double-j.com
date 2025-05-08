@@ -211,7 +211,6 @@ const OverlayLine = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
 `;
 const OverlayText = styled.p`
   color: var(--brutal-red);
@@ -220,12 +219,11 @@ const OverlayText = styled.p`
   mix-blend-mode: exclusion;
   margin-top: calc((-100vh + 115px) / 12);
   margin-bottom: calc((-100vh + 115px) / 14);
-  @media screen and (max-aspect-ratio: 1/1){
+  @media screen and (max-aspect-ratio: 1/1) {
     font-size: 20vw;
     margin-top: 0;
     margin-bottom: 0;
   }
-
 `;
 const ProgressIcon = styled(motion.svg)`
   position: absolute;
@@ -249,7 +247,7 @@ const CustomLink = styled(motion(Link))`
   background-color: none;
   box-shadow: none;
   position: relative;
-  @media screen and (max-width: 1270px){
+  @media screen and (max-width: 1270px) {
     top: -10%;
   }
 `;
@@ -279,8 +277,7 @@ function ServHome() {
   );
 
   const handleMouseMove1 = (e: React.MouseEvent<HTMLDivElement>) => {
-
-    console.log('element hovered')
+    console.log("element hovered");
     const rect = e.currentTarget.getBoundingClientRect();
 
     const width = rect.width;
@@ -376,16 +373,37 @@ function ServHome() {
     x3.set(0);
     y3.set(0);
   };
+
+  const [columnLayout, setColumnLayout] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const shouldUseColumnLayout = window.innerWidth <= 1270;
+      setColumnLayout(shouldUseColumnLayout);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const targetRef = useRef(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress } = columnLayout ?  useScroll({
     target: targetRef,
     layoutEffect: false,
     offset: ["start start", "end start"],
+  }) : useScroll({
+    target: targetRef,
+    layoutEffect: false,
   });
 
   const [scope, animate] = useAnimate();
 
-  const isInView = useInView(scope, { once: true, amount: 0.2 });
+
+  const isInView = columnLayout ? useInView(scope, { once: true, amount: 'some'}) : useInView(scope, { once: true, amount: 0.5 });
   const duration = 2.5;
   const bounce = 0.4;
 
@@ -426,27 +444,12 @@ function ServHome() {
   const scale1 = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const scale2 = useTransform(scrollYProgress, [0.33, 1], [1, 0.9]);
 
-  const [columnLayout, setColumnLayout] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const shouldUseColumnLayout = window.innerWidth <= 1270;
-      setColumnLayout(shouldUseColumnLayout);
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   return (
     <ScrollDiv ref={targetRef}>
       <Frame id="My Services" ref={scope}>
         <OverlayContainer>
-          <ProgressIcon width="75" height="75" viewBox="0 0 100 100">
+          <ProgressIcon width="75" height="75" viewBox="0 0 100 100"
+          style={columnLayout ? {opacity: 0} : undefined}>
             <ProgressIconBg
               cx="50"
               cy="50"
@@ -541,11 +544,19 @@ function ServHome() {
               id="serviceBg1"
               onMouseMove={handleMouseMove1}
               onMouseLeave={handleMouseLeave1}
-              style={{
-                rotateX: rotateX1,
-                rotateY: rotateY1,
-                y: "-150vh",
-              }}
+              style={
+                columnLayout
+                  ? {
+                      rotateX: rotateX1,
+                      rotateY: rotateY1,
+                      opacity: 1
+                    }
+                  : {
+                      rotateX: rotateX1,
+                      rotateY: rotateY1,
+                      y: "-150vh",
+                    }
+              }
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
@@ -600,17 +611,29 @@ function ServHome() {
         <Container>
           <CustomLink
             to={{ pathname: "services", hash: "CP" }}
-            style={ columnLayout ? { top: `calc(-10% + 75px)`, scale: scale2 } : undefined}
+            style={
+              columnLayout
+                ? { top: `calc(-10% + 75px)`, scale: scale2 }
+                : undefined
+            }
           >
             <ServiceBg
               id="serviceBg2"
               onMouseMove={handleMouseMove2}
               onMouseLeave={handleMouseLeave2}
-              style={{
-                rotateX: rotateX2,
-                rotateY: rotateY2,
-                y: "-150vh",
-              }}
+              style={
+                columnLayout
+                  ? {
+                      rotateX: rotateX2,
+                      rotateY: rotateY2,
+                      opacity: 1
+                    }
+                  : {
+                      rotateX: rotateX2,
+                      rotateY: rotateY2,
+                      y: "-150vh",
+                    }
+              }
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
@@ -665,17 +688,25 @@ function ServHome() {
         <Container>
           <CustomLink
             to={{ pathname: "services", hash: "CC" }}
-            style={ columnLayout ? { top: `calc(-10% + 150px)` } : undefined}
+            style={columnLayout ? { top: `calc(-10% + 150px)` } : undefined}
           >
             <ServiceBg
               id="serviceBg3"
               onMouseMove={handleMouseMove3}
               onMouseLeave={handleMouseLeave3}
-              style={{
-                rotateX: rotateX3,
-                rotateY: rotateY3,
-                y: "-150vh",
-              }}
+              style={
+                columnLayout
+                  ? {
+                      rotateX: rotateX3,
+                      rotateY: rotateY3,
+                      opacity: 1
+                    }
+                  : {
+                      rotateX: rotateX3,
+                      rotateY: rotateY3,
+                      y: "-150vh",
+                    }
+              }
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >

@@ -20,7 +20,16 @@ const Grid = styled(motion.div)`
     "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
-    z-index: 1;
+  z-index: 1;
+  @media screen and (max-aspect-ratio: 1/1) and (max-height: 700px){
+    grid-template-areas:
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
+    "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
+    "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
+  }
 `;
 
 const TopLeft = styled.div`
@@ -30,13 +39,8 @@ const TopLeft = styled.div`
 `;
 const TopRight = styled.div`
   grid-area: TopRight;
-  display: flex;
-  flex-direction: row;
   padding: 40px;
-  align-content: flex-start;
-  justify-content: end;
-  flex-wrap: wrap;
-  position: relative;
+
   box-sizing: border-box;
   background-color: var(--bg);
   transition: background-color var(--color-transition) ease-in-out;
@@ -52,6 +56,7 @@ const BotRight = styled.div`
   padding: 40px;
   box-sizing: border-box;
   justify-content: flex-end;
+  align-items: flex-end;
   background-color: var(--bg);
   transition: background-color var(--color-transition) ease-in-out;
 `;
@@ -60,29 +65,67 @@ const TextContainer = styled.div`
   max-width: 900px;
   height: min-content;
 `;
+const CircleContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: end;
+  flex-wrap: wrap;
+  position: relative;
+`;
 const Circle = styled(motion.div)`
   width: 200px;
   height: 200px;
   border-radius: 100%;
   background-color: var(--bh-red);
+  @media screen and (max-width: 900px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 interface Props {
   target: React.RefObject<HTMLDivElement>;
 }
-function Hero({  target }: Props) {
+function Hero({ target }: Props) {
   const [arr, setArr] = useState<string[]>([]);
+
+  const [columnLayout, setColumnLayout] = useState<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
-      let artWidthVal = Math.floor(
-        ((document
-          .getElementById("top-right-serv-hero")
-          ?.getBoundingClientRect().width! -
-          80) *
-          2) /
-          200
-      );
+      const shouldUseColumnLayout = window.innerWidth < window.innerHeight;
+      setColumnLayout(shouldUseColumnLayout);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      let artWidthVal = columnLayout
+        ? Math.floor(
+            ((document
+              .getElementById("top-right-serv-hero")
+              ?.getBoundingClientRect().height! -
+              80) *
+              2) /
+              100
+          )
+        : Math.floor(
+            ((document
+              .getElementById("top-right-serv-hero")
+              ?.getBoundingClientRect().width! -
+              80) *
+              2) /
+              200
+          );
       if (artWidthVal % 2 !== 0) {
         artWidthVal -= 1;
       }
@@ -93,12 +136,12 @@ function Hero({  target }: Props) {
     handleResize(); // Initial call to set the array
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [columnLayout]);
 
   const { scrollYProgress } = useScroll({
     target: target,
     offset: ["start start", "end end"],
-    layoutEffect: false
+    layoutEffect: false,
   });
 
   const opacity = useTransform(scrollYProgress, [0.15, 0.35], [1, 0]);
@@ -108,26 +151,35 @@ function Hero({  target }: Props) {
       <TopLeft></TopLeft>
       <TopRight id="top-right-serv-hero">
         <h1 className="page-title">services</h1>
-        {arr.map((_, i) => {
-          const target = i < arr.length / 2 ? ["0%", "-100%"] : ["0%", "100%"];
-          if (i === arr.length / 2 - 1) {
+        <CircleContainer>
+          {arr.map((_, i) => {
+            const highlight = columnLayout ? 1 : arr.length / 2 - 1;
+            const target = columnLayout
+              ? ["0%", "100%"]
+              : i < arr.length / 2
+              ? ["0%", "-100%"]
+              : ["0%", "100%"];
+            if (i === highlight) {
+              return (
+                <Circle
+                  key={i}
+                  id="serv-circle"
+                  style={{ backgroundColor: "var(--brutal-dark" }}
+                />
+              );
+            }
             return (
-              <Circle
+              <C
+                i={i}
                 key={i}
-                style={{ backgroundColor: "var(--brutal-dark" }}
+                progress={scrollYProgress}
+                target={target}
+                largestIndex={arr.length}
+                columnLayout={columnLayout}
               />
             );
-          }
-          return (
-            <C
-              i={i}
-              key={i}
-              progress={scrollYProgress}
-              target={target}
-              largestIndex={arr.length}
-            />
-          );
-        })}
+          })}
+        </CircleContainer>
       </TopRight>
       <BotLeft></BotLeft>
       <BotRight>
@@ -143,7 +195,18 @@ function Hero({  target }: Props) {
   );
 }
 
-const getDynamicRange = (i: number, largestIndex: number) => {
+const getDynamicRange = (
+  i: number,
+  largestIndex: number,
+  columnLayout: boolean
+) => {
+  if (columnLayout) {
+    const totalSteps = Math.floor(largestIndex / 2);
+    const stepSize = 0.3 / (totalSteps - 1);
+    const pairIndex = Math.floor((largestIndex - 1 - i) / 2);
+    const start = stepSize * pairIndex;
+    return [start, start + 0.5];
+  }
   const totalSteps = Math.floor(largestIndex / 2);
   const stepSize = 0.5 / totalSteps;
   let start: number = 0;
@@ -161,10 +224,18 @@ interface circleProps {
   progress: MotionValue;
   target: string[];
   largestIndex: number;
+  columnLayout: boolean;
 }
-const C = ({ i, progress, target, largestIndex }: circleProps) => {
-  const range = getDynamicRange(i, largestIndex);
+const C = ({
+  i,
+  progress,
+  target,
+  largestIndex,
+  columnLayout,
+}: circleProps) => {
+  const range = getDynamicRange(i, largestIndex, columnLayout);
   const y = useTransform(progress, range, target);
+
   return <Circle key={i} style={{ y }} />;
 };
 

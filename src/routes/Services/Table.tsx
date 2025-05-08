@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Card from "./Card";
 import cardData from "./CardData";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScroll } from "motion/react";
 
 const Scroll = styled.div`
@@ -26,9 +26,32 @@ const ArtText = styled.h2`
   text-align: right;
   font-weight: 900;
   line-height: 34px;
+  @media screen and (max-aspect-ratio: 1/1) and (max-width: 500px) {
+    font-size: 28px;
+    line-height: 26px;
+    top: 20px;
+    right: 20px;
+  }
 `;
 
 function Table() {
+
+    const [columnLayout, setColumnLayout] = useState<boolean>(false);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        const shouldUseColumnLayout = window.innerWidth <= 1270;
+        setColumnLayout(shouldUseColumnLayout);
+      };
+  
+      handleResize();
+  
+      window.addEventListener("resize", handleResize);
+  
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }, []);
   const target = useRef(null);
   const { scrollYProgress } = useScroll({
     target: target,
@@ -57,7 +80,10 @@ function Table() {
                 targetScale={targetScale}
               >
                 <ArtText
-                  style={{
+                  style={columnLayout ? {
+                    color: card.textColor,
+                    mixBlendMode: 'difference'
+                  } : {
                     color: card.textColor,
                     textAlign: "left",
                     left: 0,
