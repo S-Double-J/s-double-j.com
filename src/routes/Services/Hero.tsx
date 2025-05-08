@@ -9,7 +9,7 @@ const Grid = styled(motion.div)`
   left: 0;
   display: grid;
   width: 100%;
-  height: calc(100dvh - 75px);
+  height: calc(100lvh - 75px);
   background-color: var(--bg);
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
