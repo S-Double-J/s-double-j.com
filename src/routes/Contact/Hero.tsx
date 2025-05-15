@@ -326,6 +326,7 @@ function Hero() {
         <h1
           id="contact"
           className="page-title"
+          style={{mixBlendMode: 'difference', color: 'var(--absurd-mb-light)'}}
         >
           contact
         </h1>
