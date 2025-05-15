@@ -16,7 +16,7 @@ const Frame = styled(motion.div)`
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100lvh - 75px) * 3);
+  height: calc((100lvh - 75px) * 5);
   flex-shrink: 0;
   display: flex;
   align-items: start;
@@ -24,7 +24,7 @@ const ScrollDiv = styled.div`
   position: relative;
   flex-direction: column;
   @media (hover: none) {
-    height: calc((100dvh - 75px) * 1.5);
+    height: calc((100dvh - 75px) * 3);
   }
 `;
 const ColorChangeDiv = styled(motion.div)`

@@ -104,6 +104,11 @@ interface Props {
   targetRef: React.RefObject<HTMLDivElement>;
 }
 function Focus({ targetRef }: Props) {
+  function isTouchDevice(): boolean {
+    return 'ontouchstart' in window || 
+           navigator.maxTouchPoints > 0 || 
+           (navigator as any).msMaxTouchPoints > 0;
+}
   const { scrollYProgress } = useScroll({
     target: targetRef,
     layoutEffect: false,
@@ -112,7 +117,7 @@ function Focus({ targetRef }: Props) {
   const { scrollYProgress: gradientScrollYProgress } = useScroll({
     target: targetRef,
     layoutEffect: false,
-    offset: ["0.69 1.5", "1 1.2"],
+    offset: isTouchDevice() ? ["0.7 1.5", "1 1.2"] : ["0.5 1.5", "1 1.2"],
   });
   const height = useTransform(scrollYProgress, [0.1, 1], ["50%", "30%"]);
   const paragraph = `Every business has a story, my focus is telling yours. __break__ The digital landscape is evolving fast, and standing out in a sea of voices requires more than just visibility—it demands meaningful connection. Story is humanity's universal language and I believe it is the best way for creatives and businesses to leave the lasting impression they deserve. __break__ As a solo freelancer, I offer a personal touch that larger agencies can’t match, so let’s create something extraordinary together. Your story deserves to be seen, felt, and remembered.`;
