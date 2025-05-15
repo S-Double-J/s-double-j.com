@@ -16,15 +16,15 @@ const Frame = styled(motion.div)`
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100lvh - 75px) * 10);
+  height: calc((100lvh - 75px) * 3);
   flex-shrink: 0;
   display: flex;
   align-items: start;
   justify-content: start;
   position: relative;
   flex-direction: column;
-  @media (pointer: none) {
-    height: calc((100dvh - 75px) * 2);
+  @media (hover: none) {
+    height: calc((100dvh - 75px) * 1.5);
   }
 `;
 const ColorChangeDiv = styled(motion.div)`

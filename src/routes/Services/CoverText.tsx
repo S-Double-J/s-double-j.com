@@ -119,7 +119,7 @@ function CoverText({ target }: Props) {
   const { scrollYProgress: gradientScrollYProgress } = useScroll({
     target: target,
     layoutEffect: false,
-    offset: ["0.4 1.5", "0.8 0.8"],
+    offset: ["0.85 1.5", "0.8 0.8"],
   });
 
   const paragraph = `Every project is unique, with its own set of goals and challenges. That’s why I offer a range of services designed to meet a variety of needs. It all starts with a conversation—we’ll get to know each other, discuss your vision, and uncover your goals and expectations. From there, I’ll take the time to craft a tailored plan that brings your ideas to life. __break__ Explore the services I offer to see how we can collaborate to create something truly special.`;
