@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform, } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -19,10 +19,7 @@ function useMediaQuery(query: string) {
 }
 
 const Grid = styled.div`
-  position: fixed;
   flex-shrink: 0;
-  top: 75;
-  left: 0;
   display: grid;
   width: 100%;
   height: calc(100lvh - 75px);
@@ -37,6 +34,8 @@ const Grid = styled.div`
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
   z-index: 1;
   pointer-events: none;
+  background: var(--bg);
+  mix-blend-mode: difference;
 `;
 const AnimationContainer = styled.div`
   position: absolute;
@@ -59,10 +58,10 @@ const BigCircle = styled(motion.div)`
   border-radius: 100%;
   background-color: var(--brutal-mb-light);
   mix-blend-mode: difference;
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     width: 100px;
     height: 100px;
-    top: 140px
+    top: 140px;
   }
 `;
 const HalfCircle = styled(motion.div)`
@@ -75,7 +74,7 @@ const HalfCircle = styled(motion.div)`
   border-bottom-left-radius: 200px;
   background-color: var(--brutal-mb-light);
   mix-blend-mode: difference;
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     width: 100px;
     height: 5px;
     top: 190px;
@@ -90,7 +89,7 @@ const SmallCircle = styled(motion.div)`
   border-radius: 100%;
   background-color: var(--brutal-mb-light);
   mix-blend-mode: difference;
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     width: 10px;
     height: 10px;
     top: 190px;
@@ -124,6 +123,9 @@ const TopRight = styled(motion.div)`
   box-sizing: border-box;
   background-color: var(--bg);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
   z-index: 3;
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
@@ -133,6 +135,8 @@ const BotLeft = styled(motion.div)`
   grid-area: BotLeft;
   border-top-right-radius: 40px;
   border-top: 0.5px solid var(--fg);
+  border-right: 0.5px solid var(--fg);
+  border-bottom: 0.5px solid var(--fg);
   box-sizing: border-box;
   background-color: var(--bg);
   z-index: 2;
@@ -143,7 +147,7 @@ const BotLeft = styled(motion.div)`
 const BotRight = styled(motion.div)`
   grid-area: BotRight;
   border-top-left-radius: 40px;
-  border-left: 0.5px solid var(--fg);
+  border-bottom: 0.5px solid var(--fg);
   box-sizing: border-box;
   background-color: var(--bg);
   display: flex;
@@ -155,7 +159,7 @@ const BotRight = styled(motion.div)`
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
   @media screen and (max-height: 500px) {
-    padding: 20px
+    padding: 20px;
   }
 `;
 const TextContainer = styled.div`
@@ -176,71 +180,76 @@ function Landing({ targetRef }: Props) {
     offset: ["start start", "end end"],
     layoutEffect: false,
   });
-  const positive1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
-  const negative1 = useTransform(scrollYProgress, [0, 0.5], ["0%", "-100%"]);
-  const positive2 = useTransform(scrollYProgress, [0.02, 0.5], ["0%", "100%"]);
-  const positive3 = useTransform(scrollYProgress, [0.06, 0.5], ["0%", "100%"]);
-  const negative3 = useTransform(scrollYProgress, [0.06, 0.5], ["0%", "-100%"]);
-  const negative4 = useTransform(scrollYProgress, [0.1, 0.5], ["0%", "-100%"]);
+
   const blackOutOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
-  const opacity = useTransform(scrollYProgress, [0.1, 0.25], [1, 0]);
   return (
     <>
       <Blackout style={{ opacity: blackOutOpacity }} />
       <Grid ref={ref}>
-        <TopLeft style={{ opacity, x: negative4, y: negative4 }}></TopLeft>
-        <TopRight style={{ opacity, x: positive1, y: negative1 }}>
+        <TopLeft></TopLeft>
+        <TopRight>
           <h1 className="page-title">s-double-j</h1>
+          <div style={{display: "flex", alignItems: "center", gap: 14}}>
+            <p className="page-subtitle">Manchester based</p>
+            <p className="page-subtitle-brackets">( web designer )</p>
+          </div>
+
           <AnimationContainer>
-      <BigCircle
-        animate={{
-          x: isMobileView ? ["0vh", "-60vh", "0vh"] : ["0vw", "-60vw", "0vw"],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          times: [0, 0.5, 1],
-          delay: 0.5,
-        }}
-      />
-      <HalfCircle
-        animate={{
-          x: isMobileView ? ["0vh", "-60vh", "0vh"] : ["0vw", "-60vw", "0vw"],
-          rotate: [0, 180, 360],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          times: [0, 0.5, 1],
-          delay: 3.5,
-          rotate: {
-            duration: 8,
-            repeat: Infinity,
-            times: [0, 0.5, 1],
-            delay: 3.5,
-            ease: "linear",
-          },
-        }}
-      />
-      <SmallCircle
-        animate={{
-          x: isMobileView ? ["0vh", "-70vh", "0vh"] : ["0vw", "-70vw", "0vw"],
-          scale: ["100%", "50%", "100%"],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-          times: [0, 0.5, 1],
-          delay: 5.5,
-        }}
-      />
-    </AnimationContainer>
+            <BigCircle
+              animate={{
+                x: isMobileView
+                  ? ["0vh", "-60vh", "0vh"]
+                  : ["0vw", "-60vw", "0vw"],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.5, 1],
+                delay: 0.5,
+              }}
+            />
+            <HalfCircle
+              animate={{
+                x: isMobileView
+                  ? ["0vh", "-60vh", "0vh"]
+                  : ["0vw", "-60vw", "0vw"],
+                rotate: [0, 180, 360],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.5, 1],
+                delay: 3.5,
+                rotate: {
+                  duration: 8,
+                  repeat: Infinity,
+                  times: [0, 0.5, 1],
+                  delay: 3.5,
+                  ease: "linear",
+                },
+              }}
+            />
+            <SmallCircle
+              animate={{
+                x: isMobileView
+                  ? ["0vh", "-70vh", "0vh"]
+                  : ["0vw", "-70vw", "0vw"],
+                scale: ["100%", "50%", "100%"],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                times: [0, 0.5, 1],
+                delay: 5.5,
+              }}
+            />
+          </AnimationContainer>
         </TopRight>
-        <BotLeft style={{ opacity, x: negative3, y: positive3 }}></BotLeft>
-        <BotRight style={{ opacity, x: positive2, y: positive2 }}>
+        <BotLeft></BotLeft>
+        <BotRight>
           <TextContainer>
             <h3 className="justify">
               I use the power of story, design & the latest technologies to

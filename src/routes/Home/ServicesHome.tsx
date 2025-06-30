@@ -110,6 +110,13 @@ const InnerTop = styled.div`
   transition: border var(--color-transition) ease-in-out;
   transform-style: preserve-3d;
 `;
+const TopTop = styled.div`
+width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  transform-style: preserve-3d;
+`;
 const TopBottom = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -391,19 +398,22 @@ function ServHome() {
     };
   }, []);
   const targetRef = useRef(null);
-  const { scrollYProgress } = columnLayout ?  useScroll({
-    target: targetRef,
-    layoutEffect: false,
-    offset: ["start start", "end start"],
-  }) : useScroll({
-    target: targetRef,
-    layoutEffect: false,
-  });
+  const { scrollYProgress } = columnLayout
+    ? useScroll({
+        target: targetRef,
+        layoutEffect: false,
+        offset: ["start start", "end start"],
+      })
+    : useScroll({
+        target: targetRef,
+        layoutEffect: false,
+      });
 
   const [scope, animate] = useAnimate();
 
-
-  const isInView = columnLayout ? useInView(scope, { once: true, amount: 'some'}) : useInView(scope, { once: true, amount: 0.5 });
+  const isInView = columnLayout
+    ? useInView(scope, { once: true, amount: "some" })
+    : useInView(scope, { once: true, amount: 0.5 });
   const duration = 2.5;
   const bounce = 0.4;
 
@@ -448,8 +458,12 @@ function ServHome() {
     <ScrollDiv ref={targetRef}>
       <Frame id="My Services" ref={scope}>
         <OverlayContainer>
-          <ProgressIcon width="75" height="75" viewBox="0 0 100 100"
-          style={columnLayout ? {opacity: 0} : undefined}>
+          <ProgressIcon
+            width="75"
+            height="75"
+            viewBox="0 0 100 100"
+            style={columnLayout ? { opacity: 0 } : undefined}
+          >
             <ProgressIconBg
               cx="50"
               cy="50"
@@ -549,7 +563,7 @@ function ServHome() {
                   ? {
                       rotateX: rotateX1,
                       rotateY: rotateY1,
-                      opacity: 1
+                      opacity: 1,
                     }
                   : {
                       rotateX: rotateX1,
@@ -562,16 +576,28 @@ function ServHome() {
             >
               <Service>
                 <InnerTop>
-                  <h2
-                    className="services-home-h2"
-                    style={{
-                      fontWeight: 700,
-                      lineHeight: "105px",
-                      transform: bigZ,
-                    }}
-                  >
-                    CW
-                  </h2>
+                  <TopTop>
+                    <h2
+                      className="services-home-h2"
+                      style={{
+                        fontWeight: 700,
+                        lineHeight: "105px",
+                        transform: bigZ,
+                      }}
+                    >
+                      CW
+                    </h2>
+                    <p
+                      className="services-home small"
+                      style={{ transform: smallZ }}
+                    >
+                      Prices starting at
+                      <b>
+                        <i> £1500</i>
+                      </b>
+                      . <br /> 2-4 weeks estimated timeframe.
+                    </p>
+                  </TopTop>
                   <TopBottom>
                     <p className="uppercase " style={{ transform: smallZ }}>
                       commercial website
@@ -580,11 +606,11 @@ function ServHome() {
                 </InnerTop>
                 <InnerMid>
                   <p className=" justify" style={{ transform: smallZ }}>
-                    Sometimes you don’t need a website with all the techy
-                    trimmings and tiny designy details. Sometimes you just need
-                    to get online with a website that fulfils your business’s
-                    unique needs. Let's find those tangible results you’re
-                    looking for.
+                    Sometimes you just need to get online hassle free and within
+                    budget. <br />
+                    <br />
+                    This service starts at a flat fee of £1500 for a five page
+                    website + £150 for every extra page thereafter.
                   </p>
                 </InnerMid>
                 <InnerBottom>
@@ -626,7 +652,7 @@ function ServHome() {
                   ? {
                       rotateX: rotateX2,
                       rotateY: rotateY2,
-                      opacity: 1
+                      opacity: 1,
                     }
                   : {
                       rotateX: rotateX2,
@@ -639,16 +665,22 @@ function ServHome() {
             >
               <Service>
                 <InnerTop>
-                  <h2
-                    className="services-home-h2"
-                    style={{
-                      fontWeight: 700,
-                      lineHeight: "105px",
-                      transform: bigZ,
-                    }}
-                  >
-                    CP
-                  </h2>
+                  <TopTop>
+                    <h2
+                      className="services-home-h2"
+                      style={{
+                        fontWeight: 700,
+                        lineHeight: "105px",
+                        transform: bigZ,
+                      }}
+                    >
+                      CP
+                    </h2>
+                    <p className="services-home" style={{ transform: smallZ }}>
+                      Tailored quotes for every project. <br /> 6 weeks minimum
+                      estimated timeframe.
+                    </p>
+                  </TopTop>
                   <TopBottom>
                     <p className="uppercase " style={{ transform: smallZ }}>
                       creative project
@@ -657,11 +689,10 @@ function ServHome() {
                 </InnerTop>
                 <InnerMid>
                   <p className=" justify" style={{ transform: smallZ }}>
-                    Do you need a state of the art website? Sweet. Creating
-                    interactive and interesting digital experiences is exactly
-                    what I love to do. Together we’ll find the overlap between
-                    aesthetics, cutting-edge tech, and creative thinking to make
-                    your website turn heads.
+                    Do you want a cutting edge website that turns heads? <br />
+                    <br />
+                    This service uses motion, animation and creativity to
+                    express exactly what makes you / your business unique.
                   </p>
                 </InnerMid>
                 <InnerBottom>
@@ -699,7 +730,7 @@ function ServHome() {
                   ? {
                       rotateX: rotateX3,
                       rotateY: rotateY3,
-                      opacity: 1
+                      opacity: 1,
                     }
                   : {
                       rotateX: rotateX3,
@@ -712,34 +743,39 @@ function ServHome() {
             >
               <Service>
                 <InnerTop>
-                  <h2
-                    className="services-home-h2"
-                    style={{
-                      fontWeight: 700,
-                      lineHeight: "105px",
-                      transform: bigZ,
-                    }}
-                  >
-                    CC
-                  </h2>
+                  <TopTop>
+                    <h2
+                      className="services-home-h2"
+                      style={{
+                        fontWeight: 700,
+                        lineHeight: "105px",
+                        transform: bigZ,
+                      }}
+                    >
+                      WM
+                    </h2>
+                    <p className="services-home" style={{ transform: smallZ }}>
+                     <b><i> £99</i></b> per month. <br /> Lifetime updates and support.
+                    </p>
+                  </TopTop>
                   <TopBottom>
                     <p className="uppercase " style={{ transform: smallZ }}>
-                      content consultation
+                      website managment
                     </p>
                   </TopBottom>
                 </InnerTop>
                 <InnerMid>
                   <p className=" justify" style={{ transform: smallZ }}>
-                    So you’re making your website yourself? You’re the type of
-                    person who likes to get their hands dirty. But there’s a lot
-                    going on when making a website, and maybe you don’t know
-                    where to start. I’ll help you get on your feet and find your
-                    voice.
+                    This service is made to give you peace of mind. <br />
+                    <br />
+                    You’ll have access to all my experience for the lifetime of
+                    your website so you can focus on the important stuff, like
+                    running your business.
                   </p>
                 </InnerMid>
                 <InnerBottom>
                   <p className=" justify" style={{ transform: smallZ }}>
-                    01
+                    03
                   </p>
                   <Circle>
                     <CircleHalf

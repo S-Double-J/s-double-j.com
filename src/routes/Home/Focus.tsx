@@ -6,52 +6,36 @@ const Grid = styled.div`
   top: 75px;
   left: 0;
   flex-shrink: 0;
-  display: grid;
   width: 100%;
   height: calc(100svh - 75px);
   padding: 20px;
-  box-sizing: border-box;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: repeat(6, minmax(0, 1fr));
-  grid-template-areas:
-    ". . . . focus focus focus focus focus focus focus focus"
-    ". . . . focus focus focus focus focus focus focus focus"
-    "Text Text Text Text focus focus focus focus focus focus focus focus"
-    "Text Text Text Text focus focus focus focus focus focus focus focus"
-    "Text Text Text Text focus focus focus focus focus focus focus focus"
-    "Text Text Text Text focus focus focus focus focus focus focus focus";
-  @media screen and (max-aspect-ratio: 1/1) {
-    display: flex;
-    flex-direction: column;
-    gap: 20px
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const TextBox = styled.div`
-  align-self: end;
-  grid-area: Text;
   display: flex;
   height: max-content;
+  max-width: 600px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   overflow-y: auto;
   border-radius: 40px 40px 40px 0px;
-  border: 1px solid var(--fg);
   padding: 39px;
-  background: var(--fg);
   box-sizing: border-box;
   gap: 40px;
   transition: all var(--color-transition) ease-in-out;
   position: relative;
-      @media screen and (max-width: 600px){
-        padding: 19px;
-    }
+  @media screen and (max-width: 600px) {
+    padding: 19px;
+  }
   & > p {
-    color: var(--bg);
     text-align: justify;
-    @media screen and (min-aspect-ratio: 1/1) and (max-width: 1100px){
-      font-size: 12px
+    @media screen and (min-aspect-ratio: 1/1) and (max-width: 1100px) {
+      font-size: 12px;
     }
   }
 `;
@@ -65,7 +49,8 @@ const FocusBox = styled.div`
   position: relative;
   flex: 1 0 0;
   align-self: stretch;
-
+  max-height: 400px;
+  margin-bottom: -100px;
   & > h2 {
     top: 10%;
     @media screen and (max-aspect-ratio: 1/1) {
@@ -94,8 +79,8 @@ const FocusText = styled.span`
   & > p {
     font-size: calc(100vw / 6);
     font-weight: 700;
-    @media screen and (max-aspect-ratio: 1/1){
-      font-size: 25vw
+    @media screen and (max-aspect-ratio: 1/1) {
+      font-size: 25vw;
     }
   }
 `;
@@ -105,10 +90,12 @@ interface Props {
 }
 function Focus({ targetRef }: Props) {
   function isTouchDevice(): boolean {
-    return 'ontouchstart' in window || 
-           navigator.maxTouchPoints > 0 || 
-           (navigator as any).msMaxTouchPoints > 0;
-}
+    return (
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      (navigator as any).msMaxTouchPoints > 0
+    );
+  }
   const { scrollYProgress } = useScroll({
     target: targetRef,
     layoutEffect: false,
@@ -120,7 +107,7 @@ function Focus({ targetRef }: Props) {
     offset: isTouchDevice() ? ["0.7 1.5", "1 1.2"] : ["0.5 1.5", "1 1.2"],
   });
   const height = useTransform(scrollYProgress, [0.1, 1], ["50%", "30%"]);
-  const paragraph = `Every business has a story, my focus is telling yours. __break__ The digital landscape is evolving fast, and standing out in a sea of voices requires more than just visibility—it demands meaningful connection. Story is humanity's universal language and I believe it is the best way for creatives and businesses to leave the lasting impression they deserve. __break__ As a solo freelancer, I offer a personal touch that larger agencies can’t match, so let’s create something extraordinary together. Your story deserves to be seen, felt, and remembered.`;
+  const paragraph = `Everyone has a story, my focus is telling yours. __break__ Story is humanities universal language, we carry stories with us in everything we do. It’s not just a pitch or a product, it’s the reason you do what you do. That’s the story that people connect with and I believe it is the best way for businesses and creatives to leave the lasting impression they deserve. __break__ Let’s give your story a place to live and breathe. Let’s create something extraordinary together. Your story deserves to be seen, felt, and remembered.`;
   const words = paragraph.split(" ");
 
   return (
@@ -137,7 +124,7 @@ function Focus({ targetRef }: Props) {
           MY
         </h2>
         <FocusText>
-          <Blur style={{ height, top: '5%' }}></Blur>
+          <Blur style={{ height, top: "5%" }}></Blur>
           <p>FOCUS</p>
           <Blur style={{ height, bottom: 0 }}></Blur>
         </FocusText>
