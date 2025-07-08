@@ -10,6 +10,9 @@ import {
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { RiMoneyPoundCircleFill } from "react-icons/ri";
+import { IoTimeSharp } from "react-icons/io5";
+import { SiTicktick } from "react-icons/si";
 
 const ScrollDiv = styled.div`
   width: 100%;
@@ -68,8 +71,9 @@ const Service = styled(motion.div)`
   transform: translateZ(35px);
   transition: background var(--color-transition) ease-in-out;
   @media screen and (max-width: 1570px) {
-    width: 250px;
-    height: 350px;
+    width: 300px;
+    height: 500px;
+    padding: 20px;
   }
   @media screen and (max-width: 1270px) {
     width: 450px;
@@ -99,8 +103,6 @@ const ServiceBg = styled(motion.div)`
 
 const InnerTop = styled.div`
   display: flex;
-  padding: 10px 0px;
-  flex-direction: column;
   align-items: flex-start;
   gap: 10px;
   flex: 1 0 0;
@@ -110,63 +112,34 @@ const InnerTop = styled.div`
   transition: border var(--color-transition) ease-in-out;
   transform-style: preserve-3d;
 `;
-const TopTop = styled.div`
-width: 100%;
+const TopLeft = styled.div`
   display: flex;
-  gap: 20px;
-  justify-content: space-between;
   transform-style: preserve-3d;
 `;
-const TopBottom = styled.div`
+const TopRight = styled.div`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: flex-end;
   gap: 10px;
   flex: 1 0 0;
   align-self: stretch;
   transform-style: preserve-3d;
-  @media screen and (max-width: 1570px) {
-    & > p {
-      font-size: 12px;
-    }
-  }
-  @media screen and (max-width: 1270px) {
-    & > p {
-      font-size: 16px;
-    }
-  }
-  @media screen and (max-width: 700px) {
-    & > p {
-      font-size: 12px;
-    }
-  }
+  text-align: right;
+  padding-top: 10px;
 `;
 const InnerMid = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 10px 0px;
   align-items: flex-start;
-  gap: 10px;
+  gap: 15px;
   flex: 1 0 0;
   align-self: stretch;
   border-top: 1px solid;
   border-top-color: var(--fg);
   transition: border var(--color-transition) ease-in-out;
   transform-style: preserve-3d;
-  @media screen and (max-width: 1570px) {
-    & > p {
-      font-size: 12px;
-    }
-  }
-  @media screen and (max-width: 1270px) {
-    & > p {
-      font-size: 16px;
-    }
-  }
-  @media screen and (max-width: 700px) {
-    & > p {
-      font-size: 12px;
-    }
-  }
 `;
 const InnerBottom = styled.div`
   display: flex;
@@ -258,7 +231,36 @@ const CustomLink = styled(motion(Link))`
     top: -10%;
   }
 `;
-
+const Span = styled.span`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 20px;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+`;
+const Price = styled(RiMoneyPoundCircleFill)`
+  width: 20px;
+  height: 20px;
+  fill: var(--fg);
+  mix-blend-mode: difference;
+`;
+const Time = styled(IoTimeSharp)`
+  width: 20px;
+  height: 20px;
+  fill: var(--fg);
+  mix-blend-mode: difference;
+`;
+const Icons = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transform-style: preserve-3d;
+`;
+const Tick = styled(SiTicktick)`
+  color: var(--tick-green);
+`;
 function ServHome() {
   const positiveDeg = "4deg";
   const negativeDeg = "-4deg";
@@ -576,7 +578,7 @@ function ServHome() {
             >
               <Service>
                 <InnerTop>
-                  <TopTop>
+                  <TopLeft>
                     <h2
                       className="services-home-h2"
                       style={{
@@ -587,30 +589,58 @@ function ServHome() {
                     >
                       CW
                     </h2>
-                    <p
-                      className="services-home small"
-                      style={{ transform: smallZ }}
+                  </TopLeft>
+                  <TopRight>
+                    <Icons
+                      style={{
+                        transform: smallZ,
+                      }}
                     >
-                      Prices starting at
-                      <b>
-                        <i> £1500</i>
-                      </b>
-                      . <br /> 2-4 weeks estimated timeframe.
-                    </p>
-                  </TopTop>
-                  <TopBottom>
+                      <Span
+                        style={{
+                          transform: smallZ,
+                        }}
+                      >
+                        <Price />
+                        <p className="services-home ">
+                          <b>
+                            <i> £1500</i>
+                          </b>
+                        </p>
+                      </Span>
+                      <Span
+                        style={{
+                          transform: smallZ,
+                        }}
+                      >
+                        <Time />
+                        <p className="services-home ">
+                          <b>
+                            <i> 2-4 weeks</i>
+                          </b>
+                        </p>
+                      </Span>
+                    </Icons>
                     <p className="uppercase " style={{ transform: smallZ }}>
                       commercial website
                     </p>
-                  </TopBottom>
+                  </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className=" justify" style={{ transform: smallZ }}>
-                    Sometimes you just need to get online hassle free and within
-                    budget. <br />
+                  <p className="justify large" style={{ transform: smallZ }}>
+                    <b> Your affordable launchpad.</b>
+                  </p>
+                  <p className="justify" style={{ transform: smallZ }}>
+                    <Tick /> <b>5-page website</b> – Clean, fast, and
+                    mobile-ready (£1500 flat fee)
                     <br />
-                    This service starts at a flat fee of £1500 for a five page
-                    website + £150 for every extra page thereafter.
+                    <Tick /> <b>+£150 per extra page</b> – Scale as you grow
+                    <br />
+                    <Tick /> <b>Your choice of build</b> – Coded (recommended
+                    for best results) or no-code
+                    <br />
+                    <Tick /> <b>Mobile-optimized & SEO-ready</b> – Designed to
+                    help you get found
                   </p>
                 </InnerMid>
                 <InnerBottom>
@@ -665,7 +695,7 @@ function ServHome() {
             >
               <Service>
                 <InnerTop>
-                  <TopTop>
+                  <TopLeft>
                     <h2
                       className="services-home-h2"
                       style={{
@@ -676,23 +706,59 @@ function ServHome() {
                     >
                       CP
                     </h2>
-                    <p className="services-home" style={{ transform: smallZ }}>
-                      Tailored quotes for every project. <br /> 6 weeks minimum
-                      estimated timeframe.
-                    </p>
-                  </TopTop>
-                  <TopBottom>
-                    <p className="uppercase " style={{ transform: smallZ }}>
+                  </TopLeft>
+                  <TopRight>
+                    <Icons
+                      style={{
+                        transform: smallZ,
+                      }}
+                    >
+                      <Span
+                        style={{
+                          transform: smallZ,
+                        }}
+                      >
+                        <Price />
+                        <p className="services-home small">
+                          <b>
+                            <i> Tailored quote</i>
+                          </b>
+                        </p>
+                      </Span>
+                      <Span
+                        style={{
+                          transform: smallZ,
+                        }}
+                      >
+                        <Time />
+                        <p className="services-home small">
+                          <b>
+                            <i>6+ weeks</i>
+                          </b>
+                        </p>
+                      </Span>
+                    </Icons>
+                    <p className="uppercase" style={{ transform: smallZ }}>
                       creative project
                     </p>
-                  </TopBottom>
+                  </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className=" justify" style={{ transform: smallZ }}>
-                    Do you want a cutting edge website that turns heads? <br />
+                  <p className="justify large" style={{ transform: smallZ }}>
+                    <b>For brands that want to own the spotlight.</b>
+                  </p>
+                  <p className="justify small" style={{ transform: smallZ }}>
+                    <Tick /> <b>Fully custom design</b> – 3D animation, motion
+                    graphics & interactive storytelling
                     <br />
-                    This service uses motion, animation and creativity to
-                    express exactly what makes you / your business unique.
+                    <Tick /> <b>Zero templates</b> – A one-of-a-kind site that
+                    mirrors your uniqueness
+                    <br />
+                    <Tick /> <b>High-performance</b> – Built to impress and
+                    convert
+                    <br />
+                    <Tick /> <b>Collaborative process</b> – From concept to
+                    launch, tailored to your vision
                   </p>
                 </InnerMid>
                 <InnerBottom>
@@ -743,7 +809,7 @@ function ServHome() {
             >
               <Service>
                 <InnerTop>
-                  <TopTop>
+                  <TopLeft>
                     <h2
                       className="services-home-h2"
                       style={{
@@ -754,23 +820,58 @@ function ServHome() {
                     >
                       WM
                     </h2>
-                    <p className="services-home" style={{ transform: smallZ }}>
-                     <b><i> £99</i></b> per month. <br /> Lifetime updates and support.
-                    </p>
-                  </TopTop>
-                  <TopBottom>
+                  </TopLeft>
+                  <TopRight>
+                    <Icons
+                      style={{
+                        transform: smallZ,
+                      }}
+                    >
+                      <Span
+                        style={{
+                          transform: smallZ,
+                        }}
+                      >
+                        <Price />
+                        <p className="services-home small">
+                          <b>
+                            <i>£99/month</i>
+                          </b>
+                        </p>
+                      </Span>
+                      <Span
+                        style={{
+                          transform: smallZ,
+                        }}
+                      >
+                        <Time />
+                        <p className="services-home small">
+                          <b>
+                            <i>2-4 weeks</i>
+                          </b>
+                        </p>
+                      </Span>
+                    </Icons>
                     <p className="uppercase " style={{ transform: smallZ }}>
                       website managment
                     </p>
-                  </TopBottom>
+                  </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className=" justify" style={{ transform: smallZ }}>
-                    This service is made to give you peace of mind. <br />
+                  <p className="justify large" style={{ transform: smallZ }}>
+                    <b>Your website—always flawless, always covered.</b>
+                  </p>
+                  <p className="small justify" style={{ transform: smallZ }}>
+                    <Tick /> <b>Free 5-page website</b> (worth £1500) – Just
+                    £99/month
                     <br />
-                    You’ll have access to all my experience for the lifetime of
-                    your website so you can focus on the important stuff, like
-                    running your business.
+                    <Tick /> <b>Unlimited updates & support</b> – No request too
+                    small
+                    <br />
+                    <Tick />
+                    <b> Hosting + security included</b> – Zero tech stress
+                    <br />
+                    <Tick /> <b>6-month minimum, cancel anytime</b>
                   </p>
                 </InnerMid>
                 <InnerBottom>

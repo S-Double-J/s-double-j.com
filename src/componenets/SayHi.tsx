@@ -14,9 +14,8 @@ const Button = styled.button`
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background-color: var(--fg-mb);
-  mix-blend-mode: difference;
-  z-index: 20;
+  background-color: var(--fg);
+  z-index: 200;
   cursor: pointer;
   transition: background-color var(--color-transition) ease-in-out;
   transition: opacity 0.3s ease-in-out;
@@ -25,6 +24,7 @@ const Button = styled.button`
   & > p {
     font-weight: 900;
     pointer-events: none;
+    color: var(--bg);
   }
 `;
 
@@ -39,8 +39,7 @@ const CenterButton = styled.button`
   position: absolute;
   left: 50svw;
   top: 50svh;
-  background-color: var(--fg-mb);
-  mix-blend-mode: difference;
+  background-color: var(--fg);
   z-index: 20;
   cursor: pointer;
   transition: background-color var(--color-transition) ease-in-out;
@@ -50,6 +49,7 @@ const CenterButton = styled.button`
   & > p {
     font-weight: 900;
     pointer-events: none;
+    color: var(--bg);
   }
 `;
 
@@ -62,9 +62,10 @@ const CustomLink = styled(Link)`
 
 interface Props {
   center: boolean;
+  card: boolean;
 }
 
-const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
+const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card }, ref) => {
   const handleClick = () => {
     const title = document.getElementById("contact");
     const header = document.getElementById("header");
@@ -89,18 +90,28 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center }, ref) => {
   if (center === true) {
     return (
       <CenterButton onClick={handleClick} ref={ref} id="center-button">
-        <p className="large mix-blend-diff">Say hi</p>
+        <p className="large">Let's talk</p>
       </CenterButton>
     );
+  } else if (card === true) {
+    return (
+      <CustomLink
+        id="SayHi-Button"
+        to={{ pathname: "/contact", hash: "form-grid" }}
+      >
+        <Button ref={ref} style={{ position: "unset", padding: "8px 24px" }}>
+          <p>Let's talk</p>
+        </Button>
+      </CustomLink>
+    );
   } else {
-    console.log('normal say hi should be rendered')
     return (
       <CustomLink
         id="SayHi-Button"
         to={{ pathname: "contact", hash: "form-grid" }}
       >
         <Button ref={ref}>
-          <p className="large mix-blend-diff">Say hi</p>
+          <p className="large">Let's talk</p>
         </Button>
       </CustomLink>
     );

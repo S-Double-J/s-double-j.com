@@ -7,7 +7,9 @@ import { useScroll } from "motion/react";
 const Scroll = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 100px;
+  z-index: 201;
+  padding-bottom: 100px;
+  background: var(--bg)
 `;
 const Container = styled.div`
   height: calc(100svh - 75px);
@@ -16,7 +18,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   position: sticky;
-  top: 75px;
+  top: 90px;
+  pointer-events: none;
 `;
 const ArtText = styled.h2`
   position: absolute;
@@ -35,23 +38,22 @@ const ArtText = styled.h2`
 `;
 
 function Table() {
+  const [columnLayout, setColumnLayout] = useState<boolean>(false);
 
-    const [columnLayout, setColumnLayout] = useState<boolean>(false);
-  
-    useEffect(() => {
-      const handleResize = () => {
-        const shouldUseColumnLayout = window.innerWidth <= 1270;
-        setColumnLayout(shouldUseColumnLayout);
-      };
-  
-      handleResize();
-  
-      window.addEventListener("resize", handleResize);
-  
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      const shouldUseColumnLayout = window.innerWidth <= 1270;
+      setColumnLayout(shouldUseColumnLayout);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const target = useRef(null);
   const { scrollYProgress } = useScroll({
     target: target,
@@ -68,8 +70,14 @@ function Table() {
             <Container key={i} id="CW">
               <Card
                 key={card.id}
+                id={card.id}
                 title={card.title}
-                bPoints={card.bPoints}
+                price={card.price}
+                estimate={card.estimate}
+                bPoints1={card.bPoints1}
+                bPoints2={card.bPoints2}
+                bPoints3={card.bPoints3}
+                tagLine={card.tagLine}
                 desc={card.desc}
                 artSrc={card.artSrc}
                 gridBgColor={card.gridBgColor}
@@ -80,14 +88,18 @@ function Table() {
                 targetScale={targetScale}
               >
                 <ArtText
-                  style={columnLayout ? {
-                    color: card.textColor,
-                    mixBlendMode: 'difference'
-                  } : {
-                    color: card.textColor,
-                    textAlign: "left",
-                    left: 0,
-                  }}
+                  style={
+                    columnLayout
+                      ? {
+                          color: "var(--bh-red)",
+                          background: card.gridBgColor
+                        }
+                      : {
+                          color: "var(--bh-red)",
+                          textAlign: "left",
+                          left: 0,
+                        }
+                  }
                 >
                   FORM <br />
                   FOLLOWS <br />
@@ -102,8 +114,14 @@ function Table() {
             <Container key={i} id="CP">
               <Card
                 key={card.id}
+                id={card.id}
                 title={card.title}
-                bPoints={card.bPoints}
+                price={card.price}
+                estimate={card.estimate}
+                bPoints1={card.bPoints1}
+                bPoints2={card.bPoints2}
+                bPoints3={card.bPoints3}
+                tagLine={card.tagLine}
                 desc={card.desc}
                 artSrc={card.artSrc}
                 gridBgColor={card.gridBgColor}
@@ -135,8 +153,14 @@ function Table() {
             <Container key={i} id="CC">
               <Card
                 key={card.id}
+                id={card.id}
                 title={card.title}
-                bPoints={card.bPoints}
+                price={card.price}
+                estimate={card.estimate}
+                bPoints1={card.bPoints1}
+                bPoints2={card.bPoints2}
+                bPoints3={card.bPoints3}
+                tagLine={card.tagLine}
                 desc={card.desc}
                 artSrc={card.artSrc}
                 gridBgColor={card.gridBgColor}

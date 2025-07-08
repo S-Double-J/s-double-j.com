@@ -20,5 +20,6 @@
   --sh-visibility: block;
   --sh-cen-opacity: 0;
   --sh-cen-visibility: hidden;
-
+  --tick-green: rgb(22, 163, 3);
+  --cross-red: rgb(202, 22, 22);
 }

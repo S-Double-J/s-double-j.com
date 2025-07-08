@@ -65,7 +65,7 @@ const CircleContainer = styled.div`
   justify-content: end;
   flex-wrap: wrap;
   position: relative;
-  @media screen and (max-aspect-ratio: 1/1){
+  @media screen and (max-aspect-ratio: 1/1) {
     max-width: 210px;
   }
 `;

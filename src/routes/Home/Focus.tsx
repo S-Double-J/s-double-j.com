@@ -18,13 +18,11 @@ const Grid = styled.div`
 const TextBox = styled.div`
   display: flex;
   height: max-content;
-  max-width: 600px;
+  max-width: 700px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   overflow-y: auto;
-  border-radius: 40px 40px 40px 0px;
-  padding: 39px;
   box-sizing: border-box;
   gap: 40px;
   transition: all var(--color-transition) ease-in-out;
@@ -107,7 +105,8 @@ function Focus({ targetRef }: Props) {
     offset: isTouchDevice() ? ["0.7 1.5", "1 1.2"] : ["0.5 1.5", "1 1.2"],
   });
   const height = useTransform(scrollYProgress, [0.1, 1], ["50%", "30%"]);
-  const paragraph = `Everyone has a story, my focus is telling yours. __break__ Story is humanities universal language, we carry stories with us in everything we do. It’s not just a pitch or a product, it’s the reason you do what you do. That’s the story that people connect with and I believe it is the best way for businesses and creatives to leave the lasting impression they deserve. __break__ Let’s give your story a place to live and breathe. Let’s create something extraordinary together. Your story deserves to be seen, felt, and remembered.`;
+  const paragraph =
+    "Everyone has a story—my focus is telling yours. __break__ Storytelling is humanity’s universal language. It’s not just about a pitch or a product—it’s the why behind what you do. That’s what resonates. That’s what people remember. __break__ For businesses and creatives, a powerful story isn’t just communication—it’s legacy. Let’s give yours room to live, breathe, and leave its mark. __break__ Together, we’ll make sure your story isn’t just seen. It’s felt. And unforgettable.";
   const words = paragraph.split(" ");
 
   return (
@@ -135,6 +134,21 @@ function Focus({ targetRef }: Props) {
             if (word === "__break__") {
               // Render a line break for newline characters
               return <span style={{ width: "100%", height: 16 }} key={i} />;
+            }
+            if (word === "why") {
+              const start = i / words.length;
+              const end = start + 1 / words.length;
+              return (
+                <i>
+                  <Word
+                    key={i}
+                    range={[start, end]}
+                    progress={gradientScrollYProgress}
+                  >
+                    {word}
+                  </Word>
+                </i>
+              );
             } else {
               // Render a word for non-newline tokens
               const start = i / words.length;

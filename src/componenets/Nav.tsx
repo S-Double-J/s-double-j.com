@@ -17,7 +17,7 @@ const Frame = styled.div`
   border-bottom: 1px solid var(--fg);
   background-color: var(--bg);
   transition: all var(--color-transition) ease-in-out;
-  z-index: 100;
+  z-index: 999;
 `;
 const ButtonContainer = styled.div`
   display: flex;

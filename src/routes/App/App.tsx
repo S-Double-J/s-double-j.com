@@ -22,8 +22,8 @@ function App() {
   return (
     <>
       <StickyCursor stickyElements={stickyElementRefs} />
-      <SayHi center={false} ref={stickyElementRefs.sayHi} />
-      <SayHi key="centered" center={true} ref={stickyElementRefs.sayHiCenter} />
+      <SayHi center={false} card={false} ref={stickyElementRefs.sayHi} />
+      <SayHi key="centered" center={true} card={false} ref={stickyElementRefs.sayHiCenter} />
       <Nav
         refs={{
           home: stickyElementRefs.home,

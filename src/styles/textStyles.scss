@@ -39,20 +39,15 @@ label,
 input {
   color: var(--fg);
   font-family: "Space Mono";
-  font-size: 16px;
+  font-size: 12px;
   margin: 0;
   font-weight: 400;
   @media screen and (max-width: 600px) {
     font-size: 12px;
   }
 }
-p.small {
-  font-size: 12px;
-  margin: 0;
-  font-weight: 400;
-}
 p.large {
-  font-size: 20px;
+  font-size: 16px;
 }
 .justify {
   text-align: justify;
