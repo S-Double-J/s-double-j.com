@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
-import Table from "./Table";
+import CardStack from "./CardStack";
 import Footer from "../../componenets/Footer";
 import NewHero from "./NewHero";
+import { useMediaQuery } from "react-responsive";
+import Table from "./Table";
 
 const Frame = styled(motion.div)`
   width: 100%;
@@ -22,24 +24,23 @@ const ColorChangeDiv = styled(motion.div)`
 function Services() {
   const updateCSSVariable = (value: string) => {
     if (value === "footer") {
-      document.documentElement.style.setProperty("--fg", "var(--bh-red)");
-      document.documentElement.style.setProperty("--bg", "var(--bh-light");
-      document.documentElement.style.setProperty("--fg-mb", "var(--bh-mb-red)");
+      document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
+      document.documentElement.style.setProperty("--bg", "var(--brutal-light");
+      document.documentElement.style.setProperty("--fg-mb", "var(--brutal-mb-light)");
     }
     if (value === "bauhaus") {
-      document.documentElement.style.setProperty("--bg", "var(--bh-light)");
+      document.documentElement.style.setProperty("--bg", "var(--brutal-light)");
       document.documentElement.style.setProperty("--fg", "var(--brutal-dark)");
       document.documentElement.style.setProperty(
         "--fg-mb",
-        "var(--bh-mb-light)"
+        "var(--brutal-mb-light)"
       );
     }
   };
-
+const isMobile = useMediaQuery({ query: '(max-width: 768px)'});
   return (
-    <Frame onViewportEnter={() => updateCSSVariable("bauhaus")}>
-      <NewHero />
-      <Table />
+    <Frame onViewportEnter={() => updateCSSVariable("bauhaus")}> 
+      { isMobile ? <Table /> : <> <NewHero /> <CardStack /> </>}
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("footer")}
         onViewportLeave={() => updateCSSVariable("bauhaus")}

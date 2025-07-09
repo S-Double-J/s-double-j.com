@@ -16,7 +16,7 @@ const Frame = styled(motion.div)`
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100lvh - 75px) * 5);
+  height: calc((100dvh - 75px) * 5);
   flex-shrink: 0;
   display: flex;
   align-items: start;

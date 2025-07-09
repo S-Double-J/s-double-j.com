@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import Slider from "./Slider";
 
 const Grid = styled(motion.div)`
-  height: calc(100svh - 235px);
+  height: calc(100svh - 135px);
   max-height: 800px;
   width: 100%;
   max-width: 1400px;
@@ -29,7 +29,6 @@ const Grid = styled(motion.div)`
     "text text text text text text text text text art art art";
   overflow: hidden;
   position: relative;
-  top: -10%;
   pointer-events: all;
   z-index: 201;
   gap: 10px;
@@ -65,8 +64,7 @@ const Mask = styled.div`
   opacity: 0;
   z-index: 1;
   @media screen and (max-aspect-ratio: 1/1),
-    screen and (max-height: 600px),
-    screen and (min-aspect-ratio: 1/2) and (max-width: 800px) {
+    screen and (max-width: 1200px) and (max-height: 900px) {
     opacity: 0.89;
   }
 `;
@@ -106,22 +104,28 @@ const Art = styled.img`
 `;
 const Text = styled.div`
   grid-area: text;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1;
+  grid-template-areas: "details desc";
+  gap: auto;
   height: 100%;
   transition: 0.4s ease;
   padding: 10px;
   box-sizing: border-box;
-  @media screen and (max-aspect-ratio: 1/1) and (max-width: 800px),
+  gap: 20px;
+  @media screen and (max-aspect-ratio: 1/1),
     screen and (max-width: 1200px) and (max-height: 900px) {
     width: 200%;
-    gap: 30px;
+    gap: 40px;
   }
 `;
 
 const Description = styled.div`
+  grid-area: desc;
   display: flex;
   flex-direction: column;
-  width: 50%;
+  max-width: 800px;
   height: 100%;
   text-align: justify;
   z-index: 1;
@@ -134,9 +138,10 @@ const Description = styled.div`
   }
 `;
 const Details = styled.div`
+  grid-area: details;
   display: flex;
   flex-direction: column;
-  width: 50%;
+  max-width: 800px;
   height: 100%;
   overflow-y: auto;
   & > div {
@@ -226,14 +231,14 @@ function Card({
 }: Props) {
   const scale = useTransform(progress, range, [1, targetScale]);
   type TabPosition = {
-  left: number;
-  width: number;
-  desc: boolean
-};
+    left: number;
+    width: number;
+    desc: boolean;
+  };
   const [tabPosition, setTabPosition] = useState<TabPosition>({
     left: 0,
     width: 0,
-    desc: false
+    desc: false,
   });
 
   return (
@@ -241,7 +246,7 @@ function Card({
       id={id}
       style={{
         backgroundColor: gridBgColor,
-        top: `calc(-5% + ${i * 50}px)`,
+        top: `calc( 5px + ${i * 50}px)`,
         scale,
       }}
     >

@@ -22,7 +22,7 @@ const Grid = styled.div`
   flex-shrink: 0;
   display: grid;
   width: 100%;
-  height: calc(100lvh - 75px);
+  height: calc(100svh - 75px);
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
   grid-template-areas:
@@ -36,6 +36,7 @@ const Grid = styled.div`
   pointer-events: none;
   background: var(--bg);
   mix-blend-mode: difference;
+  overflow: hidden;
 `;
 const AnimationContainer = styled.div`
   position: absolute;
@@ -46,7 +47,7 @@ const AnimationContainer = styled.div`
   mix-blend-mode: difference;
   @media screen and (max-width: 900px) {
     rotate: -90deg;
-    transform-origin: calc(100% - 150px) 50%;
+    transform-origin: calc(100% - 190px) 50%;
   }
 `;
 const BigCircle = styled(motion.div)`
@@ -58,7 +59,7 @@ const BigCircle = styled(motion.div)`
   border-radius: 100%;
   background-color: var(--brutal-mb-light);
   mix-blend-mode: difference;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 769px) {
     width: 100px;
     height: 100px;
     top: 140px;
@@ -74,7 +75,7 @@ const HalfCircle = styled(motion.div)`
   border-bottom-left-radius: 200px;
   background-color: var(--brutal-mb-light);
   mix-blend-mode: difference;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 769px) {
     width: 100px;
     height: 5px;
     top: 190px;
@@ -89,7 +90,7 @@ const SmallCircle = styled(motion.div)`
   border-radius: 100%;
   background-color: var(--brutal-mb-light);
   mix-blend-mode: difference;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 769px) {
     width: 10px;
     height: 10px;
     top: 190px;
@@ -99,7 +100,7 @@ const SmallCircle = styled(motion.div)`
 const Blackout = styled(motion.div)`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: calc(100svh - 75px);
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(20px);
   z-index: 1;
@@ -115,7 +116,9 @@ const TopLeft = styled(motion.div)`
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
-`;
+  @media screen and (max-width: 768px){
+      border-bottom-right-radius: 20px;
+  }`;
 const TopRight = styled(motion.div)`
   grid-area: TopRight;
   border-bottom-left-radius: 40px;
@@ -130,7 +133,9 @@ const TopRight = styled(motion.div)`
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
-`;
+  @media screen and (max-width: 768px){
+  border-bottom-left-radius: 20px;
+  }`;
 const BotLeft = styled(motion.div)`
   grid-area: BotLeft;
   border-top-right-radius: 40px;
@@ -143,7 +148,9 @@ const BotLeft = styled(motion.div)`
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
-`;
+  @media screen and (max-width: 768px){
+  border-top-right-radius: 20px;
+  }`;
 const BotRight = styled(motion.div)`
   grid-area: BotRight;
   border-top-left-radius: 40px;
@@ -161,7 +168,9 @@ const BotRight = styled(motion.div)`
   @media screen and (max-height: 500px) {
     padding: 20px;
   }
-`;
+  @media screen and (max-width: 768px){
+  border-top-left-radius: 20px;
+  }`;
 const TextContainer = styled.div`
   display: flex;
   max-width: 900px;
@@ -189,7 +198,7 @@ function Landing({ targetRef }: Props) {
         <TopLeft></TopLeft>
         <TopRight>
           <h1 className="page-title">s-double-j</h1>
-          <div style={{display: "flex", alignItems: "center", gap: 14}}>
+          <div style={{display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap"}}>
             <p className="page-subtitle">Manchester based</p>
             <p className="page-subtitle-brackets">( web designer )</p>
           </div>

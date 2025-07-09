@@ -9,6 +9,7 @@ const Grid = styled.div`
   width: 100%;
   height: calc(100svh - 75px);
   padding: 20px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,7 +142,7 @@ function Focus({ targetRef }: Props) {
               return (
                 <i>
                   <Word
-                    key={i}
+                    i={i}
                     range={[start, end]}
                     progress={gradientScrollYProgress}
                   >
@@ -155,7 +156,7 @@ function Focus({ targetRef }: Props) {
               const end = start + 1 / words.length;
               return (
                 <Word
-                  key={i}
+                  i={i}
                   range={[start, end]}
                   progress={gradientScrollYProgress}
                 >
@@ -176,7 +177,9 @@ const Word = ({
   children,
   range,
   progress,
+  i
 }: {
+  i: number;
   children: string;
   range: number[];
   progress: MotionValue<number>;
@@ -184,9 +187,9 @@ const Word = ({
   const opacity = useTransform(progress, range, [0, 1]);
 
   return (
-    <span className="gradient-text-span">
-      <span className="gradient-text-shadow">{children}</span>
-      <motion.span style={{ opacity }}>{children}</motion.span>
+    <span className="gradient-text-span" key={i+1}>
+      <span className="gradient-text-shadow" key={i+1*2}>{children}</span>
+      <motion.span style={{ opacity }} key={i+1*3}>{children}</motion.span>
     </span>
   );
 };

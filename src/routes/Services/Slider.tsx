@@ -15,7 +15,7 @@ const SliderButtonContainer = styled.div`
   align-items: center;
   justify-content: center;
   display: none;
-  border: 1px solid var(--fg);
+  border: 1px solid var(--brutal-dark);
   width: max-content;
   height: max-content;
   padding: 5px 10px;
@@ -38,7 +38,7 @@ const SliderButton = styled.button`
   z-index: 1;
   & > p {
     mix-blend-mode: difference;
-    color: var(--fg-mb);
+    color: var(--bg);
     text-transform: uppercase;
   }
 `;
@@ -48,26 +48,31 @@ const ButtonCursor = styled(motion.div)`
   z-index: 0;
   border-radius: 999px;
   background-color: var(--brutal-dark);
-`;  
+`;
 type TabPosition = {
   left: number;
   width: number;
-  desc: boolean
+  desc: boolean;
 };
-function Slider({tabPosition, setTabPosition}: {tabPosition: React.ComponentState, setTabPosition: Dispatch<SetStateAction<TabPosition>>}) {
+function Slider({
+  tabPosition,
+  setTabPosition,
+}: {
+  tabPosition: React.ComponentState;
+  setTabPosition: Dispatch<SetStateAction<TabPosition>>;
+}) {
   const ref1 = useRef<HTMLButtonElement>(null);
   const ref2 = useRef<HTMLButtonElement>(null);
 
-useEffect(()=>{
-    if (ref1.current){
-       
-    const { width } = ref1.current.getBoundingClientRect();
-    const left = ref1.current.offsetLeft;
-    const desc = false
+  useEffect(() => {
+    if (ref1.current) {
+      const { width } = ref1.current.getBoundingClientRect();
+      const left = ref1.current.offsetLeft;
+      const desc = false;
 
-    setTabPosition({ width, left, desc });
+      setTabPosition({ width, left, desc });
     }
-}, [])
+  }, []);
   return (
     <SliderButtonContainer>
       <Tab setTabPosition={setTabPosition} desc={false} refrence={ref1}>
@@ -100,7 +105,6 @@ function Tab({
     const left = refrence.current.offsetLeft;
 
     setTabPosition({ width, left, desc });
-
   };
   return (
     <SliderButton ref={refrence} onClick={handleInteraction}>
@@ -113,4 +117,4 @@ function Highlight({ tabPosition }: { tabPosition: TabPosition }) {
   return <ButtonCursor animate={tabPosition} />;
 }
 
-export default Slider ;
+export default Slider;

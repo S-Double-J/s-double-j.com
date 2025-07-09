@@ -28,7 +28,7 @@ const cardData = [
       `Please note this service is designed for static websites only – it's not suitable for dynamic sites like e-commerce platforms or member-based websites. You'll be responsible for arranging your own hosting and domain (though I'm happy to provide recommendations, including free hosting options for hard-coded sites).`,
     ],
     artSrc: "CW.svg",
-    gridBgColor: "rgb(255, 251, 244)",
+    gridBgColor: "var(--bh-light)",
     textColor: "var(--brutal-dark)",
   },
   {
@@ -94,7 +94,7 @@ const cardData = [
     ],
     artSrc: "CC.svg",
     gridBgColor: "var(--brutal-dark)",
-    textColor: "var(--bh-light)",
+    textColor: "var(--brutal-light)",
   },
 ];
 

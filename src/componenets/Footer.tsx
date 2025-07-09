@@ -26,6 +26,7 @@ const Tagline = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  mix-blend-mode: difference;
 `;
 const Banner = styled.div`
   grid-area: b;
@@ -34,6 +35,7 @@ const Banner = styled.div`
   gap: 10px;
   align-items: end;
   justify-content: end;
+  mix-blend-mode: difference;
 `;
 const BannerScroller = styled.div`
   width: 100%;
@@ -55,7 +57,7 @@ const BannerSizeSet = styled.h1`
   opacity: 0;
   white-space: nowrap;
   @media screen and (max-width: 500px) {
-    font-size: 50vw;
+    font-size: 60vw;
     margin-bottom: -9vw
   }
 `;
@@ -69,7 +71,7 @@ const BannerText = styled.h1`
   font-style: italic;
   transition: color var(--color-transition) ease-in-out;
   @media screen and (max-width: 500px) {
-    font-size: 50vw;
+    font-size: 60vw;
     margin-bottom: -9vw
   }
 `;
@@ -77,6 +79,7 @@ const BannerText = styled.h1`
 const CircleFrame = styled(motion.div)`
   grid-area: c;
   position: relative;
+  mix-blend-mode: difference;
 `;
 const BigCircle = styled(motion.div)`
   position: absolute;
@@ -130,7 +133,7 @@ function Footer() {
   return (
     <Grid>
       <Tagline>
-        <p className="fg">
+        <p style={{color: "var(--fg-mb)"}} className="mix-blend-diff">
           Helping people find their own little slice of the net.
         </p>
       </Tagline>
@@ -162,16 +165,16 @@ function Footer() {
         </BigCircle>
       </CircleFrame>
       <Banner>
-        <p className="fg">hi@s-double-j.com</p>
-        <p className="small fg">©S-Double-J 2024</p>
+        <p style={{color: "var(--fg-mb)", fontWeight: 600}} className="mix-blend-diff">hi@s-double-j.com</p>
+        <p style={{color: "var(--fg-mb)", fontWeight: 600}} className="mix-blend-diff">©S-Double-J 2024</p>
         <BannerScroller>
           <BannerSizeSet>s-double-j</BannerSizeSet>
           <BannerHolder
             animate={{ x: "-50%" }}
             transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           >
-            <BannerText className="fg">s-double-j</BannerText>
-            <BannerText className="fg">s-double-j</BannerText>
+            <BannerText className="mix-blend-diff">s-double-j</BannerText>
+            <BannerText className="mix-blend-diff">s-double-j</BannerText>
           </BannerHolder>
         </BannerScroller>
       </Banner>
