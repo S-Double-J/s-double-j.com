@@ -79,8 +79,8 @@ const Service = styled(motion.div)`
     width: 450px;
     height: 450px;
   }
-  @media screen and (max-width: 700px) {
-    width: 250px;
+  @media screen and (max-width: 769px) {
+    width: 280px;
     height: 350px;
     padding: 20px;
   }
@@ -98,6 +98,9 @@ const ServiceBg = styled(motion.div)`
   h3,
   p {
     cursor: pointer;
+  }
+  @media screen and (max-width: 769px){
+    padding: 10px;
   }
 `;
 
@@ -627,7 +630,7 @@ function ServHome() {
                   </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className="justify large" style={{ transform: smallZ }}>
+                  <p className="large" style={{ transform: smallZ }}>
                     <b> Your affordable launchpad.</b>
                   </p>
                   <p className="justify" style={{ transform: smallZ }}>
@@ -744,7 +747,7 @@ function ServHome() {
                   </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className="justify large" style={{ transform: smallZ }}>
+                  <p className="large" style={{ transform: smallZ }}>
                     <b>For brands that want to own the spotlight.</b>
                   </p>
                   <p className="justify small" style={{ transform: smallZ }}>
@@ -858,7 +861,7 @@ function ServHome() {
                   </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className="justify large" style={{ transform: smallZ }}>
+                  <p className="large" style={{ transform: smallZ }}>
                     <b>Your website—always flawless, always covered.</b>
                   </p>
                   <p className="small justify" style={{ transform: smallZ }}>

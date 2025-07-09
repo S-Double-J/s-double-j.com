@@ -14,7 +14,8 @@ const Button = styled.button`
   position: fixed;
   right: 20px;
   bottom: 20px;
-  background-color: var(--fg);
+  background-color: var(--fg-mb);
+  mix-blend-mode: difference;
   z-index: 200;
   cursor: pointer;
   transition: background-color var(--color-transition) ease-in-out;
@@ -22,9 +23,10 @@ const Button = styled.button`
   opacity: var(--sh-opacity);
   display: var(--sh-visibility);
   & > p {
-    font-weight: 900;
     pointer-events: none;
-    color: var(--bg);
+    color: var(--fg-mb);
+    mix-blend-mode: difference;
+    font-style: italic;
   }
 `;
 
@@ -39,7 +41,8 @@ const CenterButton = styled.button`
   position: absolute;
   left: 50svw;
   top: 50svh;
-  background-color: var(--fg);
+  background-color: var(--fg-mb);
+  mix-blend-mode: difference;
   z-index: 20;
   cursor: pointer;
   transition: background-color var(--color-transition) ease-in-out;
@@ -47,9 +50,10 @@ const CenterButton = styled.button`
   opacity: var(--sh-cen-opacity);
   visibility: var(--sh-cen-visibility);
   & > p {
-    font-weight: 900;
     pointer-events: none;
-    color: var(--bg);
+    color: var(--fg-mb);
+    mix-blend-mode: difference;
+    font-style: italic;
   }
 `;
 
@@ -99,8 +103,8 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card }, ref) => {
         id="SayHi-Button"
         to={{ pathname: "/contact", hash: "form-grid" }}
       >
-        <Button ref={ref} style={{ position: "unset", padding: "8px 24px" }}>
-          <p>Let's talk</p>
+        <Button ref={ref} style={{ position: "unset", padding: "8px 24px",  }}>
+           <p>Let's talk</p>
         </Button>
       </CustomLink>
     );

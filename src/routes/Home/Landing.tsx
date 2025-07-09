@@ -98,7 +98,7 @@ const SmallCircle = styled(motion.div)`
 `;
 
 const Blackout = styled(motion.div)`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: calc(100svh - 75px);
   background: rgba(255, 255, 255, 0.01);
@@ -190,7 +190,7 @@ function Landing({ targetRef }: Props) {
     layoutEffect: false,
   });
 
-  const blackOutOpacity = useTransform(scrollYProgress, [0.2, 0.3], [1, 0]);
+  const blackOutOpacity = useTransform(scrollYProgress, [0.2, 0.6], [1, 0]);
   return (
     <>
       <Blackout style={{ opacity: blackOutOpacity }} />
@@ -260,9 +260,8 @@ function Landing({ targetRef }: Props) {
         <BotLeft></BotLeft>
         <BotRight>
           <TextContainer>
-            <h3 className="justify">
-              I use the power of story, design & the latest technologies to
-              transform your concept into a website that will turn heads.
+            <h3 >
+             Storytelling that connects. Design that captivates.
             </h3>
           </TextContainer>
         </BotRight>
