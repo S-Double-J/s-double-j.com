@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { motion, useMotionValue, useSpring } from "motion/react";
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Cursor = styled(motion.div)`
   background-color: var(--fg-mb);
@@ -26,7 +27,7 @@ function StickyCursor({ stickyElements }: Props) {
     key: string;
   } | null>(null);
   const cursorRef = useRef<HTMLDivElement>(null);
-   // Store the hovered element in a ref to avoid stale closures
+  // Store the hovered element in a ref to avoid stale closures
   const hoveredElementRef = useRef(hoveredElement);
   useEffect(() => {
     hoveredElementRef.current = hoveredElement;
@@ -48,13 +49,9 @@ function StickyCursor({ stickyElements }: Props) {
     y: useSpring(mouse.y, smoothOptions),
   };
 
-
-
-
   const manageMouseMove = useCallback((e: MouseEvent) => {
     const { clientX, clientY } = e;
     const currentHovered = hoveredElementRef.current; // Use ref instead of state
-    
 
     if (currentHovered?.ref.current) {
       const rect = currentHovered.ref.current.getBoundingClientRect();
@@ -70,7 +67,7 @@ function StickyCursor({ stickyElements }: Props) {
       mouse.y.set(clientY - cursorSize / 2);
     }
   }, []);
-
+  const location = useLocation();
   useEffect(() => {
     const elements = Object.entries(stickyElements);
 
@@ -78,7 +75,7 @@ function StickyCursor({ stickyElements }: Props) {
     const mouseLeaveHandlers: Record<string, () => void> = {};
 
     elements.forEach(([key, ref]) => {
-      console.log("key; ", key, "ref: ", ref)
+      console.log("key; ", key, "ref: ", ref);
       if (ref.current) {
         mouseOverHandlers[key] = () => {
           setHoveredElement({ ref, key });
@@ -106,12 +103,11 @@ function StickyCursor({ stickyElements }: Props) {
         }
       });
     };
-  }, [stickyElements]);
-
+  }, [stickyElements, location.key]);
 
   return (
     <Cursor
-    className="cursor"
+      className="cursor"
       ref={cursorRef}
       style={{
         left: smoothMouse.x,
@@ -123,4 +119,3 @@ function StickyCursor({ stickyElements }: Props) {
 }
 
 export default StickyCursor;
-

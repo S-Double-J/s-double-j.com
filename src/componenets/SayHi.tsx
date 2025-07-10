@@ -73,7 +73,6 @@ interface Props {
 
 const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card, bgColor }, ref) => {
   const handleClick = () => {
-    console.log(ref)
     const title = document.getElementById("contact");
     const header = document.getElementById("header");
     const button = document.getElementById("center-button");
