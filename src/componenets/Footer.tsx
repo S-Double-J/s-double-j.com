@@ -14,7 +14,7 @@ const Grid = styled.div`
     "b b b b b b b b b b b b"
     "b b b b b b b b b b b b";
   width: 100%;
-  height: calc(100svh - 75px);
+  height: calc(100lvh - 75px);
   flex-shrink: 0;
   padding: 10px;
   box-sizing: border-box;

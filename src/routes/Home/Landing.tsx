@@ -101,7 +101,7 @@ const SmallCircle = styled(motion.div)`
 const Blackout = styled(motion.div)`
   position: fixed;
   width: 100%;
-  height: calc(100dvh - 75px);
+  height: calc(100lvh - 75px);
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(20px);
   z-index: 1;
