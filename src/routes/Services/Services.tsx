@@ -11,13 +11,13 @@ const Frame = styled(motion.div)`
   display: flex;
   flex-direction: column;
   position: relative;
+  gap: 200px;
 `;
 
 
 const ColorChangeDiv = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  gap: 200px;
   position: relative;
 `;
 

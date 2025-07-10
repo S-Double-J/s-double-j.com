@@ -80,6 +80,7 @@ h3.pointer {
   z-index: 2;
   mix-blend-mode: difference;
   color: var(--fg-mb);
+  pointer-events: none;
   @media screen and (max-width: 1090px) {
     font-size: calc(100vw / 7);
   }
@@ -87,11 +88,28 @@ h3.pointer {
 .page-subtitle {
   font-style: italic;
   font-weight: bold;
+  line-height: 1.2;
+  font-size: 16px;
 }
 .page-subtitle-brackets {
   color: var(--brutal-red);
   font-style: italic;
   font-weight: bold;
+  line-height: 0.8;
+  font-size: 16px;
+}
+.page-subtitle-brackets-container {
+  color: var(--brutal-red);
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+  width: 128px;
+  overflow: hidden;
+  line-height: 0.8;
+  text-transform: uppercase;
+  @media screen and (max-width: 769px) {
+    width: 96px
+  }
 }
 
 .services-home {

@@ -8,7 +8,6 @@ const Scroll = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 201;
-  padding-bottom: 100px;
   background: var(--bg);
 `;
 const Container = styled.div`
@@ -37,7 +36,7 @@ const ArtText = styled.h2`
   }
 `;
 
-function CardStack() {
+const CardStack = () => {
   const [columnLayout, setColumnLayout] = useState<boolean>(false);
 
   useEffect(() => {

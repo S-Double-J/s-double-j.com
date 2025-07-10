@@ -8,6 +8,7 @@ import { IoTimeSharp } from "react-icons/io5";
 import SayHi from "../../componenets/SayHi";
 import React, { useState } from "react";
 import Slider from "./Slider";
+import { useOutletContext } from "react-router-dom";
 
 const Grid = styled(motion.div)`
   height: calc(100svh - 135px);
@@ -189,7 +190,11 @@ const InterestedSpan = styled.span`
   gap: 10px;
   align-items: center;
 `;
-
+interface OutletContext {
+  sayHiCard1: React.RefObject<HTMLButtonElement>;
+  sayHiCard2: React.RefObject<HTMLButtonElement>;
+  sayHiCard3: React.RefObject<HTMLButtonElement>;
+}
 interface Props {
   id: string;
   title: string;
@@ -240,7 +245,9 @@ function Card({
     width: 0,
     desc: false,
   });
-
+  const { sayHiCard1 } = useOutletContext<OutletContext>();
+  const { sayHiCard2 } = useOutletContext<OutletContext>();
+  const { sayHiCard3 } = useOutletContext<OutletContext>();
   return (
     <Grid
       id={id}
@@ -374,7 +381,30 @@ function Card({
           ))}
           <InterestedSpan>
             <p style={{ color: textColor, zIndex: 1 }}>Interested?</p>{" "}
-            <SayHi center={false} card={true} />
+            {i === 0 && (
+              <SayHi
+                center={false}
+                card={true}
+                bgColor={textColor}
+                ref={sayHiCard1}
+              />
+            )}
+            {i === 1 && (
+              <SayHi
+                center={false}
+                card={true}
+                bgColor={textColor}
+                ref={sayHiCard2}
+              />
+            )}
+            {i === 2 && (
+              <SayHi
+                center={false}
+                card={true}
+                bgColor={textColor}
+                ref={sayHiCard3}
+              />
+            )}
           </InterestedSpan>
         </Description>
       </Text>

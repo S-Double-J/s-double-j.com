@@ -17,6 +17,9 @@ function App() {
     contact: useRef<HTMLAnchorElement>(null),
     sayHi: useRef<HTMLButtonElement>(null),
     sayHiCenter: useRef<HTMLButtonElement>(null),
+    sayHiCard1: useRef<HTMLButtonElement>(null),
+    sayHiCard2: useRef<HTMLButtonElement>(null),
+    sayHiCard3: useRef<HTMLButtonElement>(null),
   };
 
   return (
@@ -36,6 +39,9 @@ function App() {
         context={{
           sayHi: stickyElementRefs.sayHi,
           sayHiCenter: stickyElementRefs.sayHiCenter,
+          sayHiCard1: stickyElementRefs.sayHiCard1,
+          sayHiCard2: stickyElementRefs.sayHiCard2,
+          sayHiCard3: stickyElementRefs.sayHiCard3,
         }}
       />
       <ScrollRestoration getKey={(location) => location.pathname} />

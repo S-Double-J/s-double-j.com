@@ -39,8 +39,9 @@ const CenterButton = styled.button`
   border: none;
   background: none;
   position: absolute;
-  left: 50svw;
-  top: 50svh;
+  left: 50vw;
+  top: 50vh;
+  transform: translate(-50%, -50%);
   background-color: var(--fg-mb);
   mix-blend-mode: difference;
   z-index: 20;
@@ -67,10 +68,12 @@ const CustomLink = styled(Link)`
 interface Props {
   center: boolean;
   card: boolean;
+  bgColor?: string;
 }
 
-const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card }, ref) => {
+const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card, bgColor }, ref) => {
   const handleClick = () => {
+    console.log(ref)
     const title = document.getElementById("contact");
     const header = document.getElementById("header");
     const button = document.getElementById("center-button");
@@ -103,7 +106,7 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card }, ref) => {
         id="SayHi-Button"
         to={{ pathname: "/contact", hash: "form-grid" }}
       >
-        <Button ref={ref} style={{ position: "unset", padding: "8px 24px",  }}>
+        <Button ref={ref} style={{ position: "unset", padding: "8px 24px", backgroundColor: bgColor }}>
            <p>Let's talk</p>
         </Button>
       </CustomLink>

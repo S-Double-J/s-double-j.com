@@ -78,6 +78,7 @@ function StickyCursor({ stickyElements }: Props) {
     const mouseLeaveHandlers: Record<string, () => void> = {};
 
     elements.forEach(([key, ref]) => {
+      console.log("key; ", key, "ref: ", ref)
       if (ref.current) {
         mouseOverHandlers[key] = () => {
           setHoveredElement({ ref, key });

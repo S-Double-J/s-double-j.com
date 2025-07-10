@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { SplitText } from "../../componenets/SplitText";
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
@@ -33,7 +34,6 @@ const Grid = styled.div`
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
   z-index: 1;
-  pointer-events: none;
   background: var(--bg);
   mix-blend-mode: difference;
   overflow: hidden;
@@ -45,6 +45,7 @@ const AnimationContainer = styled.div`
   top: 50px;
   z-index: 3;
   mix-blend-mode: difference;
+  pointer-events: none;
   @media screen and (max-width: 900px) {
     rotate: -90deg;
     transform-origin: calc(100% - 190px) 50%;
@@ -100,7 +101,7 @@ const SmallCircle = styled(motion.div)`
 const Blackout = styled(motion.div)`
   position: fixed;
   width: 100%;
-  height: calc(100svh - 75px);
+  height: calc(100dvh - 75px);
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(20px);
   z-index: 1;
@@ -116,9 +117,10 @@ const TopLeft = styled(motion.div)`
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
-  @media screen and (max-width: 768px){
-      border-bottom-right-radius: 20px;
-  }`;
+  @media screen and (max-width: 768px) {
+    border-bottom-right-radius: 20px;
+  }
+`;
 const TopRight = styled(motion.div)`
   grid-area: TopRight;
   border-bottom-left-radius: 40px;
@@ -133,9 +135,10 @@ const TopRight = styled(motion.div)`
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
-  @media screen and (max-width: 768px){
-  border-bottom-left-radius: 20px;
-  }`;
+  @media screen and (max-width: 768px) {
+    border-bottom-left-radius: 20px;
+  }
+`;
 const BotLeft = styled(motion.div)`
   grid-area: BotLeft;
   border-top-right-radius: 40px;
@@ -148,9 +151,10 @@ const BotLeft = styled(motion.div)`
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
   mix-blend-mode: difference;
-  @media screen and (max-width: 768px){
-  border-top-right-radius: 20px;
-  }`;
+  @media screen and (max-width: 768px) {
+    border-top-right-radius: 20px;
+  }
+`;
 const BotRight = styled(motion.div)`
   grid-area: BotRight;
   border-top-left-radius: 40px;
@@ -168,9 +172,10 @@ const BotRight = styled(motion.div)`
   @media screen and (max-height: 500px) {
     padding: 20px;
   }
-  @media screen and (max-width: 768px){
-  border-top-left-radius: 20px;
-  }`;
+  @media screen and (max-width: 768px) {
+    border-top-left-radius: 20px;
+  }
+`;
 const TextContainer = styled.div`
   display: flex;
   max-width: 900px;
@@ -190,6 +195,9 @@ function Landing({ targetRef }: Props) {
     layoutEffect: false,
   });
 
+  
+  const splitTexts = [ "web designer", "web developer"];
+
   const blackOutOpacity = useTransform(scrollYProgress, [0.2, 0.6], [1, 0]);
   return (
     <>
@@ -198,11 +206,28 @@ function Landing({ targetRef }: Props) {
         <TopLeft></TopLeft>
         <TopRight>
           <h1 className="page-title">s-double-j</h1>
-          <div style={{display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap"}}>
-            <p className="page-subtitle">Manchester based</p>
-            <p className="page-subtitle-brackets">( web designer )</p>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
+              flexWrap: "wrap",
+            }}
+          >
+            <p className="page-subtitle large">Manchester based</p>
+            <div 
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                flexWrap: "wrap",
+              }}
+            >
+              <p className="page-subtitle-brackets large">(</p>
+              <SplitText>{splitTexts}</SplitText>
+              <p className="page-subtitle-brackets large">)</p>
+            </div>
           </div>
-
           <AnimationContainer>
             <BigCircle
               animate={{
@@ -260,9 +285,7 @@ function Landing({ targetRef }: Props) {
         <BotLeft></BotLeft>
         <BotRight>
           <TextContainer>
-            <h3 >
-             Storytelling that connects. Design that captivates.
-            </h3>
+            <h3>Storytelling that connects. Design that captivates.</h3>
           </TextContainer>
         </BotRight>
       </Grid>
