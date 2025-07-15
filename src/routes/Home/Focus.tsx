@@ -14,6 +14,11 @@ const Grid = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 80px;
+  @media screen and (max-width:769px){
+    justify-content: space-between;
+    padding: 40px 20px;
+  }
 `;
 
 const TextBox = styled.div`
@@ -43,12 +48,12 @@ const FocusBox = styled.div`
   grid-area: focus;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   position: relative;
   flex: 1 0 0;
   align-self: stretch;
-  max-height: 400px;
+  max-height: 500px;
   margin-bottom: -100px;
   & > h2 {
     top: 10%;
@@ -117,7 +122,6 @@ function Focus({ targetRef }: Props) {
           style={{
             fontFamily: "Xanh Mono",
             fontStyle: "italic",
-            position: "absolute",
             zIndex: 2,
           }}
         >

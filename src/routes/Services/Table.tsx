@@ -346,15 +346,16 @@ function Table() {
               tagLine={card.tagLine}
               desc={card.desc}
               artSrc={card.artSrc}
-              gridBgColor={card.gridBgColor}
+              gridBgColor={"var(--brutal-light)"}
               textColor={card.textColor}
               i={i}
             >
               <ArtText
                 style={{
                   color: "var(--bh-red)",
-                  background: card.gridBgColor,
+                  background: "var(--brutal-light)",
                   padding: 20,
+                  top: -20
                 }}
               >
                 FORM <br />

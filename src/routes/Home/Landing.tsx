@@ -137,6 +137,7 @@ const TopRight = styled(motion.div)`
   mix-blend-mode: difference;
   @media screen and (max-width: 768px) {
     border-bottom-left-radius: 20px;
+    padding: 20px;
   }
 `;
 const BotLeft = styled(motion.div)`
@@ -174,6 +175,7 @@ const BotRight = styled(motion.div)`
   }
   @media screen and (max-width: 768px) {
     border-top-left-radius: 20px;
+    padding: 20px;
   }
 `;
 const TextContainer = styled.div`
@@ -195,8 +197,7 @@ function Landing({ targetRef }: Props) {
     layoutEffect: false,
   });
 
-  
-  const splitTexts = [ "web designer", "web developer"];
+  const splitTexts = ["web designer", "web developer"];
 
   const blackOutOpacity = useTransform(scrollYProgress, [0.2, 0.6], [1, 0]);
   return (
@@ -215,7 +216,7 @@ function Landing({ targetRef }: Props) {
             }}
           >
             <p className="page-subtitle large">Manchester based</p>
-            <div 
+            <div
               style={{
                 display: "flex",
                 alignItems: "center",

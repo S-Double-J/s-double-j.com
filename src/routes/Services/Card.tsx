@@ -33,28 +33,6 @@ const Grid = styled(motion.div)`
   pointer-events: all;
   z-index: 201;
   gap: 10px;
-  @media screen and (max-aspect-ratio: 1/1),
-    screen and (max-height: 600px),
-    screen and (min-aspect-ratio: 1/2) and (max-width: 800px),
-    screen and (max-width: 1200px) and (max-height: 900px) {
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    grid-template-areas:
-      "header"
-      "button"
-      "text"
-      "text"
-      "text"
-      "text"
-      "text"
-      "text";
-    @media screen and (max-width: 500px) {
-      padding: 10px;
-    }
-  }
-  @media screen and (max-height: 800px), screen and (max-width: 500px) {
-    height: calc(100svh - 155px);
-  }
 `;
 const Mask = styled.div`
   position: absolute;
@@ -251,7 +229,11 @@ function Card({
   return (
     <Grid
       id={id}
-      style={{
+      style={ i === 0 && window.innerWidth < 1200 && window.innerHeight < 900 ? {
+        backgroundColor: "var(--brutal-light)",
+        top: `calc( 5px + ${i * 50}px)`,
+        scale,
+      } : {
         backgroundColor: gridBgColor,
         top: `calc( 5px + ${i * 50}px)`,
         scale,

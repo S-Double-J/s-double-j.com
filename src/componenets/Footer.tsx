@@ -16,9 +16,9 @@ const Grid = styled.div`
   width: 100%;
   height: calc(100lvh - 75px);
   flex-shrink: 0;
-  padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
+  padding: 10px;
 `;
 
 const Tagline = styled.div`
@@ -40,7 +40,6 @@ const Banner = styled.div`
 const BannerScroller = styled.div`
   width: 100%;
   position: relative;
-  overflow: hidden;
 `;
 const BannerHolder = styled(motion.div)`
   position: absolute;
@@ -52,13 +51,12 @@ const BannerHolder = styled(motion.div)`
 `;
 const BannerSizeSet = styled.h1`
   font-size: 18vw;
-  margin-bottom: -4vw;
-  margin-top: -4vw;
   opacity: 0;
   white-space: nowrap;
+  line-height: 0.75;
   @media screen and (max-width: 500px) {
+     line-height: 0.9;
     font-size: 60vw;
-    margin-bottom: -9vw
   }
 `;
 const BannerText = styled.h1`

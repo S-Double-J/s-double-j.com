@@ -16,7 +16,7 @@ import { SiTicktick } from "react-icons/si";
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100lvh - 75px) * 3);
+  height: calc((100lvh - 75px));
   flex-shrink: 0;
   display: flex;
   align-items: start;
@@ -24,6 +24,9 @@ const ScrollDiv = styled.div`
   position: relative;
   flex-direction: column;
   z-index: 1;
+    @media screen and (max-width: 1270px) {
+  height: calc((100lvh - 75px) * 3);
+  }
 `;
 const Frame = styled(motion.div)`
   position: sticky;
@@ -207,22 +210,6 @@ const OverlayText = styled.p`
     margin-top: 0;
     margin-bottom: 0;
   }
-`;
-const ProgressIcon = styled(motion.svg)`
-  position: absolute;
-  top: 5px;
-  right: 0px;
-  stroke: var(--fg);
-  mix-blend-mode: exclusion;
-  fill: none;
-`;
-const ProgressIconBg = styled(motion.circle)`
-  stroke-width: 10;
-  opacity: 0.2;
-`;
-const ProgressIconIndication = styled(motion.circle)`
-  stroke-dashoffset: 0;
-  stroke-width: 10;
 `;
 const CustomLink = styled(motion(Link))`
   text-decoration: none;
@@ -463,29 +450,6 @@ function ServHome() {
     <ScrollDiv ref={targetRef}>
       <Frame id="My Services" ref={scope}>
         <OverlayContainer>
-          <ProgressIcon
-            width="75"
-            height="75"
-            viewBox="0 0 100 100"
-            style={columnLayout ? { opacity: 0 } : undefined}
-          >
-            <ProgressIconBg
-              cx="50"
-              cy="50"
-              r="40"
-              pathLength="1"
-              className="bg"
-            />
-            <ProgressIconIndication
-              cx="50"
-              cy="50"
-              r="40"
-              pathLength="1"
-              style={{
-                pathLength: scrollYProgress,
-              }}
-            />
-          </ProgressIcon>
           <Overlay>
             <OverlayLine>
               {["W", "H", "A", "T", "z"].map((l, i) => {
