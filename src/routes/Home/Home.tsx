@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Landing from "./Landing";
 import Focus from "./Focus";
-// import ServHome from "./ServicesHome";
+import ServHome from "./ServicesHome";
 import Footer from "../../componenets/Footer";
 import { useRef } from "react";
 import { motion } from "motion/react";
-// import { useMediaQuery } from "react-responsive";
-// import ServHomeMobile from "./ServicesHomeMobile";
+import { useMediaQuery } from "react-responsive";
+import ServHomeMobile from "./ServicesHomeMobile";
 
 const Frame = styled(motion.div)`
   width: 100%;
@@ -53,7 +53,7 @@ function Home() {
       );
     }
   };
-  // const matches = useMediaQuery({query: "screen and (max-width : 769px)"});
+  const matches = useMediaQuery({query: "screen and (max-width : 769px)"});
   const targetRef = useRef(null);
   return (
     <Frame>
@@ -70,7 +70,7 @@ function Home() {
         onViewportEnter={() => updateCSSVariable("dark")}
         onViewportLeave={() => updateCSSVariable("light")}
       >
-        {/* {matches ? <ServHomeMobile /> : <ServHome />} */}
+        {matches ? null : <ServHome />}
         <Footer></Footer>
       </ColorChangeDiv>
     </Frame>
