@@ -5,7 +5,7 @@ import ServHome from "./ServicesHome";
 import Footer from "../../componenets/Footer";
 import { useRef } from "react";
 import { motion } from "motion/react";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 // import ServHomeMobile from "./ServicesHomeMobile";
 
 const Frame = styled(motion.div)`
