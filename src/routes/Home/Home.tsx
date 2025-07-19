@@ -70,7 +70,7 @@ function Home() {
         onViewportEnter={() => updateCSSVariable("dark")}
         onViewportLeave={() => updateCSSVariable("light")}
       >
-        {matches ? null : <ServHome />}
+        <ServHome />
         <Footer></Footer>
       </ColorChangeDiv>
     </Frame>

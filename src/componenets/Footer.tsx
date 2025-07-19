@@ -165,6 +165,7 @@ function Footer() {
       <Banner>
         <p style={{color: "var(--fg-mb)", fontWeight: 600}} className="mix-blend-diff">hi@s-double-j.com</p>
         <p style={{color: "var(--fg-mb)", fontWeight: 600}} className="mix-blend-diff">©S-Double-J 2024</p>
+        
         <BannerScroller>
           <BannerSizeSet>s-double-j</BannerSizeSet>
           <BannerHolder
