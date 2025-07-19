@@ -53,7 +53,7 @@ function Home() {
       );
     }
   };
-  const matches = useMediaQuery({query: "screen and (max-width : 769px)"});
+  // const matches = useMediaQuery({query: "screen and (max-width : 769px)"});
   const targetRef = useRef(null);
   return (
     <Frame>
