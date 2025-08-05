@@ -3,12 +3,10 @@ import {
   motion,
   useAnimate,
   useInView,
-  useMotionValue,
   useScroll,
-  useSpring,
   useTransform,
 } from "motion/react";
-import React, { useEffect, useRef, useState } from "react";
+import  { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiMoneyPoundCircleFill } from "react-icons/ri";
 import { IoTimeSharp } from "react-icons/io5";
@@ -253,127 +251,7 @@ const Tick = styled(SiTicktick)`
 `;
 function ServHome() {
 
-  
-  const positiveDeg = "4deg";
-  const negativeDeg = "-4deg";
 
-  const bigZ = "translateZ(100px)";
-  const smallZ = "translateZ(55px)";
-
-  const x1 = useMotionValue(0);
-  const y1 = useMotionValue(0);
-
-  const mouseXSpring1 = useSpring(x1);
-  const mouseYSpring1 = useSpring(y1);
-
-  const rotateX1 = useTransform(
-    mouseYSpring1,
-    [-0.5, 0.5],
-    [positiveDeg, negativeDeg]
-  );
-  const rotateY1 = useTransform(
-    mouseXSpring1,
-    [-0.5, 0.5],
-    [negativeDeg, positiveDeg]
-  );
-
-  const handleMouseMove1 = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log("element hovered");
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPercent = mouseX / width - 0.5;
-    const yPercent = mouseY / height - 0.5;
-
-    x1.set(xPercent);
-    y1.set(yPercent);
-  };
-
-  const handleMouseLeave1 = () => {
-    x1.set(0);
-    y1.set(0);
-  };
-
-  const x2 = useMotionValue(0);
-  const y2 = useMotionValue(0);
-
-  const mouseXSpring2 = useSpring(x2);
-  const mouseYSpring2 = useSpring(y2);
-
-  const rotateX2 = useTransform(
-    mouseYSpring2,
-    [-0.5, 0.5],
-    [positiveDeg, negativeDeg]
-  );
-  const rotateY2 = useTransform(
-    mouseXSpring2,
-    [-0.5, 0.5],
-    [negativeDeg, positiveDeg]
-  );
-
-  const handleMouseMove2 = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPercent = mouseX / width - 0.5;
-    const yPercent = mouseY / height - 0.5;
-
-    x2.set(xPercent);
-    y2.set(yPercent);
-  };
-
-  const handleMouseLeave2 = () => {
-    x2.set(0);
-    y2.set(0);
-  };
-
-  const x3 = useMotionValue(0);
-  const y3 = useMotionValue(0);
-
-  const mouseXSpring3 = useSpring(x3);
-  const mouseYSpring3 = useSpring(y3);
-
-  const rotateX3 = useTransform(
-    mouseYSpring3,
-    [-0.5, 0.5],
-    [positiveDeg, negativeDeg]
-  );
-  const rotateY3 = useTransform(
-    mouseXSpring3,
-    [-0.5, 0.5],
-    [negativeDeg, positiveDeg]
-  );
-
-  const handleMouseMove3 = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    const width = rect.width;
-    const height = rect.height;
-
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPercent = mouseX / width - 0.5;
-    const yPercent = mouseY / height - 0.5;
-
-    x3.set(xPercent);
-    y3.set(yPercent);
-  };
-
-  const handleMouseLeave3 = () => {
-    x3.set(0);
-    y3.set(0);
-  };
 
   const [columnLayout, setColumnLayout] = useState<boolean>(false);
 
@@ -527,21 +405,6 @@ function ServHome() {
           >
             <ServiceBg
               id="serviceBg1"
-              onMouseMove={handleMouseMove1}
-              onMouseLeave={handleMouseLeave1}
-              style={
-                columnLayout
-                  ? {
-                      rotateX: rotateX1,
-                      rotateY: rotateY1,
-                      opacity: 1,
-                    }
-                  : {
-                      rotateX: rotateX1,
-                      rotateY: rotateY1,
-                      y: "-150vh",
-                    }
-              }
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
@@ -553,7 +416,6 @@ function ServHome() {
                       style={{
                         fontWeight: 700,
                         lineHeight: "105px",
-                        transform: bigZ,
                       }}
                     >
                       CW
@@ -562,12 +424,10 @@ function ServHome() {
                   <TopRight>
                     <Icons
                       style={{
-                        transform: smallZ,
                       }}
                     >
                       <Span
                         style={{
-                          transform: smallZ,
                         }}
                       >
                         <Price />
@@ -579,7 +439,6 @@ function ServHome() {
                       </Span>
                       <Span
                         style={{
-                          transform: smallZ,
                         }}
                       >
                         <Time />
@@ -590,16 +449,16 @@ function ServHome() {
                         </p>
                       </Span>
                     </Icons>
-                    <p className="uppercase " style={{ transform: smallZ }}>
+                    <p className="uppercase ">
                       commercial website
                     </p>
                   </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className="large" style={{ transform: smallZ }}>
+                  <p className="large">
                     <b> Your affordable launchpad.</b>
                   </p>
-                  <p className="justify" style={{ transform: smallZ }}>
+                  <p className="justify">
                     <Tick /> <b>5-page website</b> – Clean, fast, and
                     mobile-ready (£1500 flat fee)
                     <br />
@@ -613,7 +472,7 @@ function ServHome() {
                   </p>
                 </InnerMid>
                 <InnerBottom>
-                  <p className=" justify" style={{ transform: smallZ }}>
+                  <p className=" justify">
                     01
                   </p>
                   <Circle>
@@ -644,21 +503,6 @@ function ServHome() {
           >
             <ServiceBg
               id="serviceBg2"
-              onMouseMove={handleMouseMove2}
-              onMouseLeave={handleMouseLeave2}
-              style={
-                columnLayout
-                  ? {
-                      rotateX: rotateX2,
-                      rotateY: rotateY2,
-                      opacity: 1,
-                    }
-                  : {
-                      rotateX: rotateX2,
-                      rotateY: rotateY2,
-                      y: "-150vh",
-                    }
-              }
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
@@ -670,7 +514,7 @@ function ServHome() {
                       style={{
                         fontWeight: 700,
                         lineHeight: "105px",
-                        transform: bigZ,
+                        
                       }}
                     >
                       CP
@@ -678,14 +522,10 @@ function ServHome() {
                   </TopLeft>
                   <TopRight>
                     <Icons
-                      style={{
-                        transform: smallZ,
-                      }}
+                     
                     >
                       <Span
-                        style={{
-                          transform: smallZ,
-                        }}
+                    
                       >
                         <Price />
                         <p className="services-home small">
@@ -695,9 +535,7 @@ function ServHome() {
                         </p>
                       </Span>
                       <Span
-                        style={{
-                          transform: smallZ,
-                        }}
+                   
                       >
                         <Time />
                         <p className="services-home small">
@@ -707,16 +545,16 @@ function ServHome() {
                         </p>
                       </Span>
                     </Icons>
-                    <p className="uppercase" style={{ transform: smallZ }}>
+                    <p className="uppercase">
                       creative project
                     </p>
                   </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className="large" style={{ transform: smallZ }}>
+                  <p className="large">
                     <b>For brands that want to own the spotlight.</b>
                   </p>
-                  <p className="justify small" style={{ transform: smallZ }}>
+                  <p className="justify small">
                     <Tick /> <b>Fully custom design</b> – 3D animation, motion
                     graphics & interactive storytelling
                     <br />
@@ -731,7 +569,7 @@ function ServHome() {
                   </p>
                 </InnerMid>
                 <InnerBottom>
-                  <p className=" justify" style={{ transform: smallZ }}>
+                  <p className=" justify">
                     02
                   </p>
                   <Circle>
@@ -758,21 +596,7 @@ function ServHome() {
           >
             <ServiceBg
               id="serviceBg3"
-              onMouseMove={handleMouseMove3}
-              onMouseLeave={handleMouseLeave3}
-              style={
-                columnLayout
-                  ? {
-                      rotateX: rotateX3,
-                      rotateY: rotateY3,
-                      opacity: 1,
-                    }
-                  : {
-                      rotateX: rotateX3,
-                      rotateY: rotateY3,
-                      y: "-150vh",
-                    }
-              }
+          
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
@@ -784,7 +608,7 @@ function ServHome() {
                       style={{
                         fontWeight: 700,
                         lineHeight: "105px",
-                        transform: bigZ,
+                        
                       }}
                     >
                       WM
@@ -792,14 +616,10 @@ function ServHome() {
                   </TopLeft>
                   <TopRight>
                     <Icons
-                      style={{
-                        transform: smallZ,
-                      }}
+                     
                     >
                       <Span
-                        style={{
-                          transform: smallZ,
-                        }}
+                 
                       >
                         <Price />
                         <p className="services-home small">
@@ -809,9 +629,7 @@ function ServHome() {
                         </p>
                       </Span>
                       <Span
-                        style={{
-                          transform: smallZ,
-                        }}
+          
                       >
                         <Time />
                         <p className="services-home small">
@@ -821,16 +639,16 @@ function ServHome() {
                         </p>
                       </Span>
                     </Icons>
-                    <p className="uppercase " style={{ transform: smallZ }}>
+                    <p className="uppercase ">
                       website managment
                     </p>
                   </TopRight>
                 </InnerTop>
                 <InnerMid>
-                  <p className="large" style={{ transform: smallZ }}>
+                  <p className="large">
                     <b>Your website—always flawless, always covered.</b>
                   </p>
-                  <p className="small justify" style={{ transform: smallZ }}>
+                  <p className="small justify">
                     <Tick /> <b>Free 5-page website</b> (worth £1500) – Just
                     £99/month
                     <br />
@@ -844,7 +662,7 @@ function ServHome() {
                   </p>
                 </InnerMid>
                 <InnerBottom>
-                  <p className=" justify" style={{ transform: smallZ }}>
+                  <p className=" justify">
                     03
                   </p>
                   <Circle>
