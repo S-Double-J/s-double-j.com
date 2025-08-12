@@ -573,7 +573,7 @@ function ServHome() {
                         <Price />
                         <p className="services-home ">
                           <b>
-                            <i> £1500</i>
+                            <i> £1000</i>
                           </b>
                         </p>
                       </Span>
@@ -601,7 +601,7 @@ function ServHome() {
                   </p>
                   <p className="justify" style={{ transform: smallZ }}>
                     <Tick /> <b>5-page website</b> – Clean, fast, and
-                    mobile-ready (£1500 flat fee)
+                    mobile-ready (£1000 flat fee)
                     <br />
                     <Tick /> <b>+£150 per extra page</b> – Scale as you grow
                     <br />
@@ -804,7 +804,7 @@ function ServHome() {
                         <Price />
                         <p className="services-home small">
                           <b>
-                            <i>£99/month</i>
+                            <i>£300 down + £49/month</i>
                           </b>
                         </p>
                       </Span>
@@ -831,8 +831,8 @@ function ServHome() {
                     <b>Your website—always flawless, always covered.</b>
                   </p>
                   <p className="small justify" style={{ transform: smallZ }}>
-                    <Tick /> <b>Free 5-page website</b> (worth £1500) – Just
-                    £99/month
+                    <Tick /> <b>Free 5-page website</b> (worth £1000) – Just
+                    £49/month
                     <br />
                     <Tick /> <b>Unlimited updates & support</b> – No request too
                     small
