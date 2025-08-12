@@ -338,7 +338,7 @@ function Hero() {
       <BotRight>
         <TextContainer>
           <h3 id="header" className="justify">
-            What's on your mind?
+            Get in touch
           </h3>
         </TextContainer>
       </BotRight>

@@ -8,7 +8,7 @@ const Grid = styled.div`
   flex-shrink: 0;
   width: 100%;
   height: calc(100svh - 75px);
-  padding: 20px;
+  padding: 40px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -16,7 +16,6 @@ const Grid = styled.div`
   justify-content: center;
   gap: 80px;
   @media screen and (max-width:769px){
-    justify-content: space-between;
     padding: 40px 20px;
   }
 `;
@@ -53,7 +52,7 @@ const FocusBox = styled.div`
   position: relative;
   flex: 1 0 0;
   align-self: stretch;
-  max-height: 500px;
+  max-height: 300px;
   margin-bottom: -100px;
   & > h2 {
     top: 10%;
@@ -81,7 +80,7 @@ const FocusText = styled.span`
   left: 50%;
   transform: translate(-50%, -52%);
   & > p {
-    font-size: calc(100vw / 6);
+    font-size: calc(100vw / 8);
     font-weight: 700;
     @media screen and (max-aspect-ratio: 1/1) {
       font-size: 25vw;
@@ -112,7 +111,7 @@ function Focus({ targetRef }: Props) {
   });
   const height = useTransform(scrollYProgress, [0.1, 1], ["50%", "30%"]);
   const paragraph =
-    "Everyone has a story—my focus is telling yours. __break__ Storytelling is humanity’s universal language. It’s not just about a pitch or a product—it’s the why behind what you do. That’s what resonates. That’s what people remember. __break__ For businesses and creatives, a powerful story isn’t just communication—it’s legacy. Let’s give yours room to live, breathe, and leave its mark. __break__ Together, we’ll make sure your story isn’t just seen. It’s felt. And unforgettable.";
+    "Everyone has a story, my focus is telling yours. __break__ Whether you're selling a product or sharing your creative work, it's the story behind what you do - why you do it and how you do it in your own unique way - that's what people will remember. __break__ Together, we’ll make sure your story isn’t just seen. It’s felt. And unforgettable.";
   const words = paragraph.split(" ");
 
   return (

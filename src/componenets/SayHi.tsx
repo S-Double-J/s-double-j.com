@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const Button = styled.button`
   display: flex;
-  padding: 10px 40px;
+  padding: 8px 24px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -32,7 +32,7 @@ const Button = styled.button`
 
 const CenterButton = styled.button`
   display: flex;
-  padding: 10px 40px;
+  padding: 8px 24px;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -96,7 +96,7 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card, bgColor }, r
   if (center === true) {
     return (
       <CenterButton onClick={handleClick} ref={ref} id="center-button">
-        <p className="large">Let's talk</p>
+        <p className="large">free quote</p>
       </CenterButton>
     );
   } else if (card === true) {
@@ -106,7 +106,7 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card, bgColor }, r
         to={{ pathname: "/contact", hash: "form-grid" }}
       >
         <Button ref={ref} style={{ position: "unset", padding: "8px 24px", backgroundColor: bgColor }}>
-           <p>Let's talk</p>
+           <p>free quote</p>
         </Button>
       </CustomLink>
     );
@@ -117,7 +117,7 @@ const SayHi = forwardRef<HTMLButtonElement, Props>(({ center, card, bgColor }, r
         to={{ pathname: "contact", hash: "form-grid" }}
       >
         <Button ref={ref}>
-          <p className="large">Let's talk</p>
+          <p className="large">free quote</p>
         </Button>
       </CustomLink>
     );

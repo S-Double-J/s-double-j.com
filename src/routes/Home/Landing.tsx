@@ -286,7 +286,11 @@ function Landing({ targetRef }: Props) {
         <BotLeft></BotLeft>
         <BotRight>
           <TextContainer>
-            <h3>Storytelling that connects. Design that captivates.</h3>
+            <p className="large justify">
+              <b>Storytelling that connects. Design that captivates.</b> <br />
+              <br />I offer small businesses and creatives website upgrades that
+              boost speed, look amazing and increase conversion.
+            </p>
           </TextContainer>
         </BotRight>
       </Grid>
