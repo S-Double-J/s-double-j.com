@@ -2,10 +2,10 @@ const cardData = [
   {
     id: "CW",
     title: "COMMERCIAL WEBSITE",
-    price: "£1500",
+    price: "£1000",
     estimate: "4 weeks or less",
     bPoints1: [
-      "5-page static website – Custom-designed for your industry (£1500 one-time fee)",
+      "5-page static website – Custom-designed for your industry (£1000 one-time fee)",
       "+£150 per extra page – Scale up as needed",
       "Your choice of build – Coded (recommended for best results) or no-code",
       "Mobile-optimized & SEO-ready – Looks great and performs better",
@@ -67,10 +67,10 @@ const cardData = [
   {
     id: "CC",
     title: "Website Management",
-    price: "£99/month",
+    price: "£300 down + £49/month",
     estimate: "4 weeks or less",
     bPoints1: [
-      "5-page website (worth £1500) – Built to your specs",
+      "5-page website (worth £1000) – Built to your specs",
       "Unlimited content updates – Keep your site fresh",
       "Hosting & security – Fully managed",
       "Office-hour support – Fast help when you need it",
@@ -89,7 +89,7 @@ const cardData = [
     ],
     tagLine: "Your Website, Always Covered – For Less Than £100/Month.",
     desc: [
-      "For just £99 per month (with a 6-month minimum commitment), this comprehensive service provides everything you need to maintain a professional online presence without the typical headaches. You'll receive a brand new 5-page website worth £1500, complete with unlimited content updates whenever you need to refresh text, images, or pages. I'll handle all the technical aspects including hosting and security, while providing reliable support during office hours for any questions or adjustments. After the initial six months, you're free to continue or cancel at any time.",
+      "For just £49 per month (with a 6-month minimum commitment), this comprehensive service provides everything you need to maintain a professional online presence without the typical headaches. You'll receive a brand new 5-page website worth £1000, complete with unlimited content updates whenever you need to refresh text, images, or pages. I'll handle all the technical aspects including hosting and security, while providing reliable support during office hours for any questions or adjustments. After the initial six months, you're free to continue or cancel at any time.",
       "This solution is ideal for businesses that want to focus on their work rather than website maintenance. Whether you're a startup looking for a low-risk way to establish your online presence, a small business owner tired of dealing with technical issues, or a creative professional who'd rather spend time on clients than content updates, this service acts as your invisible website partner. You get all the benefits of having an expert on call, without the complexity or unpredictable costs of traditional web maintenance.",
     ],
     artSrc: "CC.svg",
