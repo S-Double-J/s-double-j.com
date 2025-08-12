@@ -87,7 +87,7 @@ const cardData = [
       "Freelancers who want to focus on clients, not tech",
       "Anyone tired of dealing with web designers who disappear after launch",
     ],
-    tagLine: "Your Website, Always Covered – For Less Than £100/Month.",
+    tagLine: "Your Website, Always Covered – For Less Than £50/Month.",
     desc: [
       "For just £49 per month (with a 6-month minimum commitment), this comprehensive service provides everything you need to maintain a professional online presence without the typical headaches. You'll receive a brand new 5-page website worth £1000, complete with unlimited content updates whenever you need to refresh text, images, or pages. I'll handle all the technical aspects including hosting and security, while providing reliable support during office hours for any questions or adjustments. After the initial six months, you're free to continue or cancel at any time.",
       "This solution is ideal for businesses that want to focus on their work rather than website maintenance. Whether you're a startup looking for a low-risk way to establish your online presence, a small business owner tired of dealing with technical issues, or a creative professional who'd rather spend time on clients than content updates, this service acts as your invisible website partner. You get all the benefits of having an expert on call, without the complexity or unpredictable costs of traditional web maintenance.",
