@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Landing from "./Landing";
-import Focus from "./Focus";
+import Focus from "./Focus/NewFocus";
 import ServHome from "./ServicesHome";
 import Footer from "../../componenets/Footer";
 import { useRef } from "react";
@@ -17,16 +17,13 @@ const Frame = styled(motion.div)`
 
 const ScrollDiv = styled.div`
   width: 100%;
-  height: calc((100lvh - 75px) * 5);
   flex-shrink: 0;
   display: flex;
   align-items: start;
   justify-content: start;
   position: relative;
   flex-direction: column;
-  @media (hover: none) {
-    height: calc((100lvh - 75px) * 3);
-  }
+  gap: 200px;
 `;
 const ColorChangeDiv = styled(motion.div)`
   display: flex;

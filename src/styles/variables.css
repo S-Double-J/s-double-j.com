@@ -1,7 +1,7 @@
 :root {
-  --brutal-dark: #322f2e;
-  --brutal-light: #c3bbb6;
-  --brutal-mb-light: #f2ebe3;
+  --brutal-dark: #312e2b;
+  --brutal-light: #d8d8d8;
+  --brutal-mb-light: #ffffff;
   --brutal-red: #710000;
   --bh-light: #f3eeec;
   --bh-red: #9a4034;
@@ -11,7 +11,7 @@
   --absurd-light: #d3f2ef;
   --absurd-mb-light: #00fff7;
 
-  --fg-mb: var(--bh-mb-light);
+  --fg-mb: var(--brutal-mb-light);
   --bg: var(--brutal-light);
   --fg: var(--brutal-dark);
   --color-transition: 0.3s;

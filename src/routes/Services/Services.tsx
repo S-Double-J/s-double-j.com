@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { motion } from "motion/react";
-import CardStack from "./CardStack";
 import Footer from "../../componenets/Footer";
-import NewHero from "./NewHero";
-import { useMediaQuery } from "react-responsive";
 import Table from "./Table";
 
 const Frame = styled(motion.div)`
@@ -37,10 +34,9 @@ function Services() {
       );
     }
   };
-const isMobile = useMediaQuery({ query: '(max-width: 768px)'});
   return (
     <Frame onViewportEnter={() => updateCSSVariable("bauhaus")}> 
-      { isMobile ? <Table /> : <> <NewHero /> <CardStack /> </>}
+     <Table />
       <ColorChangeDiv
         onViewportEnter={() => updateCSSVariable("footer")}
         onViewportLeave={() => updateCSSVariable("bauhaus")}

@@ -33,9 +33,8 @@ const Grid = styled.div`
     "TopLeft TopLeft TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight TopRight"
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight"
     "BotLeft BotLeft BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight BotRight";
-  z-index: 1;
-  background: var(--bg);
-  mix-blend-mode: difference;
+  z-index: 3;
+  background: var(--fg);
   overflow: hidden;
 `;
 const AnimationContainer = styled.div`
@@ -104,7 +103,8 @@ const Blackout = styled(motion.div)`
   height: calc(100lvh - 75px);
   background: rgba(255, 255, 255, 0.01);
   backdrop-filter: blur(20px);
-  z-index: 1;
+  z-index: 3;
+  pointer-events: none;
 `;
 const TopLeft = styled(motion.div)`
   grid-area: TopLeft;
@@ -112,11 +112,11 @@ const TopLeft = styled(motion.div)`
   border-right: 0.5px solid var(--fg);
   box-sizing: border-box;
   background-color: var(--bg);
-  z-index: 2;
+  z-index: 20;
   border-color: var(--fg);
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
-  mix-blend-mode: difference;
+
   @media screen and (max-width: 768px) {
     border-bottom-right-radius: 20px;
   }
@@ -134,7 +134,7 @@ const TopRight = styled(motion.div)`
   z-index: 3;
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
-  mix-blend-mode: difference;
+
   @media screen and (max-width: 768px) {
     border-bottom-left-radius: 20px;
     padding: 20px;
@@ -145,13 +145,12 @@ const BotLeft = styled(motion.div)`
   border-top-right-radius: 40px;
   border-top: 0.5px solid var(--fg);
   border-right: 0.5px solid var(--fg);
-  border-bottom: 0.5px solid var(--fg);
   box-sizing: border-box;
   background-color: var(--bg);
   z-index: 2;
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
-  mix-blend-mode: difference;
+
   @media screen and (max-width: 768px) {
     border-top-right-radius: 20px;
   }
@@ -159,7 +158,6 @@ const BotLeft = styled(motion.div)`
 const BotRight = styled(motion.div)`
   grid-area: BotRight;
   border-top-left-radius: 40px;
-  border-bottom: 0.5px solid var(--fg);
   box-sizing: border-box;
   background-color: var(--bg);
   display: flex;
@@ -169,7 +167,7 @@ const BotRight = styled(motion.div)`
   z-index: 2;
   transition: border var(--color-transition) ease-in-out;
   transition: background-color var(--color-transition) ease-in-out;
-  mix-blend-mode: difference;
+
   @media screen and (max-height: 500px) {
     padding: 20px;
   }
@@ -199,7 +197,7 @@ function Landing({ targetRef }: Props) {
 
   const splitTexts = ["web designer", "web developer"];
 
-  const blackOutOpacity = useTransform(scrollYProgress, [0.2, 0.6], [1, 0]);
+  const blackOutOpacity = useTransform(scrollYProgress, [0.07, 0.15], [1, 0]);
   return (
     <>
       <Blackout style={{ opacity: blackOutOpacity }} />
@@ -215,7 +213,7 @@ function Landing({ targetRef }: Props) {
               flexWrap: "wrap",
             }}
           >
-            <p className="page-subtitle large">Manchester based</p>
+            <p className="page-subtitle">Manchester based</p>
             <div
               style={{
                 display: "flex",
@@ -224,16 +222,16 @@ function Landing({ targetRef }: Props) {
                 flexWrap: "wrap",
               }}
             >
-              <p className="page-subtitle-brackets large">(</p>
+              <p className="page-subtitle-brackets">(</p>
               <SplitText>{splitTexts}</SplitText>
-              <p className="page-subtitle-brackets large">)</p>
+              <p className="page-subtitle-brackets">)</p>
             </div>
           </div>
           <AnimationContainer>
             <BigCircle
               animate={{
                 x: isMobileView
-                  ? ["0vh", "-60vh", "0vh"]
+                  ? ["0vh", "-40vh", "0vh"]
                   : ["0vw", "-60vw", "0vw"],
               }}
               transition={{
@@ -247,7 +245,7 @@ function Landing({ targetRef }: Props) {
             <HalfCircle
               animate={{
                 x: isMobileView
-                  ? ["0vh", "-60vh", "0vh"]
+                  ? ["0vh", "-40vh", "0vh"]
                   : ["0vw", "-60vw", "0vw"],
                 rotate: [0, 180, 360],
               }}
@@ -269,7 +267,7 @@ function Landing({ targetRef }: Props) {
             <SmallCircle
               animate={{
                 x: isMobileView
-                  ? ["0vh", "-70vh", "0vh"]
+                  ? ["0vh", "-50vh", "0vh"]
                   : ["0vw", "-70vw", "0vw"],
                 scale: ["100%", "50%", "100%"],
               }}
@@ -286,7 +284,7 @@ function Landing({ targetRef }: Props) {
         <BotLeft></BotLeft>
         <BotRight>
           <TextContainer>
-            <p className="large justify">
+            <p className="justify">
               <b>Storytelling that connects. Design that captivates.</b> <br />
               <br />I offer small businesses and creatives website upgrades that
               boost speed, look amazing and increase conversion.

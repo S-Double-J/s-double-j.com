@@ -20,13 +20,9 @@ const SliderButtonContainer = styled.div`
   height: max-content;
   padding: 5px 10px;
   border-radius: 999px;
-  background: var(--bg);
-  @media screen and (max-aspect-ratio: 1/1),
-    screen and (max-height: 600px),
-    screen and (min-aspect-ratio: 1/2) and (max-width: 800px),
-    screen and (max-width: 1200px) and (max-height: 900px) {
-    display: flex;
-  }
+  background: var(--bg);    
+  display: flex;
+
 `;
 const SliderButton = styled.button`
   text-decoration: none;

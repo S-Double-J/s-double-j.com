@@ -37,7 +37,7 @@ const Mask = styled.div`
   top: 0;
   left: 0;
   z-index: 1;
-  opacity: 0.89;
+  opacity: 0.69;
 `;
 const Header = styled.h2`
   font-size: 32px;
@@ -76,6 +76,7 @@ const Description = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 900px;
   text-align: justify;
   z-index: 1;
   gap: 12px;
@@ -355,7 +356,7 @@ function Table() {
                   color: "var(--bh-red)",
                   background: "var(--brutal-light)",
                   padding: 20,
-                  top: -20
+                  top: -20,
                 }}
               >
                 FORM <br />

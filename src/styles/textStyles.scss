@@ -39,17 +39,17 @@ label,
 input {
   color: var(--fg);
   font-family: "Space Mono", sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0;
   font-weight: 400;
   @media screen and (max-width: 769px) {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 p.large {
-  font-size: 16px;
+  font-size: 20px;
   @media screen and (max-width: 769px) {
-    font-size: 12px;
+    font-size: 16px;
   }
 }
 .justify {
@@ -90,6 +90,9 @@ h3.pointer {
   font-weight: bold;
   line-height: 1.2;
   font-size: 16px;
+    @media screen and (max-width: 769px) {
+    font-size: 12px;
+  }
 }
 .page-subtitle-brackets {
   color: var(--brutal-red);
@@ -97,6 +100,9 @@ h3.pointer {
   font-weight: bold;
   line-height: 0.8;
   font-size: 16px;
+    @media screen and (max-width: 769px) {
+    font-size: 12px;
+  }
 }
 .page-subtitle-brackets-container {
   color: var(--brutal-red);

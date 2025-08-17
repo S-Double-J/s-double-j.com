@@ -7,7 +7,7 @@ export const SplitText = ({ children }: { children: string[] }) => {
 
   return (
     <motion.p
-      className="page-subtitle-brackets-container large"
+      className="page-subtitle-brackets-container "
       initial="initial"
       animate="hovered"
     >
