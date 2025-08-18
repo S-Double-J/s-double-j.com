@@ -10,6 +10,7 @@ const Card = styled(motion.div)`
   flex-direction: column;
   position: relative;
   min-height: 80px;
+  width: 100%;
 `;
 const Heading = styled(motion.h3)`
   font-size: 24px;
